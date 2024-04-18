@@ -32,13 +32,17 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {}, [refetch]);
 
-    async function registerUser(email: string, password: string) {
+    async function registerUser(login: string, password: string) {
+        const formData = new URLSearchParams();
+        formData.append("login", login);
+        formData.append("password", password);
+
         const response = await fetch(import.meta.env.VITE_URL + "register", {
             method: "POST",
             headers: {
-                "Content-Type": "aplication/json",
+                "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: JSON.stringify({ email, password }),
+            body: formData,
         });
 
         if (!response.ok) {
