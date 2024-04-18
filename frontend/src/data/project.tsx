@@ -7,7 +7,7 @@ export interface Project {
     columns?: Column[];
 }
 
-const projects = [
+const projects: Project[] = [
     {
         id: 0,
         title: "Test project",
