@@ -1,8 +1,8 @@
 <?php
     $host = "localhost";
-    $user = "project-dashboard";
+    $user = "project_dashboard";
     $pass = "dbpass123";
-    $db = "project-dashboard";
+    $db = "project_dashboard";
 
     $mysqli = new mysqli($host, $user, $pass, $db);
 
