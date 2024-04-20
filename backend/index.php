@@ -1,5 +1,6 @@
 <?php
     require_once "db/db.php";
+    require_once "utils/responses.php";
     require_once "data.php";
 
     header("Access-Control-Allow-Origin: $domain");
