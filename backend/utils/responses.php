@@ -1,7 +1,7 @@
 <?php
     $responses = [
-        "ACCOUNT_CREATED" => ["code" => 201, "message" => "Pomyślnie utworzono konto"],
-        "ACCOUNT_EXISTS" => ["code" => 400, "message" => "Login jest zajęty"],
+        "ACCOUNT_CREATED" => ["code" => 201, "message" => "Pomyślnie utworzono konto, możesz się zalogować"],
+        "ACCOUNT_EXISTS" => ["code" => 400, "message" => "Wybrany login jest już zajęty"],
         "DB_ERROR" => ["code" => 500, "message" => "Problem z bazą danych"],
         "INVALID_INPUT" => ["code" => 400, "message" => "Login lub hasło jest puste"],
         "LOGIN_SHORT" => ["code" => 400, "message" => "Login musi mieć minimum 5 znaków"],
