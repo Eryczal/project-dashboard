@@ -9,6 +9,7 @@ function AuthPage({ routerPage }: { routerPage: Page }) {
     const [login, setLogin] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [repeat, setRepeat] = useState<string>("");
+    const [message, setMessage] = useState<string>("");
 
     const userContext = useUser();
 
@@ -28,12 +29,32 @@ function AuthPage({ routerPage }: { routerPage: Page }) {
         setRepeat(event.target.value);
     };
 
-    const clickRegister = (event: React.MouseEvent) => {
+    const clickRegister = async (event: React.MouseEvent) => {
         event.preventDefault();
 
-        if (password === repeat) {
-            userContext.registerUser(login, password);
+        if (password !== repeat) {
+            setMessage("Podane hasła nie są takie same");
+            return;
         }
+
+        if (login.length < 5) {
+            setMessage("Login musi mieć minimum 5 znaków");
+            return;
+        } else if (login.length > 50) {
+            setMessage("Podany login jest zbyt długi");
+            return;
+        }
+
+        if (password.length < 8) {
+            setMessage("Hasło musi mieć minimum 8 znaków");
+            return;
+        } else if (password.length > 60) {
+            setMessage("Hasło jest zbyt długie");
+            return;
+        }
+
+        const response = await userContext.registerUser(login, password);
+        setMessage(response.message);
     };
 
     return (
@@ -54,6 +75,8 @@ function AuthPage({ routerPage }: { routerPage: Page }) {
                         <input type="password" id="repeat" value={repeat} onChange={handleRepeat} />
                     </div>
                 )}
+
+                {message}
 
                 {page === "register" ? (
                     <>
