@@ -5,7 +5,7 @@ USE project_dashboard;
 CREATE TABLE `users` (
 	`id` BINARY(16) NOT NULL,
 	`name` VARCHAR(50) NOT NULL,
-	`pass` VARCHAR(60) NOT NULL,
+	`pass` VARCHAR(255) NOT NULL,
 	`type` VARCHAR(60) NOT NULL,
 	`creation_date` DATE NOT NULL,
 	PRIMARY KEY(id)
