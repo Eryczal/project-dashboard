@@ -7,10 +7,15 @@ interface User {
     creationDate: string;
 }
 
+interface Response {
+    message: string;
+    user?: User;
+}
+
 interface UserContextProps {
     user?: User;
-    // loginUser:
-    registerUser: (email: string, password: string) => void;
+    loginUser: (email: string, password: string) => Promise<Response>;
+    registerUser: (email: string, password: string) => Promise<Response>;
     // logoutUser
 }
 
@@ -32,7 +37,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {}, [refetch]);
 
-    async function registerUser(login: string, password: string) {
+    async function registerUser(login: string, password: string): Promise<Response> {
         const formData = new URLSearchParams();
         formData.append("login", login);
         formData.append("password", password);
@@ -45,9 +50,22 @@ export function UserProvider({ children }: { children: ReactNode }) {
             body: formData,
         });
 
-        if (!response.ok) {
-            throw new Error("Connection error");
-        }
+        const data = await response.json();
+        return data;
+    }
+
+    async function loginUser(login: string, password: string): Promise<Response> {
+        const formData = new URLSearchParams();
+        formData.append("login", login);
+        formData.append("password", password);
+
+        const response = await fetch(import.meta.env.VITE_URL + "login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: formData,
+        });
 
         const data = await response.json();
         return data;
@@ -55,6 +73,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
     const value: UserContextProps = {
         user,
+        loginUser,
         registerUser,
     };
 
