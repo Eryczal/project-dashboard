@@ -58,7 +58,7 @@
 
         $hash_pass = password_hash($password, PASSWORD_DEFAULT);
 
-        $user = $mysqli->prepare("INSERT INTO users (id, name, pass, type, creation_date) VALUES (UUID(), ?, ?, 'free', CURDATE())");
+        $user = $mysqli->prepare("INSERT INTO users (id, name, pass, type, creation_date) VALUES ((UNHEX(REPLACE(UUID(), \"-\",\"\"))), ?, ?, 'free', CURDATE())");
         $user->bind_param("ss", $name, $hash_pass);
 
         $created = $user->execute();
