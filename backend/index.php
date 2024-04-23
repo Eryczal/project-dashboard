@@ -24,6 +24,10 @@
             require __DIR__ . "/api/login.php";
             break;
 
+        case "/me":
+            require __DIR__ . "/api/me.php";
+            break;
+
         default:
             http_response_code(404);
             break;
