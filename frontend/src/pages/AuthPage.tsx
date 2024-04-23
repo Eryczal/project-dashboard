@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 
 type Page = "login" | "register";
@@ -11,11 +11,15 @@ function AuthPage({ routerPage }: { routerPage: Page }) {
     const [repeat, setRepeat] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
-    const userContext = useUser();
+    const { user, loginUser, registerUser } = useUser();
 
     useEffect(() => {
         setPage(routerPage);
     }, [routerPage]);
+
+    if (user) {
+        return <Navigate to="/" />;
+    }
 
     const handleLogin = (event: ChangeEvent<HTMLInputElement>) => {
         setLogin(event.target.value);
@@ -53,7 +57,14 @@ function AuthPage({ routerPage }: { routerPage: Page }) {
             return;
         }
 
-        const response = await userContext.registerUser(login, password);
+        const response = await registerUser(login, password);
+        setMessage(response.message);
+    };
+
+    const clickLogin = async (event: React.MouseEvent) => {
+        event.preventDefault();
+
+        const response = await loginUser(login, password);
         setMessage(response.message);
     };
 
@@ -90,7 +101,7 @@ function AuthPage({ routerPage }: { routerPage: Page }) {
                 ) : (
                     <>
                         <div>
-                            <button>Zaloguj się</button>
+                            <button onClick={clickLogin}>Zaloguj się</button>
                         </div>
                         <div>
                             Nie masz konta? <Link to="/register">Zarejestruj się</Link>
