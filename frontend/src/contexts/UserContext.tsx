@@ -9,7 +9,6 @@ interface User {
 
 interface Response {
     message: string;
-    user?: User;
 }
 
 interface UserContextProps {
@@ -33,9 +32,25 @@ export function useUser() {
 
 export function UserProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | undefined>();
-    const [refetch, setRefetch] = useState<boolean>(false);
+    const [refetch, setRefetch] = useState<boolean>(true);
 
-    useEffect(() => {}, [refetch]);
+    useEffect(() => {
+        if (refetch) {
+            const fetchData = async () => {
+                const response = await fetch(import.meta.env.VITE_URL + "me", {
+                    credentials: "include",
+                });
+
+                const data = await response.json();
+
+                setRefetch(false);
+
+                setUser(data.user);
+            };
+
+            fetchData().catch(console.error);
+        }
+    }, [refetch]);
 
     async function registerUser(login: string, password: string): Promise<Response> {
         const formData = new URLSearchParams();
@@ -61,6 +76,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
         const response = await fetch(import.meta.env.VITE_URL + "login", {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
@@ -68,6 +84,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
         });
 
         const data = await response.json();
+
+        setRefetch(true);
+
         return data;
     }
 
