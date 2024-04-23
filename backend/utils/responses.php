@@ -7,7 +7,10 @@
         "LOGIN_SHORT" => ["code" => 400, "message" => "Login musi mieć minimum 5 znaków"],
         "LOGIN_LONG" => ["code" => 400, "message" => "Podany login jest zbyt długi"],
         "PASSWORD_SHORT" => ["code" => 400, "message" => "Hasło musi mieć minimum 8 znaków"],
-        "PASSWORD_LONG" => ["code" => 400, "message" => "Hasło jest zbyt długie"]
+        "PASSWORD_LONG" => ["code" => 400, "message" => "Hasło jest zbyt długie"],
+        "INVALID_LOGIN" => ["code" => 400, "message" => "Login lub hasło jest niepoprawne"],
+        "INVALID_PASSWORD" => ["code" => 400, "message" => "Login lub hasło jest niepoprawne"],
+        "LOGGED_IN" => ["code" => 200, "message" => "Pomyślnie zalogowano"]
     ];
 
     function sendResponse($response) {
