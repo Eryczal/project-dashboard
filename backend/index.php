@@ -27,9 +27,17 @@
             if(method_exists($authController, $method)) {
                 $authController->$method();
             } else {
+                //sendResponse()
             }
             break;
 
+        case "/projects":
+            $projectController = new ProjectController();
+            if(method_exists($projectController, $method)) {
+                $projectController->$method();
+            } else {
+                
+            }
             break;
 
         default:

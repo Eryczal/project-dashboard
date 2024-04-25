@@ -10,7 +10,8 @@
         "PASSWORD_LONG" => ["code" => 400, "message" => "Hasło jest zbyt długie"],
         "INVALID_LOGIN" => ["code" => 400, "message" => "Login lub hasło jest niepoprawne"],
         "INVALID_PASSWORD" => ["code" => 400, "message" => "Login lub hasło jest niepoprawne"],
-        "LOGGED_IN" => ["code" => 200, "message" => "Pomyślnie zalogowano"]
+        "LOGGED_IN" => ["code" => 200, "message" => "Pomyślnie zalogowano"],
+        "NO_PROJECTS" => ["code" => 204, "message" => "Nie masz żadnych projektów"],
     ];
 
     function sendResponse($response) {
