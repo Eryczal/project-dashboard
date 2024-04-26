@@ -11,7 +11,8 @@
         "INVALID_LOGIN" => ["code" => 400, "message" => "Login lub hasło jest niepoprawne"],
         "INVALID_PASSWORD" => ["code" => 400, "message" => "Login lub hasło jest niepoprawne"],
         "LOGGED_IN" => ["code" => 200, "message" => "Pomyślnie zalogowano"],
-        "NO_PROJECTS" => ["code" => 204, "message" => "Nie masz żadnych projektów"],
+        "NO_PROJECTS" => ["code" => 204],
+        "USER_NOT_LOGGED" => ["code" => 401, "message" => "Użytkownik nie jest zalogowany"],
     ];
 
     function sendResponse($response) {
@@ -19,7 +20,10 @@
 
         if(isset($responses[$response])) {
             http_response_code($responses[$response]["code"]);
-            echo json_encode(["message" => $responses[$response]["message"]]);
+
+            if(isset($responses[$response]["message"])) {
+                echo json_encode(["message" => $responses[$response]["message"]]);
+            }
         } else {
             http_response_code(500);
             echo json_encode(["message" => "Wystąpił nieznany błąd"]);

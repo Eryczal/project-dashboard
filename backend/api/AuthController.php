@@ -81,6 +81,8 @@
                         "creation_date" => $user["creation_date"],
                     ]
                 ]);
+            } else {
+                sendResponse("USER_NOT_LOGGED");
             }
         }
 
