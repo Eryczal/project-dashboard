@@ -13,6 +13,7 @@
 
     header("Access-Control-Allow-Origin: $domain");
     header('Access-Control-Allow-Credentials: true');
+    header("Content-Type: application/json");
 
     $request = $_SERVER["REQUEST_URI"];
 
@@ -24,6 +25,7 @@
         case "/login":
         case "/me":
             $authController = new AuthController();
+
             if(method_exists($authController, $method)) {
                 $authController->$method();
             } else {
@@ -33,10 +35,11 @@
 
         case "/projects":
             $projectController = new ProjectController();
+
             if(method_exists($projectController, $method)) {
                 $projectController->$method();
             } else {
-                
+
             }
             break;
 
