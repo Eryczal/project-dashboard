@@ -1,33 +1,41 @@
-import { Column } from "./column";
-
 export interface Project {
     id: number;
     title: string;
     description: string;
-    columns?: Column[];
 }
 
-const projects: Project[] = [
-    {
-        id: 0,
-        title: "Test project",
-        description: "Project description",
-    },
-    {
-        id: 1,
-        title: "Second project",
-        description: "Project description",
-    },
-];
-
-export function getUserProjects(): Project[] {
-    const projectData = projects;
-
-    return projectData;
+export interface Projects {
+    projects: Project[];
 }
 
-export function getProjectById(id: number): Project | undefined {
-    const project = projects.find((project) => project.id === id);
-
-    return project;
+export interface Message {
+    message: string;
 }
+
+type Response = Projects | Message;
+
+export async function getUserProjects(): Promise<Response | null> {
+    const response = await fetch(import.meta.env.VITE_URL + "projects", {
+        credentials: "include",
+    });
+
+    const data = response.status === 204 ? null : response.json();
+
+    return data;
+}
+
+export async function createProject(): Promise<Response> {
+    const response = await fetch(import.meta.env.VITE_URL + "project/add", {
+        credentials: "include",
+    });
+
+    const data = response.json();
+
+    return data;
+}
+
+// export function getProjectById(id: number): Project | undefined {
+//     const project = projects.find((project) => project.id === id);
+
+//     return project;
+// }
