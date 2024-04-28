@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProjectById } from "../data/project";
-import { Project } from "../data/project";
+import { Project, getProjectById } from "../data/project";
 
 function TaskPage() {
     const { id } = useParams<{ id: string }>();
@@ -9,9 +8,15 @@ function TaskPage() {
 
     useEffect(() => {
         if (id) {
-            const data = getProjectById(parseInt(id));
+            const loadProject = async () => {
+                const data = await getProjectById(id);
 
-            setProject(data);
+                if (!("message" in data)) {
+                    setProject(data);
+                }
+            };
+
+            loadProject().catch(console.error);
         }
     }, []);
 
