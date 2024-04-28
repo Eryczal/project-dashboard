@@ -30,7 +30,7 @@
                 return;
             }
         
-            if(userExists($login)) {
+            if($this->userExists($login)) {
                 sendResponse("ACCOUNT_EXISTS");
                 return;
             }
