@@ -19,11 +19,12 @@
 
     $req = str_replace($baseurl, "", $request);
     $method = ltrim($req, "/");
+    $parts = explode("/", $req);
 
-    switch($req) {
-        case "/register":
-        case "/login":
-        case "/me":
+    switch($parts[1]) {
+        case "register":
+        case "login":
+        case "me":
             $authController = new AuthController();
 
             if(method_exists($authController, $method)) {
@@ -33,7 +34,7 @@
             }
             break;
 
-        case "/projects":
+        case "projects":
             $projectController = new ProjectController();
 
             if(method_exists($projectController, $method)) {
@@ -43,9 +44,13 @@
             }
             break;
             
-        case "/project/add":
+        case "project":
             $projectController = new ProjectController();
-            $projectController->addProject();
+            if($parts[2] === "add") {
+                $projectController->addProject();
+            } else {
+                $projectController->getProject($parts[2]);
+            }
             break;
 
         default:

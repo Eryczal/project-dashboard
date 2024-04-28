@@ -62,8 +62,44 @@
     
             $project->close();
             $userProject->close();
-            return $created && $userProjectCreated;
 
+            return $created && $userProjectCreated;
+        }
+
+        public function getProject($id) {
+            global $mysqli;
+
+            if(!isset($_SESSION["user_id"])) {
+                sendResponse("USER_NOT_LOGGED");
+                return;
+            }
+
+            $project = $mysqli->prepare("SELECT HEX(id) AS id, date, title, description, publicity FROM projects WHERE id = UNHEX(?)");
+            $project->bind_param("s", $id);
+            $project->execute();
+            
+            $result = $project->get_result();
+            $data = $result->fetch_assoc();
+
+            if(!$data) {
+                sendResponse("PROJECT_NOT_FOUND");
+                return;
+            }
+
+            $check = $mysqli->prepare("SELECT * FROM users_projects WHERE user_id = UNHEX(?) AND project_id = UNHEX(?)");
+            $check->bind_param("ss", $_SESSION["user_id"], $id);
+            $check->execute();
+
+            $result = $check->get_result();
+            $user_project = $result->fetch_assoc();
+
+            if(!$user_project) {
+                sendResponse("PROJECT_ACCESS");
+                return;
+            }
+
+            http_response_code(200);
+            echo json_encode($data);
         }
 
         public function getProjects($uid) {
