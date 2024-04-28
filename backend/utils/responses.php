@@ -13,6 +13,8 @@
         "LOGGED_IN" => ["code" => 200, "message" => "Pomyślnie zalogowano"],
         "NO_PROJECTS" => ["code" => 204],
         "USER_NOT_LOGGED" => ["code" => 401, "message" => "Użytkownik nie jest zalogowany"],
+        "PROJECT_ERROR" => ["code" => 500, "message" => "Projekt nie został utworzony"],
+        "PROJECT_CREATED" => ["code" => 201, "message" => "Projekt został utworzony"],
     ];
 
     function sendResponse($response) {

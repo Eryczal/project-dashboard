@@ -42,6 +42,11 @@
 
             }
             break;
+            
+        case "/project/add":
+            $projectController = new ProjectController();
+            $projectController->addProject();
+            break;
 
         default:
             http_response_code(404);
