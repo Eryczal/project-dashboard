@@ -13,13 +13,21 @@ CREATE TABLE `users` (
 
 CREATE TABLE `projects` (
 	`id` BINARY(16) NOT NULL,
-	`user_id` BINARY(16) NOT NULL,
 	`date` DATE NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
 	`description` TEXT,
 	`publicity` INTEGER NOT NULL,
+	PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE `users_projects` (
+	`id` BINARY(16) NOT NULL,
+	`user_id` BINARY(16) NOT NULL,
+	`project_id` BINARY(16) NOT NULL,
+	`role` VARCHAR(60) NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (user_id) REFERENCES users(id)
+	FOREIGN KEY (user_id) REFERENCES users(id),
+	FOREIGN KEY (project_id) REFERENCES projects(id)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `columns` (
