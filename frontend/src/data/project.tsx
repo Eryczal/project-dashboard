@@ -36,8 +36,12 @@ export async function createProject(): Promise<Response> {
     return data;
 }
 
-// export function getProjectById(id: number): Project | undefined {
-//     const project = projects.find((project) => project.id === id);
+export async function getProjectById(id: string): Promise<Project | Message> {
+    const response = await fetch(import.meta.env.VITE_URL + "project/" + id, {
+        credentials: "include",
+    });
 
-//     return project;
-// }
+    const data = response.json();
+
+    return data;
+}
