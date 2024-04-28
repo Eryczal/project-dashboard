@@ -15,6 +15,9 @@ function AuthPage({ routerPage }: { routerPage: Page }) {
 
     useEffect(() => {
         setPage(routerPage);
+        setLogin("");
+        setPassword("");
+        setRepeat("");
     }, [routerPage]);
 
     if (user) {
