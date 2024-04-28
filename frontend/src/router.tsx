@@ -6,7 +6,7 @@ import AuthPage from "./pages/AuthPage";
 export const router = createBrowserRouter(
     [
         {
-            path: "/",
+            path: "/projects",
             element: <ProjectPage />,
         },
         {

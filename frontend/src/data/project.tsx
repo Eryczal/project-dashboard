@@ -10,6 +10,7 @@ export interface Projects {
 
 export interface Message {
     message: string;
+    code?: number;
 }
 
 type Response = Projects | Message;
@@ -29,7 +30,8 @@ export async function createProject(): Promise<Response> {
         credentials: "include",
     });
 
-    const data = response.json();
+    const data = await response.json();
+    data.code = response.status;
 
     return data;
 }

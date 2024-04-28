@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getUserProjects, createProject } from "../data/project";
 import { Project } from "../data/project";
 import { Link, Navigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
@@ -7,23 +8,33 @@ function ProjectPage() {
     const { user } = useUser();
     const [projects, setProjects] = useState<Project[] | null>(null);
     const [redirect, setRedirect] = useState<boolean>(false);
+    const [refresh, setRefresh] = useState<boolean>(true);
 
     useEffect(() => {
-        const getProjects = async (): Promise<void> => {
-            let data = await getUserProjects();
+        if (refresh === true) {
+            const getProjects = async (): Promise<void> => {
+                let data = await getUserProjects();
 
-            if (data && "message" in data) {
-                setRedirect(true);
-                return;
-            }
+                if (data && "message" in data) {
+                    setRedirect(true);
+                    return;
+                }
 
-            setProjects(data ? data.projects : null);
-        };
+                setProjects(data ? data.projects : null);
+            };
 
-        getProjects().catch(console.error);
-    }, []);
+            getProjects().catch(console.error);
+
+            setRefresh(false);
+        }
+    }, [refresh]);
 
     const addProject = async () => {
+        let created = await createProject();
+
+        if ("code" in created && created.code === 201) {
+            setRefresh(true);
+        }
     };
 
     if (redirect) {
@@ -48,6 +59,7 @@ function ProjectPage() {
                     <Link to={`/project/${project.id}`}>Przejdź do projektu</Link>
                 </div>
             ))}
+            <button onClick={addProject}>Stwórz projekt</button>
         </main>
     );
 }
