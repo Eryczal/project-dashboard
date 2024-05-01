@@ -21,7 +21,7 @@ function AuthPage({ routerPage }: { routerPage: Page }) {
     }, [routerPage]);
 
     if (user) {
-        return <Navigate to="/" />;
+        return <Navigate to="/projects" />;
     }
 
     const handleLogin = (event: ChangeEvent<HTMLInputElement>) => {
