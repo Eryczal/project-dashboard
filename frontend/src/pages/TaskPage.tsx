@@ -1,18 +1,22 @@
+import "./TaskPage.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Project, getProjectById } from "../data/project";
+import { Task } from "../data/task";
+import ProjectHeader from "../components/ProjectHeader";
 
 function TaskPage() {
     const { id } = useParams<{ id: string }>();
     const [project, setProject] = useState<Project | undefined>(undefined);
+    const [tasks, setTasks] = useState<Task | undefined>(undefined);
 
     useEffect(() => {
         if (id) {
             const loadProject = async () => {
-                const data = await getProjectById(id);
+                const projectData = await getProjectById(id);
 
-                if (!("message" in data)) {
-                    setProject(data);
+                if (!("message" in projectData)) {
+                    setProject(projectData);
                 }
             };
 
@@ -26,7 +30,7 @@ function TaskPage() {
 
     return (
         <main>
-            <h1>{project.title}</h1>
+            <ProjectHeader project={project} />
             <p>{project.description}</p>
         </main>
     );

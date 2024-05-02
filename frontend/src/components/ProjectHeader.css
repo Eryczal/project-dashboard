@@ -1,0 +1,15 @@
+.project-header {
+    background-color: #f3f3f3;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-header h1 {
+    margin: 0;
+}
+
+.project-header .more-menu {
+    font-size: 32px;
+}
