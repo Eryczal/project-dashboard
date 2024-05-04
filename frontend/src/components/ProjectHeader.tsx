@@ -2,6 +2,7 @@ import { Project } from "../data/project";
 import { MdMenu, MdClose } from "react-icons/md";
 import "./ProjectHeader.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ProjectHeader({ project }: { project: Project }) {
     const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -11,12 +12,17 @@ export default function ProjectHeader({ project }: { project: Project }) {
     };
 
     return (
-        <>
-            <header className="project-header">
-                <h1>{project.title}</h1>
+        <header className="project-header">
+            <div className="header-name">
+                <div className="project-desc">
+                    <h1>{project.title}</h1>
+                    <p>{project.description}</p>
+                </div>
                 {isOpened ? <MdClose onClick={openMenu} className="more-menu" /> : <MdMenu onClick={openMenu} className="more-menu" />}
-            </header>
-            <div className="header-overlay" style={{ display: isOpened ? "block" : "none" }}></div>
-        </>
+            </div>
+            <div className="header-nav" style={{ display: isOpened ? "block" : "none" }}>
+                <Link to={`/project/${project.id}`}>Zadania</Link>
+            </div>
+        </header>
     );
 }

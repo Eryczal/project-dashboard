@@ -1,15 +1,72 @@
+:root {
+    --header-height: 64px;
+}
+
+main {
+    padding-top: var(--header-height);
+}
+
 .project-header {
+    width: 100%;
+    padding: 0 10px;
+    position: fixed;
+    box-sizing: border-box;
     background-color: #f3f3f3;
-    padding: 10px;
+}
+
+.header-name {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: var(--header-height);
+    position: relative;
+    z-index: 3;
 }
 
-.project-header h1 {
+.header-name h1,
+.header-name p {
     margin: 0;
 }
 
-.project-header .more-menu {
+.header-name .more-menu {
     font-size: 32px;
+}
+
+.header-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: calc(var(--header-height) + 12px);
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fafafa;
+}
+
+.header-nav a {
+    color: #333;
+    font-size: 1.6em;
+    text-decoration: none;
+}
+
+@media screen and (min-width: 1024px) {
+    .project-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .header-name .more-menu {
+        display: none;
+    }
+
+    .header-nav {
+        display: flex !important;
+        position: static;
+        width: auto;
+        padding-top: 0;
+        min-height: auto;
+        height: var(--header-height);
+        align-items: center;
+    }
 }
