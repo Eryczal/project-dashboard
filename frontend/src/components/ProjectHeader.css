@@ -11,7 +11,7 @@ main {
     padding: 0 10px;
     position: fixed;
     box-sizing: border-box;
-    background-color: #f3f3f3;
+    background-color: #f9f9f9;
 }
 
 .header-name {
@@ -32,6 +32,10 @@ main {
     font-size: 32px;
 }
 
+.project-desc {
+    margin-top: -0.5em;
+}
+
 .header-nav {
     position: absolute;
     top: 0;
@@ -41,7 +45,7 @@ main {
     padding-top: calc(var(--header-height) + 12px);
     box-sizing: border-box;
     text-align: center;
-    background-color: #fafafa;
+    background-color: #f9f9f9;
 }
 
 .header-nav a {
@@ -54,6 +58,8 @@ main {
     .project-header {
         display: flex;
         justify-content: space-between;
+        position: static;
+        border-bottom-left-radius: 16px;
     }
 
     .header-name .more-menu {
