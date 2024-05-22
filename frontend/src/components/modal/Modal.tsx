@@ -1,3 +1,4 @@
+import "./Modal.css";
 import { ReactNode, useState } from "react";
 import ReactDOM from "react-dom";
 import ModalTitle from "./ModalTitle";
@@ -26,7 +27,9 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
     return ReactDOM.createPortal(
         isModalOpen && (
             <div className="modal-overlay">
-                <div className="modal">{children}</div>
+                <div className="modal" role="dialog" aria-modal="true">
+                    {children}
+                </div>
             </div>
         ),
         modalElement
