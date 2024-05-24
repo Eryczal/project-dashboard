@@ -1,0 +1,11 @@
+.task-container,
+.task-page {
+    width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+    .task-container {
+        display: flex;
+        gap: 2em;
+    }
+}
