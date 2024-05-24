@@ -1,23 +1,19 @@
 import "./Modal.css";
-import { ReactNode, useState } from "react";
+import { ModalProps } from "../../../types";
 import ReactDOM from "react-dom";
 import ModalTitle from "./ModalTitle";
 import ModalContent from "./ModalContent";
 import ModalFooter from "./ModalFooter";
 
-interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    children: ReactNode;
-}
-
-export default function Modal({ isOpen, onClose, children }: ModalProps) {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(isOpen);
+export default function Modal({ onClose, children }: ModalProps) {
     const modalElement = document.getElementById("modal");
 
     const handleClose = (): void => {
-        setIsModalOpen(false);
         onClose();
+    };
+
+    const stopPropagation = (event: React.MouseEvent): void => {
+        event.stopPropagation();
     };
 
     if (!modalElement) {
@@ -25,13 +21,11 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
     }
 
     return ReactDOM.createPortal(
-        isModalOpen && (
-            <div className="modal-overlay">
-                <div className="modal" role="dialog" aria-modal="true">
-                    {children}
-                </div>
+        <div className="modal-overlay" onClick={handleClose}>
+            <div className="modal" role="dialog" aria-modal="true" onClick={stopPropagation}>
+                {children}
             </div>
-        ),
+        </div>,
         modalElement
     );
 }
