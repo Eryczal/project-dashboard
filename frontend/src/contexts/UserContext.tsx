@@ -1,22 +1,5 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-
-interface User {
-    id: string;
-    name: string;
-    type: string;
-    creationDate: string;
-}
-
-interface Response {
-    message: string;
-}
-
-interface UserContextProps {
-    user?: User;
-    loginUser: (email: string, password: string) => Promise<Response>;
-    registerUser: (email: string, password: string) => Promise<Response>;
-    // logoutUser
-}
+import { Response, User, UserContextProps } from "../types";
 
 const UserContext = createContext<UserContextProps | null>(null);
 
@@ -53,16 +36,16 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }, [refetch]);
 
     async function registerUser(login: string, password: string): Promise<Response> {
-        const formData = new URLSearchParams();
-        formData.append("login", login);
-        formData.append("password", password);
+        const sendData = new URLSearchParams();
+        sendData.append("login", login);
+        sendData.append("password", password);
 
         const response = await fetch(import.meta.env.VITE_URL + "register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: formData,
+            body: sendData,
         });
 
         const data = await response.json();
@@ -70,9 +53,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
     async function loginUser(login: string, password: string): Promise<Response> {
-        const formData = new URLSearchParams();
-        formData.append("login", login);
-        formData.append("password", password);
+        const sendData = new URLSearchParams();
+        sendData.append("login", login);
+        sendData.append("password", password);
 
         const response = await fetch(import.meta.env.VITE_URL + "login", {
             method: "POST",
@@ -80,7 +63,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: formData,
+            body: sendData,
         });
 
         const data = await response.json();
