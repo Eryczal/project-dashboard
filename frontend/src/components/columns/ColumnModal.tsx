@@ -1,9 +1,37 @@
+import { ChangeEvent, useState } from "react";
+import { createColumn } from "../../data/column";
 import { ModalProps } from "../../types";
 import Modal from "../_compound/modal/Modal";
+import { useProject } from "../../contexts/ProjectContext";
+import { Navigate } from "react-router-dom";
 
 function ColumnModal({ onClose }: ModalProps) {
-    const closeModal = (): void => {
-        onClose();
+    const { project } = useProject();
+    const [title, setTitle] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
+
+    if (!project) {
+        return <Navigate to="/" />;
+    }
+
+    const closeModal = (success: Boolean = false): void => {
+        onClose(success);
+    };
+
+    const addColumn = async () => {
+        let created = await createColumn(project.id, title, description);
+
+        if (created && created.code === 201) {
+            closeModal(true);
+        }
+    };
+
+    const handleTitle = (event: ChangeEvent<HTMLInputElement>): void => {
+        setTitle(event.target.value);
+    };
+
+    const handleDescription = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+        setDescription(event.target.value);
     };
 
     return (
@@ -13,13 +41,13 @@ function ColumnModal({ onClose }: ModalProps) {
             </Modal.Title>
             <Modal.Content>
                 <p>Nazwa</p>
-                <input type="text" />
+                <input type="text" onChange={handleTitle} />
                 <p>Opis</p>
-                <textarea></textarea>
+                <textarea onChange={handleDescription}></textarea>
             </Modal.Content>
             <Modal.Footer>
-                <button onClick={closeModal}>Anuluj</button>
-                <button>Dodaj</button>
+                <button onClick={() => closeModal(false)}>Anuluj</button>
+                <button onClick={addColumn}>Dodaj</button>
             </Modal.Footer>
         </Modal>
     );

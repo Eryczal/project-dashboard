@@ -9,7 +9,7 @@ export default function Modal({ onClose, children }: ModalProps) {
     const modalElement = document.getElementById("modal");
 
     const handleClose = (): void => {
-        onClose();
+        onClose(false);
     };
 
     const stopPropagation = (event: React.MouseEvent): void => {

@@ -8,7 +8,7 @@ function ColumnList() {
         setIsOpen(true);
     };
 
-    const closeModal = (): void => {
+    const closeModal = (success: Boolean = false): void => {
         setIsOpen(false);
     };
 
