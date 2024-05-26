@@ -1,15 +1,20 @@
-import { Project } from "../data/project";
 import { MdMenu, MdClose } from "react-icons/md";
 import "./ProjectHeader.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useProject } from "../contexts/ProjectContext";
 
-export default function ProjectHeader({ project }: { project: Project }) {
+export default function ProjectHeader() {
+    const { project } = useProject();
     const [isOpened, setIsOpened] = useState<boolean>(false);
 
     const openMenu = (): void => {
         setIsOpened(!isOpened);
     };
+
+    if (!project) {
+        return <></>;
+    }
 
     return (
         <header className="project-header">

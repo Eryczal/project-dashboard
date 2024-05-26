@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import TaskPage from "./pages/TaskPage";
 import ProjectPage from "./pages/ProjectPage";
 import AuthPage from "./pages/AuthPage";
+import { ProjectProvider } from "./contexts/ProjectContext";
 
 export const router = createBrowserRouter(
     [
@@ -11,7 +12,11 @@ export const router = createBrowserRouter(
         },
         {
             path: "/project/:id",
-            element: <TaskPage />,
+            element: (
+                <ProjectProvider>
+                    <TaskPage />
+                </ProjectProvider>
+            ),
         },
         {
             path: "/register",
