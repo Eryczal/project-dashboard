@@ -1,14 +1,7 @@
-import { Task } from "./task";
-
-export interface Column {
-    id: number;
-    title: string;
-    description: string;
-    tasks?: Task[];
-}
+import { Column, Message } from "../types";
 
 export async function getColumns(id: string): Promise<Column> {
-    const response = await fetch(import.meta.env.VITE_URL + `project/${id}/columns`, {
+    const response = await fetch(import.meta.env.VITE_URL + `columns/${id}`, {
         credentials: "include",
     });
 
@@ -17,6 +10,21 @@ export async function getColumns(id: string): Promise<Column> {
     return data;
 }
 
-export async function addColumn(id: string, title: string, description: string) {
-    const formData = new FormData();
+export async function createColumn(id: string, title: string, description: string): Promise<Message | null> {
+    const sendData = new URLSearchParams();
+    sendData.append("title", title);
+    sendData.append("description", description);
+
+    const response = await fetch(import.meta.env.VITE_URL + `column/add/${id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: sendData,
+    });
+
+    const data = response.status === 204 ? null : response.json();
+
+    return data;
 }
