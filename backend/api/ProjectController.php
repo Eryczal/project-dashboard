@@ -1,4 +1,6 @@
 <?php
+    require_once "utils/project.php";
+
     class ProjectController {
         public function projects() {
             if(!isset($_SESSION["user_id"])) {
@@ -86,14 +88,8 @@
                 return;
             }
 
-            $check = $mysqli->prepare("SELECT * FROM users_projects WHERE user_id = UNHEX(?) AND project_id = UNHEX(?)");
-            $check->bind_param("ss", $_SESSION["user_id"], $id);
-            $check->execute();
 
-            $result = $check->get_result();
-            $user_project = $result->fetch_assoc();
-
-            if(!$user_project) {
+            if(!checkAccess($_SESSION["user_id"], $id)) {
                 sendResponse("PROJECT_ACCESS");
                 return;
             }
