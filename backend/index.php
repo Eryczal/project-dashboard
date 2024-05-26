@@ -46,10 +46,30 @@
             
         case "project":
             $projectController = new ProjectController();
+
             if($parts[2] === "add") {
                 $projectController->addProject();
+            } else if(isset($parts[3])) {
+                if($parts[3] === "columns") {
+                    $projectController->getColumns($parts[2]);
+                }
             } else {
                 $projectController->getProject($parts[2]);
+            }
+            break;
+
+        case "columns":
+            $columnController = new ColumnController();
+            $columnController->getColumns($parts[2]);
+            break;
+
+        case "column":
+            $columnController = new ColumnController();
+
+            if($parts[2] === "add") {
+                if(isset($parts[3])) {
+                    $columnController->addColumn($parts[3]);
+                }
             }
             break;
 

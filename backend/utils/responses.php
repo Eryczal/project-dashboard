@@ -12,11 +12,15 @@
         "INVALID_PASSWORD" => ["code" => 400, "message" => "Login lub hasło jest niepoprawne"],
         "LOGGED_IN" => ["code" => 200, "message" => "Pomyślnie zalogowano"],
         "NO_PROJECTS" => ["code" => 204],
+        "NO_COLUMNS" => ["code" => 204],
         "USER_NOT_LOGGED" => ["code" => 401, "message" => "Użytkownik nie jest zalogowany"],
         "PROJECT_ERROR" => ["code" => 500, "message" => "Projekt nie został utworzony"],
         "PROJECT_CREATED" => ["code" => 201, "message" => "Projekt został utworzony"],
         "PROJECT_NOT_FOUND" => ["code" => 404, "message" => "Nie znaleziono projektu"],
         "PROJECT_ACCESS" => ["code" => 401, "message" => "Brak dostępu"],
+        "INVALID_DATA" => ["cody" => 400, "message" => "Wprowadzone dane są niepoprawne"],
+        "COLUMN_ERROR" => ["code" => 500, "message" => "Kolumna nie został utworzony"],
+        "COLUMN_CREATED" => ["code" => 201, "message" => "Kolumna został utworzony"],
     ];
 
     function sendResponse($response) {
