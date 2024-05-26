@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserProjects, createProject } from "../data/project";
-import { Project } from "../data/project";
+import { Project } from "../types";
 import { Link, Navigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 
@@ -12,7 +12,7 @@ function ProjectPage() {
 
     useEffect(() => {
         if (refresh === true) {
-            const getProjects = async (): Promise<void> => {
+            const getProjects = async () => {
                 let data = await getUserProjects();
 
                 if (data && "message" in data) {

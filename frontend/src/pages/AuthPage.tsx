@@ -1,11 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
+import { AuthPageType } from "../types";
 
-type Page = "login" | "register";
-
-function AuthPage({ routerPage }: { routerPage: Page }) {
-    const [page, setPage] = useState<Page>(routerPage);
+function AuthPage({ routerPage }: { routerPage: AuthPageType }) {
+    const [page, setPage] = useState<AuthPageType>(routerPage);
     const [login, setLogin] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [repeat, setRepeat] = useState<string>("");

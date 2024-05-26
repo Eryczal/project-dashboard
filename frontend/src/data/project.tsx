@@ -1,21 +1,6 @@
-export interface Project {
-    id: number;
-    title: string;
-    description: string;
-}
+import { Project, Projects, Message } from "../types";
 
-export interface Projects {
-    projects: Project[];
-}
-
-export interface Message {
-    message: string;
-    code?: number;
-}
-
-type Response = Projects | Message;
-
-export async function getUserProjects(): Promise<Response | null> {
+export async function getUserProjects(): Promise<Projects | Message | null> {
     const response = await fetch(import.meta.env.VITE_URL + "projects", {
         credentials: "include",
     });
@@ -25,7 +10,7 @@ export async function getUserProjects(): Promise<Response | null> {
     return data;
 }
 
-export async function createProject(): Promise<Response> {
+export async function createProject(): Promise<Projects | Message> {
     const response = await fetch(import.meta.env.VITE_URL + "project/add", {
         credentials: "include",
     });

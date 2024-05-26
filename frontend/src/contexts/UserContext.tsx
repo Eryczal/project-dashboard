@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { Response, User, UserContextProps } from "../types";
+import { Message, User, UserContextProps } from "../types";
 
 const UserContext = createContext<UserContextProps | null>(null);
 
@@ -35,7 +35,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         }
     }, [refetch]);
 
-    async function registerUser(login: string, password: string): Promise<Response> {
+    async function registerUser(login: string, password: string): Promise<Message> {
         const sendData = new URLSearchParams();
         sendData.append("login", login);
         sendData.append("password", password);
@@ -52,7 +52,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         return data;
     }
 
-    async function loginUser(login: string, password: string): Promise<Response> {
+    async function loginUser(login: string, password: string): Promise<Message> {
         const sendData = new URLSearchParams();
         sendData.append("login", login);
         sendData.append("password", password);
