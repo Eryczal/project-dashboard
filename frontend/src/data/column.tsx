@@ -1,16 +1,16 @@
-import { Column, Message } from "../types";
+import { Columns, Message } from "../types";
 
-export async function getColumns(id: string): Promise<Column[]> {
+export async function getColumns(id: string): Promise<Columns | Message | null> {
     const response = await fetch(import.meta.env.VITE_URL + `columns/${id}`, {
         credentials: "include",
     });
 
-    const data = response.json();
+    const data = response.status === 204 ? null : response.json();
 
     return data;
 }
 
-export async function createColumn(id: string, title: string, description: string): Promise<Message | null> {
+export async function createColumn(id: string, title: string, description: string): Promise<Message> {
     const sendData = new URLSearchParams();
     sendData.append("title", title);
     sendData.append("description", description);
@@ -24,7 +24,7 @@ export async function createColumn(id: string, title: string, description: strin
         body: sendData,
     });
 
-    const data = response.status === 204 ? null : response.json();
+    const data = response.json();
 
     return data;
 }
