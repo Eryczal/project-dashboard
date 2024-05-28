@@ -1,6 +1,6 @@
 import { Column, Message } from "../types";
 
-export async function getColumns(id: string): Promise<Column> {
+export async function getColumns(id: string): Promise<Column[]> {
     const response = await fetch(import.meta.env.VITE_URL + `columns/${id}`, {
         credentials: "include",
     });
