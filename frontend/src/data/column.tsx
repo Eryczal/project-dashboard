@@ -24,7 +24,8 @@ export async function createColumn(id: string, title: string, description: strin
         body: sendData,
     });
 
-    const data = response.json();
+    const data = await response.json();
+    data.code = response.status;
 
     return data;
 }

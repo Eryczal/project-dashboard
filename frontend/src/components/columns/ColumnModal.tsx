@@ -21,7 +21,7 @@ function ColumnModal({ onClose }: ModalProps) {
     const addColumn = async () => {
         let created = await createColumn(project.id, title, description);
 
-        if (created && created.code === 201) {
+        if (created.code === 201) {
             closeModal(true);
         }
     };

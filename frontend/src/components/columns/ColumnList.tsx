@@ -3,36 +3,53 @@ import ColumnModal from "./ColumnModal";
 import { Column } from "../../types";
 import { getColumns } from "../../data/column";
 import { useProject } from "../../contexts/ProjectContext";
+import TaskColumn from "./TaskColumn";
 
 function ColumnList() {
     const { project } = useProject();
-    const [isOpen, setIsOpen] = useState<Boolean>(false);
-    const [columns, setColumns] = useState<Column[]>();
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [columns, setColumns] = useState<Column[] | null>(null);
+    const [reload, setReload] = useState<boolean>(false);
 
     useEffect(() => {
         if (project) {
             const loadColumns = async () => {
                 const columnData = await getColumns(project.id);
 
-                if (!("message" in columnData)) {
-                    setColumns(columnData);
+                if (columnData && !("message" in columnData)) {
+                    setColumns(columnData.columns);
                 }
+
+                setReload(false);
             };
 
             loadColumns().catch(console.error);
         }
-    }, []);
+    }, [project, reload]);
 
     const openModal = (): void => {
         setIsOpen(true);
     };
 
-    const closeModal = (success: Boolean = false): void => {
+    const closeModal = (success: boolean = false): void => {
         setIsOpen(false);
+
+        if (success) {
+            setReload(true);
+        }
     };
+
+    if (!columns) {
+        return <></>;
+    }
 
     return (
         <>
+            <div className="column-container">
+                {columns.map((column) => {
+                    return <TaskColumn column={column} key={column.id} />;
+                })}
+            </div>
             <button onClick={openModal}>Dodaj kolumnę</button>
             {isOpen && <ColumnModal onClose={closeModal} />}
         </>
