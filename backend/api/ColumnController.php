@@ -15,7 +15,7 @@
                 return;
             }
 
-            $columns = $mysqli->prepare("SELECT HEX(id) AS ID, title, description FROM columns WHERE project_id = UNHEX(?)");
+            $columns = $mysqli->prepare("SELECT HEX(id) AS id, title, description FROM columns WHERE project_id = UNHEX(?)");
             $columns->bind_param("s", $id);
             $columns->execute();
 
@@ -34,7 +34,7 @@
             $columns->close();
 
             http_response_code(200);
-            echo json_encode($projects);
+            echo json_encode($data);
         }
 
         public function addColumn($id) {
