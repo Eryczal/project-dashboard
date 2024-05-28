@@ -14,7 +14,7 @@ function ColumnModal({ onClose }: ModalProps) {
         return <Navigate to="/" />;
     }
 
-    const closeModal = (success: Boolean = false): void => {
+    const closeModal = (success: boolean = false): void => {
         onClose(success);
     };
 

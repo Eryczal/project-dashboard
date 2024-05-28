@@ -15,15 +15,8 @@ export interface Task {
     labels?: Label[];
 }
 
-export interface Column {
-    id: string;
-    title: string;
-    description: string;
-    tasks?: Task[];
-}
-
 export interface ModalProps {
-    onClose: (success: Boolean) => void;
+    onClose: (success: boolean) => void;
     children?: ReactNode;
 }
 
@@ -42,6 +35,17 @@ export interface Project {
 
 export interface Projects {
     projects: Project[];
+}
+
+export interface Column {
+    id: string;
+    title: string;
+    description: string;
+    tasks?: Task[];
+}
+
+export interface Columns {
+    columns: Column[];
 }
 
 export interface Message {
