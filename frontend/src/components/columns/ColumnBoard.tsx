@@ -1,3 +1,4 @@
+import "./ColumnBoard.css";
 import { useEffect, useState } from "react";
 import ColumnModal from "./ColumnModal";
 import { Column } from "../../types";
@@ -5,7 +6,7 @@ import { getColumns } from "../../data/column";
 import { useProject } from "../../contexts/ProjectContext";
 import TaskColumn from "./TaskColumn";
 
-function ColumnList() {
+function ColumnBoard() {
     const { project } = useProject();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [columns, setColumns] = useState<Column[] | null>(null);
@@ -56,4 +57,4 @@ function ColumnList() {
     );
 }
 
-export default ColumnList;
+export default ColumnBoard;

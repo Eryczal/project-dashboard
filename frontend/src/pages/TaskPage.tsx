@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getProjectById } from "../data/project";
 import ProjectHeader from "../components/ProjectHeader";
 import ProjectAside from "../components/ProjectAside";
-import ColumnList from "../components/columns/ColumnList";
+import ColumnBoard from "../components/columns/ColumnBoard";
 import { useProject } from "../contexts/ProjectContext";
 
 function TaskPage() {
@@ -35,7 +35,7 @@ function TaskPage() {
             <div className="task-page">
                 <ProjectHeader />
                 <main>
-                    <ColumnList />
+                    <ColumnBoard />
                 </main>
             </div>
         </div>

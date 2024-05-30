@@ -1,0 +1,13 @@
+.column-container {
+    display: flex;
+    overflow: auto;
+    padding: 0 10%;
+}
+
+@media screen and (min-width: 1024px) {
+    .column-container {
+        overflow: unset;
+        padding: 0;
+        padding-top: 20px;
+    }
+}
