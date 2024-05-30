@@ -1,0 +1,32 @@
+.column {
+    min-width: 70%;
+    background-color: #fff;
+    margin: 5%;
+    padding: 16px;
+    width: 70%;
+}
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.column-header h2 {
+    margin: 0;
+}
+
+.column-buttons svg {
+    cursor: pointer;
+    font-size: 1.4em;
+    margin-left: 0.2em;
+}
+
+@media screen and (min-width: 1024px) {
+    .column {
+        min-width: 340px;
+        width: auto;
+        margin: 0;
+        margin-right: 20px;
+    }
+}
