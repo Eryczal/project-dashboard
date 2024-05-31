@@ -4,16 +4,36 @@ import ReactDOM from "react-dom";
 import ModalTitle from "./ModalTitle";
 import ModalContent from "./ModalContent";
 import ModalFooter from "./ModalFooter";
+import { useEffect, useRef } from "react";
 
 export default function Modal({ onClose, children }: ModalProps) {
     const modalElement = document.getElementById("modal");
+    const ref = useRef<HTMLDialogElement>(null);
+
+    useEffect(() => {
+        const dialog = ref.current;
+
+        if (dialog) {
+            dialog.showModal();
+
+            const handleOutsideClick = (event: MouseEvent) => {
+                if (dialog && event.target === dialog) {
+                    dialog.close();
+                    onClose(false);
+                }
+            };
+
+            dialog.addEventListener("click", handleOutsideClick);
+
+            return () => {
+                dialog.removeEventListener("click", handleOutsideClick);
+            };
+        }
+    }, []);
 
     const handleClose = (): void => {
+        ref.current?.close();
         onClose(false);
-    };
-
-    const stopPropagation = (event: React.MouseEvent): void => {
-        event.stopPropagation();
     };
 
     if (!modalElement) {
@@ -21,11 +41,9 @@ export default function Modal({ onClose, children }: ModalProps) {
     }
 
     return ReactDOM.createPortal(
-        <div className="modal-overlay" onClick={handleClose}>
-            <div className="modal" role="dialog" aria-modal="true" onClick={stopPropagation}>
-                {children}
-            </div>
-        </div>,
+        <dialog className="modal-container" ref={ref} onCancel={handleClose}>
+            <div className="modal">{children}</div>
+        </dialog>,
         modalElement
     );
 }
