@@ -1,14 +1,13 @@
 import "./ColumnBoard.css";
 import { useEffect, useState } from "react";
-import ColumnModal from "./ColumnModal";
 import { Column } from "../../types";
 import { getColumns } from "../../data/column";
 import { useProject } from "../../contexts/ProjectContext";
 import TaskColumn from "./TaskColumn";
+import DummyColumn from "./DummyColumn";
 
 function ColumnBoard() {
     const { project } = useProject();
-    const [isOpen, setIsOpen] = useState<boolean>(false);
     const [columns, setColumns] = useState<Column[] | null>(null);
     const [reload, setReload] = useState<boolean>(false);
 
@@ -28,18 +27,6 @@ function ColumnBoard() {
         }
     }, [project, reload]);
 
-    const openModal = (): void => {
-        setIsOpen(true);
-    };
-
-    const closeModal = (success: boolean = false): void => {
-        setIsOpen(false);
-
-        if (success) {
-            setReload(true);
-        }
-    };
-
     if (!columns) {
         return <></>;
     }
@@ -50,9 +37,8 @@ function ColumnBoard() {
                 {columns.map((column) => {
                     return <TaskColumn column={column} key={column.id} />;
                 })}
+                <DummyColumn setReload={setReload} />
             </div>
-            <button onClick={openModal}>Dodaj kolumnę</button>
-            {isOpen && <ColumnModal onClose={closeModal} />}
         </>
     );
 }

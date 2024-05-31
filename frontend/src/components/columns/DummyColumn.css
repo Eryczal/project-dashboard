@@ -1,0 +1,21 @@
+.dummy-column {
+    background-color: #f6f6f6;
+    border: 2px dashed #999;
+    color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dummy-column-buttons {
+    text-align: center;
+}
+
+.dummy-column-buttons svg {
+    font-size: 1.8em;
+}
+
+.dummy-column-buttons p {
+    margin: 0;
+}
