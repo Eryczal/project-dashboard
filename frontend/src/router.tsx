@@ -11,7 +11,7 @@ export const router = createBrowserRouter(
             element: <ProjectPage />,
         },
         {
-            path: "/project/:id",
+            path: "/project/:id/tasks",
             element: (
                 <ProjectProvider>
                     <TaskPage />

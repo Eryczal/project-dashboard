@@ -56,7 +56,7 @@ function ProjectPage() {
                 <div key={project.id}>
                     <h2>{project.title}</h2>
                     <p>{project.description}</p>
-                    <Link to={`/project/${project.id}`}>Przejdź do projektu</Link>
+                    <Link to={`/project/${project.id}/tasks`}>Przejdź do projektu</Link>
                 </div>
             ))}
             <button onClick={addProject}>Stwórz projekt</button>
