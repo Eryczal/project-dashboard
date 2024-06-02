@@ -1,0 +1,9 @@
+.labels-container {
+    display: flex;
+    gap: 2em;
+}
+
+.labels-container,
+.labels-page {
+    width: 100%;
+}
