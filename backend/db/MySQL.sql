@@ -35,6 +35,7 @@ CREATE TABLE `columns` (
 	`project_id` BINARY(16) NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
 	`description` TEXT,
+	`position` SMALLINT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (project_id) REFERENCES projects(id)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -44,15 +45,19 @@ CREATE TABLE `tasks` (
 	`column_id` BINARY(16) NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
 	`description` TEXT,
+	`position` SMALLINT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (column_id) REFERENCES columns(id)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `labels` (
 	`id` BINARY(16) NOT NULL,
+	`project_id` BINARY(16) NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
 	`description` TEXT,
-	PRIMARY KEY (id)
+	`color` VARCHAR(60) NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (project_id) REFERENCES projects(id)
 ) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE TABLE `tasks_labels` (
