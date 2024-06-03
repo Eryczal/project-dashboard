@@ -73,6 +73,21 @@
             }
             break;
 
+        case "labels":
+            $labelController = new LabelController();
+            $labelController->getLabels($parts[2]);
+            break;
+
+        case "label":
+            $labelController = new LabelController();
+
+            if($parts[2] === "add") {
+                if(isset($parts[3])) {
+                    $labelController->addLabel($parts[3]);
+                }
+            }
+            break;
+
         default:
             http_response_code(404);
             break;

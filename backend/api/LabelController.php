@@ -1,8 +1,8 @@
 <?php
     require_once "utils/project.php";
 
-    class ColumnController {
-        public function getColumns($id) {
+    class LabelController {
+        public function getLabels($id) {
             global $mysqli;
 
             if(!isset($_SESSION["user_id"])) {
@@ -15,29 +15,29 @@
                 return;
             }
 
-            $columns = $mysqli->prepare("SELECT HEX(id) AS id, title, description FROM columns WHERE project_id = UNHEX(?)");
-            $columns->bind_param("s", $id);
-            $columns->execute();
+            $labels = $mysqli->prepare("SELECT HEX(id) AS id, title, description, color FROM labels WHERE project_id = UNHEX(?)");
+            $labels->bind_param("s", $id);
+            $labels->execute();
 
-            $result = $columns->get_result();
+            $result = $labels->get_result();
 
             if($result->num_rows === 0) {
-                $columns->close();
-                sendResponse("NO_COLUMNS");
+                $labels->close();
+                sendResponse("NO_LABELS");
                 return;
             }
 
-            $data = ["columns" => []];
+            $data = ["labels" => []];
             while($row = $result->fetch_assoc()) {
-                $data["columns"][] = $row;
+                $data["labels"][] = $row;
             }
-            $columns->close();
+            $labels->close();
 
             http_response_code(200);
             echo json_encode($data);
         }
 
-        public function addColumn($id) {
+        public function addLabel($id) {
             global $mysqli;
 
             if(!isset($_SESSION["user_id"])) {
@@ -50,33 +50,34 @@
                 return;
             }
 
-            if(!isset($_POST["title"]) || !isset($_POST["description"]) || strlen($_POST["title"] < 5)) {
+            if(!isset($_POST["title"]) || !isset($_POST["description"]) || !isset($_POST["color"]) || strlen($_POST["title"] < 5)) {
                 sendResponse("INVALID_DATA");
                 return;
             }
 
             $title = $_POST["title"];
             $desc = $_POST["description"];
+            $color = $_POST["color"];
 
-            $column = $this->createColumn($id, $title, $desc);
+            $label = $this->createLabel($id, $title, $desc, $color);
 
-            if(!$column) {
-                sendResponse("COLUMN_ERROR");
+            if(!$label) {
+                sendResponse("LABEL_ERROR");
                 return;
             }
 
-            sendResponse("COLUMN_CREATED");
+            sendResponse("LABEL_CREATED");
             return;
         }
 
-        public function createColumn($id, $title, $desc) {
+        public function createLabel($id, $title, $desc, $color) {
             global $mysqli;
 
             $mysqli->autocommit(FALSE);
 
-            $column = $mysqli->prepare("INSERT INTO columns (id, project_id, title, description) VALUES (UNHEX(REPLACE(UUID(), \"-\",\"\")), UNHEX(?), ?, ?)");
-            $column->bind_param("sss", $id, $title, $desc);
-            $created = $column->execute();
+            $label = $mysqli->prepare("INSERT INTO labels (id, project_id, title, description, color) VALUES (UNHEX(REPLACE(UUID(), \"-\",\"\")), UNHEX(?), ?, ?, ?)");
+            $label->bind_param("ssss", $id, $title, $desc, $color);
+            $created = $label->execute();
 
             if (!$created) {
                 $mysqli->rollback();
@@ -84,7 +85,7 @@
 
             $mysqli->commit();
     
-            $column->close();
+            $label->close();
 
             return $created;
         }
