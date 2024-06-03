@@ -52,6 +52,7 @@
 
             if(!isset($_POST["title"]) || !isset($_POST["description"])) {
                 sendResponse("INVALID_DATA");
+                return;
             }
 
             $title = $_POST["title"];

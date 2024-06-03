@@ -25,6 +25,15 @@
                 return;
             }
 
+            if(!isset($_POST["title"]) || !isset($_POST["publicity"]) || strlen($_POST["title"] < 5)) {
+                sendResponse("INVALID_DATA");
+                return;
+            }
+
+            if(!isset($_POST["description"])) {
+                $_POST["description"] = "";
+            }
+
             $project = $this->createProject();
 
             if(!$project) {
@@ -39,12 +48,16 @@
         public function createProject() {
             global $mysqli;
 
+            $title = $_POST["title"];
+            $desc = $_POST["description"];
+            $pub = $_POST["publicity"];
+
             $mysqli->autocommit(FALSE);
 
             $uuid = $mysqli->query("SELECT UNHEX(REPLACE(UUID(), '-', ''))")->fetch_row()[0];
 
-            $project = $mysqli->prepare("INSERT INTO projects (id, date, title, description, publicity) VALUES (?, CURDATE(), 'project', 'project', 2)");
-            $project->bind_param("s", $uuid);
+            $project = $mysqli->prepare("INSERT INTO projects (id, date, title, description, publicity) VALUES (?, CURDATE(), ?, ?, ?)");
+            $project->bind_param("sssi", $uuid, $title, $desc, $pub);
             $created = $project->execute();
 
             if (!$created) {

@@ -18,7 +18,7 @@
         "PROJECT_CREATED" => ["code" => 201, "message" => "Projekt został utworzony"],
         "PROJECT_NOT_FOUND" => ["code" => 404, "message" => "Nie znaleziono projektu"],
         "PROJECT_ACCESS" => ["code" => 401, "message" => "Brak dostępu"],
-        "INVALID_DATA" => ["cody" => 400, "message" => "Wprowadzone dane są niepoprawne"],
+        "INVALID_DATA" => ["code" => 400, "message" => "Wprowadzone dane są niepoprawne"],
         "COLUMN_ERROR" => ["code" => 500, "message" => "Kolumna nie została utworzona"],
         "COLUMN_CREATED" => ["code" => 201, "message" => "Kolumna została utworzona"],
     ];
