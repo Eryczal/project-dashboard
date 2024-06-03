@@ -6,7 +6,7 @@ import ModalContent from "./ModalContent";
 import ModalFooter from "./ModalFooter";
 import { useEffect, useRef } from "react";
 
-export default function Modal({ onClose, children }: ModalProps) {
+export default function Modal({ onClose, children, className }: ModalProps) {
     const modalElement = document.getElementById("modal");
     const ref = useRef<HTMLDialogElement>(null);
 
@@ -41,7 +41,7 @@ export default function Modal({ onClose, children }: ModalProps) {
     }
 
     return ReactDOM.createPortal(
-        <dialog className="modal-container" ref={ref} onCancel={handleClose}>
+        <dialog className={`modal-container ${className}`} ref={ref} onCancel={handleClose}>
             <div className="modal">{children}</div>
         </dialog>,
         modalElement

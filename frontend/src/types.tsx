@@ -18,6 +18,7 @@ export interface Task {
 export interface ModalProps {
     onClose: (success: boolean) => void;
     children?: ReactNode;
+    className?: string;
 }
 
 export interface User {
