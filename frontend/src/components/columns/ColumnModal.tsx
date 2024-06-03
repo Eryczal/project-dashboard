@@ -41,9 +41,9 @@ function ColumnModal({ onClose }: ModalProps) {
             </Modal.Title>
             <Modal.Content>
                 <p>Nazwa</p>
-                <input type="text" onChange={handleTitle} />
+                <input type="text" onChange={handleTitle} value={title} />
                 <p>Opis</p>
-                <textarea onChange={handleDescription}></textarea>
+                <textarea onChange={handleDescription} value={description}></textarea>
             </Modal.Content>
             <Modal.Footer>
                 <button onClick={() => closeModal(false)}>Anuluj</button>
