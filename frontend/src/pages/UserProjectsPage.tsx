@@ -1,14 +1,28 @@
 import { useEffect, useState } from "react";
-import { getUserProjects, createProject } from "../data/project";
+import { getUserProjects } from "../data/project";
 import { Project } from "../types";
 import { Link, Navigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
+import ProjectModal from "../components/ProjectModal";
 
-function ProjectPage() {
+function UserProjectsPage() {
     const { user } = useUser();
     const [projects, setProjects] = useState<Project[] | null>(null);
     const [redirect, setRedirect] = useState<boolean>(false);
     const [refresh, setRefresh] = useState<boolean>(true);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const openModal = (): void => {
+        setIsOpen(true);
+    };
+
+    const closeModal = (success: boolean = false): void => {
+        setIsOpen(false);
+
+        if (success) {
+            setRefresh(true);
+        }
+    };
 
     useEffect(() => {
         if (refresh === true) {
@@ -29,14 +43,6 @@ function ProjectPage() {
         }
     }, [refresh]);
 
-    const addProject = async () => {
-        let created = await createProject();
-
-        if ("code" in created && created.code === 201) {
-            setRefresh(true);
-        }
-    };
-
     if (redirect) {
         return <Navigate to="/login" />;
     }
@@ -44,7 +50,8 @@ function ProjectPage() {
     if (projects === null) {
         return (
             <main>
-                Obecnie nie masz żadnych projektów. <button onClick={addProject}>Stwórz projekt</button>
+                Obecnie nie masz żadnych projektów. <button onClick={openModal}>Stwórz projekt</button>
+                {isOpen && <ProjectModal onClose={closeModal} />}
             </main>
         );
     }
@@ -59,9 +66,10 @@ function ProjectPage() {
                     <Link to={`/project/${project.id}/tasks`}>Przejdź do projektu</Link>
                 </div>
             ))}
-            <button onClick={addProject}>Stwórz projekt</button>
+            <button onClick={openModal}>Stwórz projekt</button>
+            {isOpen && <ProjectModal onClose={closeModal} />}
         </main>
     );
 }
 
-export default ProjectPage;
+export default UserProjectsPage;

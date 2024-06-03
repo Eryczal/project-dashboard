@@ -10,9 +10,19 @@ export async function getUserProjects(): Promise<Projects | Message | null> {
     return data;
 }
 
-export async function createProject(): Promise<Projects | Message> {
+export async function createProject(title: string, description: string, publicity: number): Promise<Projects | Message> {
+    const sendData = new URLSearchParams();
+    sendData.append("title", title);
+    sendData.append("description", description);
+    sendData.append("publicity", publicity.toString());
+
     const response = await fetch(import.meta.env.VITE_URL + "project/add", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
         credentials: "include",
+        body: sendData,
     });
 
     const data = await response.json();

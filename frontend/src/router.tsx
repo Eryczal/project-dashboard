@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import TaskPage from "./pages/TaskPage";
-import ProjectPage from "./pages/ProjectPage";
+import UserProjectsPage from "./pages/UserProjectsPage";
 import AuthPage from "./pages/AuthPage";
 import { ProjectProvider } from "./contexts/ProjectContext";
 import LabelsPage from "./pages/LabelsPage";
@@ -9,7 +9,7 @@ export const router = createBrowserRouter(
     [
         {
             path: "/projects",
-            element: <ProjectPage />,
+            element: <UserProjectsPage />,
         },
         {
             path: "/project/:id/labels",
