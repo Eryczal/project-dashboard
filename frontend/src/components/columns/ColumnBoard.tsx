@@ -27,16 +27,13 @@ function ColumnBoard() {
         }
     }, [project, reload]);
 
-    if (!columns) {
-        return <></>;
-    }
-
     return (
         <>
             <div className="column-container">
-                {columns.map((column) => {
-                    return <TaskColumn column={column} key={column.id} />;
-                })}
+                {columns &&
+                    columns.map((column) => {
+                        return <TaskColumn column={column} key={column.id} />;
+                    })}
                 <DummyColumn setReload={setReload} />
             </div>
         </>
