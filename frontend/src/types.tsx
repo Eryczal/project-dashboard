@@ -2,12 +2,6 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type AuthPageType = "login" | "register";
 
-export interface Label {
-    id: string;
-    title: string;
-    description: string;
-}
-
 export interface Task {
     id: string;
     title: string;
@@ -47,6 +41,17 @@ export interface Column {
 
 export interface Columns {
     columns: Column[];
+}
+
+export interface Label {
+    id: string;
+    title: string;
+    description: string;
+    color: string;
+}
+
+export interface Labels {
+    labels: Label[];
 }
 
 export interface Message {
