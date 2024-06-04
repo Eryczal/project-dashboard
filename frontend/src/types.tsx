@@ -70,3 +70,12 @@ export interface ProjectContextProps {
     project?: Project;
     setProject: Dispatch<SetStateAction<Project | undefined>>;
 }
+
+export interface LabelSelectionProps {
+    handleLabel: (clicked: boolean, labelId: string) => void;
+}
+
+export interface SelectableLabelProps {
+    label: Label;
+    handleLabel: (clicked: boolean, labelId: string) => void;
+}
