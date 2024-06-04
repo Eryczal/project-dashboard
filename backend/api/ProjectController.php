@@ -62,6 +62,7 @@
 
             if (!$created) {
                 $mysqli->rollback();
+                return false;
             }
 
             $userProject = $mysqli->prepare("INSERT INTO users_projects (id, user_id, project_id, role) VALUES (UNHEX(REPLACE(UUID(), \"-\",\"\")), UNHEX(?), ?, 'admin')");
@@ -71,6 +72,7 @@
 
             if(!$userProjectCreated) {
                 $mysqli->rollback();
+                return false;
             }
 
             $mysqli->commit();

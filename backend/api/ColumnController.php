@@ -80,6 +80,7 @@
 
             if (!$created) {
                 $mysqli->rollback();
+                return false;
             }
 
             $mysqli->commit();
