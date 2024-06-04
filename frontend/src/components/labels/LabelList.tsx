@@ -39,16 +39,17 @@ function LabelList() {
         }
     };
 
-    if (!project || !labels) {
+    if (!project) {
         return <></>;
     }
 
     return (
         <main>
             <h1>Etykiety</h1>
-            {labels.map((label) => {
-                return <LabelDisplay label={label} key={label.id} />;
-            })}
+            {labels &&
+                labels.map((label) => {
+                    return <LabelDisplay label={label} key={label.id} />;
+                })}
             <button onClick={showModal}>Dodaj nową etykietę</button>
             {isOpen && <LabelModal onClose={closeModal} />}
         </main>
