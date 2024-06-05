@@ -73,6 +73,21 @@
             }
             break;
 
+        case "tasks":
+            $taskController = new TaskController();
+            $taskController->getTasks($parts[2]);
+            break;
+
+        case "task":
+            $taskController = new TaskController();
+
+            if($parts[2] === "add") {
+                if(isset($parts[3])) {
+                    $taskController->addTask($parts[3]);
+                }
+            }
+            break;
+
         case "labels":
             $labelController = new LabelController();
             $labelController->getLabels($parts[2]);

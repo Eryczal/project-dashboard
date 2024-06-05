@@ -13,6 +13,7 @@
         "LOGGED_IN" => ["code" => 200, "message" => "Pomyślnie zalogowano"],
         "NO_PROJECTS" => ["code" => 204],
         "NO_COLUMNS" => ["code" => 204],
+        "NO_TASKS" => ["code" => 204],
         "NO_LABELS" => ["code" => 204],
         "USER_NOT_LOGGED" => ["code" => 401, "message" => "Użytkownik nie jest zalogowany"],
         "PROJECT_ERROR" => ["code" => 500, "message" => "Projekt nie został utworzony"],
@@ -22,6 +23,8 @@
         "INVALID_DATA" => ["code" => 400, "message" => "Wprowadzone dane są niepoprawne"],
         "COLUMN_ERROR" => ["code" => 500, "message" => "Kolumna nie została utworzona"],
         "COLUMN_CREATED" => ["code" => 201, "message" => "Kolumna została utworzona"],
+        "TASK_ERROR" => ["code" => 500, "message" => "Zadanie nie zostało utworzone"],
+        "TASK_CREATED" => ["code" => 201, "message" => "Zadanie zostało utworzone"],
         "LABEL_ERROR" => ["code" => 500, "message" => "Etykieta nie została utworzona"],
         "LABEL_CREATED" => ["code" => 201, "message" => "Etykieta została utworzona"],
     ];
