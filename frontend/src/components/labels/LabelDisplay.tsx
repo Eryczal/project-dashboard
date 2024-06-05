@@ -1,7 +1,12 @@
 import { Label } from "../../types";
 
 function LabelDisplay({ label }: { label: Label }) {
-    return <h1>{label.title}</h1>;
+    return (
+        <div>
+            <h3>{label.title}</h3>
+            <p>{label.description}</p>
+        </div>
+    );
 }
 
 export default LabelDisplay;
