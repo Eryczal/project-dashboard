@@ -4,7 +4,7 @@ import Modal from "../_compound/modal/Modal";
 import LabelSelection from "./LabelSelection";
 import { createTask } from "../../data/task";
 
-function TaskModal({ onClose, column }: ModalProps & { column: Column }) {
+function TaskModal({ onClose, column, pos }: ModalProps & { column: Column; pos: number }) {
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [labels, setLabels] = useState<string[]>([]);
@@ -18,7 +18,7 @@ function TaskModal({ onClose, column }: ModalProps & { column: Column }) {
     };
 
     const addTask = async () => {
-        let created = await createTask(column.id, title, description, labels);
+        let created = await createTask(column.id, title, description, labels, pos);
 
         if (created.code === 201) {
             closeModal(true);

@@ -2,13 +2,6 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type AuthPageType = "login" | "register";
 
-export interface Task {
-    id: string;
-    title: string;
-    description: string;
-    labels?: Label[];
-}
-
 export interface ModalProps {
     onClose: (success: boolean) => void;
     children?: ReactNode;
@@ -41,6 +34,17 @@ export interface Column {
 
 export interface Columns {
     columns: Column[];
+}
+
+export interface Task {
+    id: string;
+    title: string;
+    description: string;
+    labels?: string[];
+}
+
+export interface Tasks {
+    tasks: Task[];
 }
 
 export interface Label {
