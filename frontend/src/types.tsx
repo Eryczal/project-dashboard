@@ -69,6 +69,7 @@ export interface UserContextProps {
 export interface ProjectContextProps {
     project?: Project;
     setProject: Dispatch<SetStateAction<Project | undefined>>;
+    labels: Label[];
 }
 
 export interface LabelSelectionProps {
