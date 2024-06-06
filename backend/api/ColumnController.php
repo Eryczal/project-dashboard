@@ -15,26 +15,77 @@
                 return;
             }
 
-            $columns = $mysqli->prepare("SELECT HEX(id) AS id, title, description, position FROM columns WHERE project_id = UNHEX(?) ORDER BY position");
-            $columns->bind_param("s", $id);
-            $columns->execute();
+            try {
+                $mysqli->autocommit(false);
 
-            $result = $columns->get_result();
+                $columnsStmt = $mysqli->prepare("
+                    SELECT HEX(id) AS id, title, description, position 
+                    FROM columns 
+                    WHERE project_id = UNHEX(?) 
+                    ORDER BY position
+                ");
 
-            if($result->num_rows === 0) {
-                $columns->close();
-                sendResponse("NO_COLUMNS");
+                $columnsStmt->bind_param("s", $id);
+                $columnsStmt->execute();
+                $columnsResult = $columnsStmt->get_result();
+                $columns = [];
+
+                if($columnsResult->num_rows === 0) {
+                    $columnsStmt->close();
+                    sendResponse("NO_COLUMNS");
+                    return;
+                }
+
+                $data = ["columns" => []];
+
+                while($column = $columnsResult->fetch_assoc()) {
+                    $columnId = $column["id"];
+                    $tasks = [];
+
+                    $tasksStmt = $mysqli->prepare("
+                        SELECT
+                            HEX(t.id) AS id,
+                            t.title,
+                            t.description,
+                            t.position,
+                            COALESCE(GROUP_CONCAT(HEX(l.id) ORDER BY l.id SEPARATOR ','), '') AS labels
+                        FROM 
+                            tasks t
+                        LEFT JOIN
+                            tasks_labels tl ON t.id = tl.task_id
+                        LEFT JOIN
+                            labels l ON tl.label_id = l.id
+                        WHERE
+                            t.column_id = UNHEX(?)
+                        GROUP BY
+                            t.id
+                        ORDER BY
+                            t.position
+                    ");
+
+                    $tasksStmt->bind_param("s", $columnId);
+                    $tasksStmt->execute();
+                    $tasksResult = $tasksStmt->get_result();
+
+                    while($task = $tasksResult->fetch_assoc()) {
+                        $tasks[] = $task;
+                    }
+
+                    $column["tasks"] = $tasks;
+                    $data["columns"][] = $column;
+
+                    $tasksStmt->close();
+                }
+
+                $mysqli->commit();
+    
+                http_response_code(200);
+                echo json_encode($data);
+            } catch(Exception $e) {
+                $mysqli->rollback();
+                sendResponse("DB_ERROR");
                 return;
             }
-
-            $data = ["columns" => []];
-            while($row = $result->fetch_assoc()) {
-                $data["columns"][] = $row;
-            }
-            $columns->close();
-
-            http_response_code(200);
-            echo json_encode($data);
         }
 
         public function addColumn($id) {
