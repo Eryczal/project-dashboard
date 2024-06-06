@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { Column } from "../../types";
 import { getColumns } from "../../data/column";
 import { useProject } from "../../contexts/ProjectContext";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import TaskColumn from "./TaskColumn";
 import DummyColumn from "./DummyColumn";
+import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea/dnd";
 
 function ColumnBoard() {
     const { project } = useProject();

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import TaskModal from "../tasks/TaskModal";
 import { getTasks } from "../../data/task";
 import TaskCard from "../tasks/TaskCard";
-import { Draggable, Droppable } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "@hello-pangea/dnd";
 
 function TaskColumn({ column }: { column: Column }) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
