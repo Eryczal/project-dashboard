@@ -20,20 +20,23 @@ function ColumnBoard() {
         }
 
         if (type === "column") {
-            const newColumns: Column[] = [...columns];
+            const newColumns: Column[] = JSON.parse(JSON.stringify(columns));
+            const oldColumns: Column[] = JSON.parse(JSON.stringify(columns));
 
             const element = newColumns[source.index];
             newColumns.splice(source.index, 1);
             newColumns.splice(destination.index, 0, element);
 
+            newColumns.forEach((column, index) => {
+                column.position = index;
+            });
+
+            setColumns(newColumns);
+
             const movedColumn = await moveColumn(element.id, project.id, source.index, destination.index);
 
-            if (movedColumn.code === 200) {
-                newColumns.forEach((column, index) => {
-                    column.position = index;
-                });
-
-                setColumns(newColumns);
+            if (movedColumn.code !== 200) {
+                setColumns(oldColumns);
             }
         } else if (type === "task") {
             if (destination?.droppableId === source?.droppableId) {
