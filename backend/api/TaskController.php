@@ -36,7 +36,7 @@
             $labels = isset($_POST["labels"]) ? $_POST["labels"] : [];
             $position = $_POST["position"];
 
-            $mysqli->autocommit(FALSE);
+            $mysqli->autocommit(false);
 
             $uuid = $mysqli->query("SELECT UNHEX(REPLACE(UUID(), '-', ''))")->fetch_row()[0];
 

@@ -52,7 +52,7 @@
             $desc = $_POST["description"];
             $pub = $_POST["publicity"];
 
-            $mysqli->autocommit(FALSE);
+            $mysqli->autocommit(false);
 
             $uuid = $mysqli->query("SELECT UNHEX(REPLACE(UUID(), '-', ''))")->fetch_row()[0];
 

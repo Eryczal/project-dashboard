@@ -15,7 +15,7 @@
                 return;
             }
 
-            $columns = $mysqli->prepare("SELECT HEX(id) AS id, title, description FROM columns WHERE project_id = UNHEX(?)");
+            $columns = $mysqli->prepare("SELECT HEX(id) AS id, title, description, position FROM columns WHERE project_id = UNHEX(?) ORDER BY position");
             $columns->bind_param("s", $id);
             $columns->execute();
 
@@ -73,7 +73,7 @@
         public function createColumn($id, $title, $desc, $position) {
             global $mysqli;
 
-            $mysqli->autocommit(FALSE);
+            $mysqli->autocommit(false);
 
             $column = $mysqli->prepare("INSERT INTO columns (id, project_id, title, description, position) VALUES (UNHEX(REPLACE(UUID(), \"-\",\"\")), UNHEX(?), ?, ?, ?)");
             $column->bind_param("sssi", $id, $title, $desc, $position);

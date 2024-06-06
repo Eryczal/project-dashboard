@@ -73,7 +73,7 @@
         public function createLabel($id, $title, $desc, $color) {
             global $mysqli;
 
-            $mysqli->autocommit(FALSE);
+            $mysqli->autocommit(false);
 
             $label = $mysqli->prepare("INSERT INTO labels (id, project_id, title, description, color) VALUES (UNHEX(REPLACE(UUID(), \"-\",\"\")), UNHEX(?), ?, ?, ?)");
             $label->bind_param("ssss", $id, $title, $desc, $color);
