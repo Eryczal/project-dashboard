@@ -90,5 +90,70 @@
 
             return $created;
         }
+
+        public function moveColumn($id) {
+            global $mysqli;
+
+            if(!isset($_SESSION["user_id"])) {
+                sendResponse("USER_NOT_LOGGED");
+                return;
+            }
+
+            if(!isset($_POST["project_id"]) || !isset($_POST["from"]) || !isset($_POST["to"])) {
+                sendResponse("INVALID_DATA");
+                return;
+            }
+
+            $project_id = $_POST["project_id"];
+            $from = (int) $_POST["from"];
+            $to = (int) $_POST["to"];
+
+            if(!checkAccess($_SESSION["user_id"], $project_id)) {
+                sendResponse("PROJECT_ACCESS");
+                return;
+            }
+
+            $mysqli->autocommit(false);
+
+            if($from === $to) {
+                return;
+            }
+
+            try {
+                if($from > $to) {
+                    $query = "UPDATE columns SET position = position + 1 WHERE project_id = UNHEX(?) AND position >= ? AND position < ?";
+                } else {
+                    $query = "UPDATE columns SET position = position - 1 WHERE project_id = UNHEX(?) AND position > ? AND position <= ?";
+                }
+
+                $stmt = $mysqli->prepare($query);
+                if($from > $to) {
+                    $stmt->bind_param("sii", $project_id, $to, $from);
+                } else {
+                    $stmt->bind_param("sii", $project_id, $from, $to);
+                }
+                
+                if(!$stmt->execute()) {
+                    throw new Exception("Error updating positions");
+                }
+
+                $query = "UPDATE columns SET position = ? WHERE id = UNHEX(?)";
+                $stmt = $mysqli->prepare($query);
+                $stmt->bind_param("is", $to, $id);
+
+                if(!$stmt->execute()) {
+                    throw new Exception("Error updating position");
+                }
+
+                $mysqli->commit();
+                sendResponse("COLUMN_MOVED");
+                $stmt->close();
+                return;
+            } catch (Exception $e) {
+                $mysqli->rollback();
+                sendResponse("DB_ERROR");
+                return;
+            }
+        }
     }
 ?>

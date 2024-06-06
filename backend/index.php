@@ -70,6 +70,10 @@
                 if(isset($parts[3])) {
                     $columnController->addColumn($parts[3]);
                 }
+            } else if($parts[2] === "move") {
+                if(isset($parts[3])) {
+                    $columnController->moveColumn($parts[3]);
+                }
             }
             break;
 
