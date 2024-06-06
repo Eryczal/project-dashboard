@@ -34,7 +34,7 @@ function ColumnBoard() {
                     columns.map((column) => {
                         return <TaskColumn column={column} key={column.id} />;
                     })}
-                <DummyColumn setReload={setReload} />
+                            <DummyColumn setReload={setReload} position={columns ? columns.length : 0} />
             </div>
         </>
     );

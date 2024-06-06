@@ -5,7 +5,7 @@ import Modal from "../_compound/modal/Modal";
 import { useProject } from "../../contexts/ProjectContext";
 import { Navigate } from "react-router-dom";
 
-function ColumnModal({ onClose }: ModalProps) {
+function ColumnModal({ onClose, position }: ModalProps & { position: number }) {
     const { project } = useProject();
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
@@ -19,7 +19,7 @@ function ColumnModal({ onClose }: ModalProps) {
     };
 
     const addColumn = async () => {
-        let created = await createColumn(project.id, title, description);
+        let created = await createColumn(project.id, title, description, position);
 
         if (created.code === 201) {
             closeModal(true);

@@ -10,10 +10,11 @@ export async function getColumns(id: string): Promise<Columns | Message | null> 
     return data;
 }
 
-export async function createColumn(id: string, title: string, description: string): Promise<Message> {
+export async function createColumn(id: string, title: string, description: string, position: number): Promise<Message> {
     const sendData = new URLSearchParams();
     sendData.append("title", title);
     sendData.append("description", description);
+    sendData.append("position", position.toString());
 
     const response = await fetch(import.meta.env.VITE_URL + `column/add/${id}`, {
         method: "POST",

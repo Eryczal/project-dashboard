@@ -3,7 +3,7 @@ import ColumnModal from "./ColumnModal";
 import "./DummyColumn.css";
 import { MdAddCircleOutline } from "react-icons/md";
 
-function DummyColumn({ setReload }: { setReload: Dispatch<SetStateAction<boolean>> }) {
+function DummyColumn({ setReload, position }: { setReload: Dispatch<SetStateAction<boolean>>; position: number }) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const openModal = (): void => {
@@ -26,7 +26,7 @@ function DummyColumn({ setReload }: { setReload: Dispatch<SetStateAction<boolean
                     <p>Dodaj kolumnę</p>
                 </div>
             </div>
-            {isOpen && <ColumnModal onClose={closeModal} />}
+            {isOpen && <ColumnModal onClose={closeModal} position={position} />}
         </>
     );
 }
