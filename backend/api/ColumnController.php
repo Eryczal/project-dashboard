@@ -50,15 +50,16 @@
                 return;
             }
 
-            if(!isset($_POST["title"]) || !isset($_POST["description"]) || strlen($_POST["title"] < 5)) {
+            if(!isset($_POST["title"]) || !isset($_POST["description"]) || !isset($_POST["position"]) || strlen($_POST["title"] < 5)) {
                 sendResponse("INVALID_DATA");
                 return;
             }
 
             $title = $_POST["title"];
             $desc = $_POST["description"];
+            $position = $_POST["position"];
 
-            $column = $this->createColumn($id, $title, $desc);
+            $column = $this->createColumn($id, $title, $desc, $position);
 
             if(!$column) {
                 sendResponse("COLUMN_ERROR");
@@ -69,13 +70,13 @@
             return;
         }
 
-        public function createColumn($id, $title, $desc) {
+        public function createColumn($id, $title, $desc, $position) {
             global $mysqli;
 
             $mysqli->autocommit(FALSE);
 
-            $column = $mysqli->prepare("INSERT INTO columns (id, project_id, title, description) VALUES (UNHEX(REPLACE(UUID(), \"-\",\"\")), UNHEX(?), ?, ?)");
-            $column->bind_param("sss", $id, $title, $desc);
+            $column = $mysqli->prepare("INSERT INTO columns (id, project_id, title, description, position) VALUES (UNHEX(REPLACE(UUID(), \"-\",\"\")), UNHEX(?), ?, ?, ?)");
+            $column->bind_param("sssi", $id, $title, $desc, $position);
             $created = $column->execute();
 
             if (!$created) {
