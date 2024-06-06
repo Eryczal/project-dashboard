@@ -1,7 +1,7 @@
 import "./ColumnBoard.css";
 import { useEffect, useState } from "react";
 import { Column } from "../../types";
-import { getColumns } from "../../data/column";
+import { getColumns, moveColumn } from "../../data/column";
 import { useProject } from "../../contexts/ProjectContext";
 import TaskColumn from "./TaskColumn";
 import DummyColumn from "./DummyColumn";
@@ -12,10 +12,10 @@ function ColumnBoard() {
     const [columns, setColumns] = useState<Column[] | null>(null);
     const [reload, setReload] = useState<boolean>(false);
 
-    const onDragEnd = (result: DropResult) => {
+    const onDragEnd = async (result: DropResult) => {
         const { type, destination, source } = result;
 
-        if (!destination || !source || !columns) {
+        if (!project || !destination || !source || !columns) {
             return;
         }
 
@@ -26,11 +26,15 @@ function ColumnBoard() {
             newColumns.splice(source.index, 1);
             newColumns.splice(destination.index, 0, element);
 
-            newColumns.forEach((column, index) => {
-                column.position = index;
-            });
+            const movedColumn = await moveColumn(element.id, project.id, source.index, destination.index);
 
-            setColumns(newColumns);
+            if (movedColumn.code === 200) {
+                newColumns.forEach((column, index) => {
+                    column.position = index;
+                });
+
+                setColumns(newColumns);
+            }
         } else if (type === "task") {
             if (destination?.droppableId === source?.droppableId) {
             }

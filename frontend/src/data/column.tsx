@@ -30,3 +30,24 @@ export async function createColumn(id: string, title: string, description: strin
 
     return data;
 }
+
+export async function moveColumn(id: string, projectId: string, from: number, to: number): Promise<Message> {
+    const sendData = new URLSearchParams();
+    sendData.append("project_id", projectId);
+    sendData.append("from", from.toString());
+    sendData.append("to", to.toString());
+
+    const response = await fetch(import.meta.env.VITE_URL + `column/move/${id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: sendData,
+    });
+
+    const data = await response.json();
+    data.code = response.status;
+
+    return data;
+}
