@@ -12,7 +12,30 @@ function ColumnBoard() {
     const [columns, setColumns] = useState<Column[] | null>(null);
     const [reload, setReload] = useState<boolean>(false);
 
-    const onDragEnd = () => {};
+    const onDragEnd = (result: DropResult) => {
+        const { type, destination, source } = result;
+
+        if (!destination || !source || !columns) {
+            return;
+        }
+
+        if (type === "column") {
+            const newColumns: Column[] = [...columns];
+
+            const element = newColumns[source.index];
+            newColumns.splice(source.index, 1);
+            newColumns.splice(destination.index, 0, element);
+
+            newColumns.forEach((column, index) => {
+                column.position = index;
+            });
+
+            setColumns(newColumns);
+        } else if (type === "task") {
+            if (destination?.droppableId === source?.droppableId) {
+            }
+        }
+    };
 
     useEffect(() => {
         if (project) {
