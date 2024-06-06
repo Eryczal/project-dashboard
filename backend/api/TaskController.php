@@ -105,6 +105,8 @@
                     t.column_id = UNHEX(?)
                 GROUP BY
                     t.id
+                ORDER BY
+                    t.position
             ");
 
             if ($tasks === false) {
