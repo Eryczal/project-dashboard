@@ -1,0 +1,9 @@
+.task {
+    background-color: #ccc;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.task h3 {
+    margin-top: 0;
+}
