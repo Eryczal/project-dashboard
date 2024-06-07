@@ -3,6 +3,7 @@
         "ACCOUNT_CREATED" => ["code" => 201, "message" => "Pomyślnie utworzono konto, możesz się zalogować"],
         "ACCOUNT_EXISTS" => ["code" => 400, "message" => "Wybrany login jest już zajęty"],
         "DB_ERROR" => ["code" => 500, "message" => "Problem z bazą danych"],
+        "NOT_FOUND" => ["code" => 404, "message" => "Podany URL nie został znaleziony"],
         "INVALID_INPUT" => ["code" => 400, "message" => "Login lub hasło jest puste"],
         "LOGIN_SHORT" => ["code" => 400, "message" => "Login musi mieć minimum 5 znaków"],
         "LOGIN_LONG" => ["code" => 400, "message" => "Podany login jest zbyt długi"],

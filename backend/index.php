@@ -21,6 +21,8 @@
     $method = ltrim($req, "/");
     $parts = explode("/", $req);
 
+    http_response_code(404);
+
     switch($parts[1]) {
         case "register":
         case "login":
@@ -106,9 +108,9 @@
                 }
             }
             break;
+    }
 
-        default:
-            http_response_code(404);
-            break;
+    if(http_response_code() === 404) {
+        sendResponse("NOT_FOUND");
     }
 ?>
