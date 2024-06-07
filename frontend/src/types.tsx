@@ -86,3 +86,11 @@ export interface SelectableLabelProps {
     label: Label;
     handleLabel: (clicked: boolean, labelId: string) => void;
 }
+
+export interface MoveTaskToColumnParams {
+    id: string;
+    sourceColumnId: string;
+    destinationColumnId: string;
+    sourceIndex: number;
+    destinationIndex: number;
+}

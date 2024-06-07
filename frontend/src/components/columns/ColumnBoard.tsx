@@ -6,13 +6,15 @@ import { useProject } from "../../contexts/ProjectContext";
 import TaskColumn from "./TaskColumn";
 import DummyColumn from "./DummyColumn";
 import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea/dnd";
-import { getTasks, moveTask } from "../../data/task";
+import { getTasks, moveTask, moveTaskToColumn } from "../../data/task";
 
 function ColumnBoard() {
     const { project } = useProject();
     const [columns, setColumns] = useState<Column[] | null>(null);
     const [reload, setReload] = useState<boolean>(false);
     const [reloadColumnId, setReloadColumnId] = useState<string | null>(null);
+    const [isColumnMoveable, setIsColumnMoveable] = useState<boolean>(true);
+    const [isTaskMoveable, setIsTaskMoveable] = useState<boolean>(true);
 
     const onDragEnd = async (result: DropResult) => {
         const { type, destination, source } = result;
@@ -22,6 +24,12 @@ function ColumnBoard() {
         }
 
         if (type === "column") {
+            if (!isColumnMoveable) {
+                return;
+            }
+
+            setIsColumnMoveable(false);
+
             const newColumns: Column[] = JSON.parse(JSON.stringify(columns));
             const oldColumns: Column[] = JSON.parse(JSON.stringify(columns));
 
@@ -40,7 +48,15 @@ function ColumnBoard() {
             if (movedColumn.code !== 200) {
                 setColumns(oldColumns);
             }
+
+            setIsColumnMoveable(true);
         } else if (type === "task") {
+            if (!isTaskMoveable) {
+                return;
+            }
+
+            setIsTaskMoveable(false);
+
             if (destination.droppableId === source.droppableId) {
                 const column: Column | undefined = columns.find((c) => c.id === destination.droppableId);
 
@@ -66,6 +82,8 @@ function ColumnBoard() {
                 if (movedTask.code !== 200) {
                     updateColumnTasks(destination.droppableId, oldTasks);
                 }
+
+                setIsTaskMoveable(true);
             } else {
                 const sourceColumn: Column | undefined = columns.find((c) => c.id === source.droppableId);
                 const destinationColumn: Column | undefined = columns.find((c) => c.id === destination.droppableId);
@@ -74,7 +92,41 @@ function ColumnBoard() {
                     return;
                 }
 
-                console.log(sourceColumn, destinationColumn);
+                const sourceNewTasks: Task[] = JSON.parse(JSON.stringify(sourceColumn.tasks));
+                const sourceOldTasks: Task[] = JSON.parse(JSON.stringify(sourceColumn.tasks));
+                const destinationNewTasks: Task[] = JSON.parse(JSON.stringify(destinationColumn.tasks));
+                const destinationOldTasks: Task[] = JSON.parse(JSON.stringify(destinationColumn.tasks));
+
+                const element: Task = sourceNewTasks.splice(source.index, 1)[0];
+
+                sourceNewTasks.forEach((task, index) => {
+                    task.position = index;
+                });
+
+                updateColumnTasks(source.droppableId, sourceNewTasks);
+
+                destinationNewTasks.splice(destination.index, 0, element);
+
+                destinationNewTasks.forEach((task, index) => {
+                    task.position = index;
+                });
+
+                updateColumnTasks(destination.droppableId, destinationNewTasks);
+
+                const movedTask = await moveTaskToColumn({
+                    id: element.id,
+                    sourceColumnId: sourceColumn.id,
+                    destinationColumnId: destinationColumn.id,
+                    sourceIndex: source.index,
+                    destinationIndex: destination.index,
+                });
+
+                if (movedTask.code !== 200) {
+                    updateColumnTasks(source.droppableId, sourceOldTasks);
+                    updateColumnTasks(destination.droppableId, destinationOldTasks);
+                }
+
+                setIsTaskMoveable(true);
             }
         }
     };
