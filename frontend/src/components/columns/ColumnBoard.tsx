@@ -1,12 +1,12 @@
 import "./ColumnBoard.css";
 import { useEffect, useState } from "react";
-import { Column } from "../../types";
+import { Column, Task } from "../../types";
 import { getColumns, moveColumn } from "../../data/column";
 import { useProject } from "../../contexts/ProjectContext";
 import TaskColumn from "./TaskColumn";
 import DummyColumn from "./DummyColumn";
 import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea/dnd";
-import { getTasks } from "../../data/task";
+import { getTasks, moveTask } from "../../data/task";
 
 function ColumnBoard() {
     const { project } = useProject();
@@ -42,6 +42,30 @@ function ColumnBoard() {
             }
         } else if (type === "task") {
             if (destination.droppableId === source.droppableId) {
+                const column: Column | undefined = columns.find((c) => c.id === destination.droppableId);
+
+                if (!column) {
+                    return;
+                }
+
+                const newTasks: Task[] = JSON.parse(JSON.stringify(column.tasks));
+                const oldTasks: Task[] = JSON.parse(JSON.stringify(column.tasks));
+
+                const element: Task = newTasks[source.index];
+                newTasks.splice(source.index, 1);
+                newTasks.splice(destination.index, 0, element);
+
+                newTasks.forEach((task, index) => {
+                    task.position = index;
+                });
+
+                updateColumnTasks(destination.droppableId, newTasks);
+
+                const movedTask = await moveTask(element.id, column.id, source.index, destination.index);
+
+                if (movedTask.code !== 200) {
+                    updateColumnTasks(destination.droppableId, oldTasks);
+                }
             }
         }
     };
@@ -54,8 +78,6 @@ function ColumnBoard() {
                 if (columnData && !("message" in columnData)) {
                     setColumns(columnData.columns);
                 }
-
-                console.log(columns);
 
                 setReload(false);
             };
@@ -70,13 +92,7 @@ function ColumnBoard() {
                 const taskData = await getTasks(reloadColumnId);
 
                 if (taskData && !("message" in taskData)) {
-                    setColumns((prevColumns) => {
-                        return (
-                            prevColumns?.map((column) => {
-                                return column.id === reloadColumnId ? { ...column, tasks: taskData.tasks } : column;
-                            }) || null
-                        );
-                    });
+                    updateColumnTasks(reloadColumnId, taskData.tasks);
                 }
 
                 setReloadColumnId(null);
@@ -85,6 +101,16 @@ function ColumnBoard() {
             loadTasks().catch(console.error);
         }
     }, [reloadColumnId]);
+
+    const updateColumnTasks = (columndId: string, tasks: Task[]) => {
+        setColumns((prevColumns) => {
+            return (
+                prevColumns?.map((column) => {
+                    return column.id === columndId ? { ...column, tasks: tasks } : column;
+                }) || null
+            );
+        });
+    };
 
     const updateTasks = (columnId: string) => {
         setReloadColumnId(columnId);

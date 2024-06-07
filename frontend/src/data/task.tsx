@@ -32,3 +32,24 @@ export async function createTask(id: string, title: string, description: string,
 
     return data;
 }
+
+export async function moveTask(id: string, columnId: string, from: number, to: number): Promise<Message> {
+    const sendData = new URLSearchParams();
+    sendData.append("column_id", columnId);
+    sendData.append("from", from.toString());
+    sendData.append("to", to.toString());
+
+    const response = await fetch(import.meta.env.VITE_URL + `task/move/${id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: sendData,
+    });
+
+    const data = await response.json();
+    data.code = response.status;
+
+    return data;
+}
