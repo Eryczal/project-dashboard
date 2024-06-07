@@ -1,5 +1,5 @@
 .dummy-column {
-    background-color: #f6f6f6;
+    background-color: rgba(65, 65, 65, 0.05);
     border: 2px dashed #999;
     color: #999;
     display: flex;

@@ -1,15 +1,18 @@
 .column {
     min-width: 70%;
-    background-color: #fff;
+    background-color: rgba(65, 65, 65, 0.05);
     margin: 5%;
     padding: 16px;
     width: 70%;
+    box-shadow: 0 0 1px 0 #ddd;
+    border-radius: 16px;
 }
 
 .column-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .column-header h2 {

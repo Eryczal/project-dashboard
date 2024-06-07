@@ -12,10 +12,16 @@ function TaskCard({ task }: { task: Task }) {
                 <h3>{task.title}</h3>
                 <p>{task.description}</p>
 
-                {taskLabels &&
-                    taskLabels.map((label) => {
-                        return <div key={label.id}>{label.title}</div>;
-                    })}
+                <div className="label-container">
+                    {taskLabels &&
+                        taskLabels.map((label) => {
+                            return (
+                                <div key={label.id} className="label">
+                                    {label.title}
+                                </div>
+                            );
+                        })}
+                </div>
             </div>
         </div>
     );

@@ -1,7 +1,11 @@
+* {
+    font-family: "Open Sans", sans-serif;
+}
+
 body {
-    background-color: #f3f3f3;
     color: #333;
     margin: 0;
+    background: linear-gradient(135deg, rgba(209, 250, 229, 1) 0%, rgba(255, 228, 230, 1) 50%, rgba(237, 233, 254, 1) 100%);
 }
 
 main {
