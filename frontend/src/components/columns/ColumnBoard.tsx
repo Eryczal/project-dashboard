@@ -6,11 +6,13 @@ import { useProject } from "../../contexts/ProjectContext";
 import TaskColumn from "./TaskColumn";
 import DummyColumn from "./DummyColumn";
 import { DragDropContext, Draggable, DropResult, Droppable } from "@hello-pangea/dnd";
+import { getTasks } from "../../data/task";
 
 function ColumnBoard() {
     const { project } = useProject();
     const [columns, setColumns] = useState<Column[] | null>(null);
     const [reload, setReload] = useState<boolean>(false);
+    const [reloadColumnId, setReloadColumnId] = useState<string | null>(null);
 
     const onDragEnd = async (result: DropResult) => {
         const { type, destination, source } = result;
@@ -39,7 +41,7 @@ function ColumnBoard() {
                 setColumns(oldColumns);
             }
         } else if (type === "task") {
-            if (destination?.droppableId === source?.droppableId) {
+            if (destination.droppableId === source.droppableId) {
             }
         }
     };
@@ -53,12 +55,40 @@ function ColumnBoard() {
                     setColumns(columnData.columns);
                 }
 
+                console.log(columns);
+
                 setReload(false);
             };
 
             loadColumns().catch(console.error);
         }
     }, [project, reload]);
+
+    useEffect(() => {
+        if (reloadColumnId !== null) {
+            const loadTasks = async () => {
+                const taskData = await getTasks(reloadColumnId);
+
+                if (taskData && !("message" in taskData)) {
+                    setColumns((prevColumns) => {
+                        return (
+                            prevColumns?.map((column) => {
+                                return column.id === reloadColumnId ? { ...column, tasks: taskData.tasks } : column;
+                            }) || null
+                        );
+                    });
+                }
+
+                setReloadColumnId(null);
+            };
+
+            loadTasks().catch(console.error);
+        }
+    }, [reloadColumnId]);
+
+    const updateTasks = (columnId: string) => {
+        setReloadColumnId(columnId);
+    };
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
@@ -71,7 +101,7 @@ function ColumnBoard() {
                                     <Draggable draggableId={column.id} index={column.position} key={column.id}>
                                         {(provided) => (
                                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="column">
-                                                <TaskColumn column={column} />
+                                                <TaskColumn column={column} updateTasks={updateTasks} />
                                             </div>
                                         )}
                                     </Draggable>

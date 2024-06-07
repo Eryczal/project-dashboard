@@ -1,32 +1,13 @@
 import "./TaskColumn.css";
-import { Column, Task } from "../../types";
+import { Column } from "../../types";
 import { MdAddCircleOutline, MdMoreVert } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TaskModal from "../tasks/TaskModal";
-import { getTasks } from "../../data/task";
 import TaskCard from "../tasks/TaskCard";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 
-function TaskColumn({ column }: { column: Column }) {
+function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (columnId: string) => void }) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [reload, setReload] = useState<boolean>(true);
-    const [tasks, setTasks] = useState<Task[] | null>(null);
-
-    useEffect(() => {
-        if (column) {
-            const loadTasks = async () => {
-                const taskData = await getTasks(column.id);
-
-                if (taskData && !("message" in taskData)) {
-                    setTasks(taskData.tasks);
-                }
-
-                setReload(false);
-            };
-
-            loadTasks().catch(console.error);
-        }
-    }, [reload]);
 
     const openModal = (): void => {
         setIsOpen(true);
@@ -36,7 +17,7 @@ function TaskColumn({ column }: { column: Column }) {
         setIsOpen(false);
 
         if (success) {
-            setReload(true);
+            updateTasks(column.id);
         }
     };
 
@@ -52,8 +33,8 @@ function TaskColumn({ column }: { column: Column }) {
             <Droppable droppableId={column.id} type="task">
                 {(provided) => (
                     <div ref={provided.innerRef} {...provided.droppableProps} style={{ height: "100%" }}>
-                        {tasks &&
-                            tasks.map((task) => {
+                        {column.tasks &&
+                            column.tasks.map((task) => {
                                 return (
                                     <Draggable draggableId={task.id} index={task.position} key={task.id}>
                                         {(provided) => (
@@ -68,7 +49,7 @@ function TaskColumn({ column }: { column: Column }) {
                     </div>
                 )}
             </Droppable>
-            {isOpen && <TaskModal onClose={closeModal} column={column} pos={tasks === null ? 0 : tasks.length} />}
+            {isOpen && <TaskModal onClose={closeModal} column={column} pos={column.tasks === undefined || column.tasks === null ? 0 : column.tasks.length} />}
         </>
     );
 }
