@@ -28,6 +28,10 @@ function ColumnBoard() {
                 return;
             }
 
+            if (source.index === destination.index) {
+                return;
+            }
+
             setIsColumnMoveable(false);
 
             const newColumns: Column[] = JSON.parse(JSON.stringify(columns));
@@ -61,6 +65,11 @@ function ColumnBoard() {
                 const column: Column | undefined = columns.find((c) => c.id === destination.droppableId);
 
                 if (!column) {
+                    return;
+                }
+
+                if (source.index === destination.index) {
+                    setIsTaskMoveable(true);
                     return;
                 }
 
