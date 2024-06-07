@@ -66,6 +66,15 @@ function ColumnBoard() {
                 if (movedTask.code !== 200) {
                     updateColumnTasks(destination.droppableId, oldTasks);
                 }
+            } else {
+                const sourceColumn: Column | undefined = columns.find((c) => c.id === source.droppableId);
+                const destinationColumn: Column | undefined = columns.find((c) => c.id === destination.droppableId);
+
+                if (!sourceColumn || !destinationColumn) {
+                    return;
+                }
+
+                console.log(sourceColumn, destinationColumn);
             }
         }
     };

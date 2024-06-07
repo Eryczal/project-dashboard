@@ -29,6 +29,7 @@
         "LABEL_ERROR" => ["code" => 500, "message" => "Etykieta nie została utworzona"],
         "LABEL_CREATED" => ["code" => 201, "message" => "Etykieta została utworzona"],
         "COLUMN_MOVED" => ["code" => 200, "message" => "Kolumna została przeniesiona"],
+        "TASK_MOVED" => ["code" => 200, "message" => "Zadanie zostało przeniesione"],
     ];
 
     function sendResponse($response) {

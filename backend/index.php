@@ -91,6 +91,10 @@
                 if(isset($parts[3])) {
                     $taskController->addTask($parts[3]);
                 }
+            } else if($parts[2] === "move") {
+                if(isset($parts[3])) {
+                    $taskController->moveTask($parts[3]);
+                }
             }
             break;
 
