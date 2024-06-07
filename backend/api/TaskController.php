@@ -207,5 +207,62 @@
                 return;
             }
         }
+
+        public function moveToColumn($id) {
+            global $mysqli;
+
+            if(!isset($_SESSION["user_id"])) {
+                sendResponse("USER_NOT_LOGGED");
+                return;
+            }
+
+            if(!isset($_POST["source_id"]) || !isset($_POST["destination_id"]) || !isset($_POST["source_index"]) || !isset($_POST["destination_index"])) {
+                sendResponse("INVALID_DATA");
+                return;
+            }
+
+            $source_id = $_POST["source_id"];
+            $destination_id = $_POST["destination_id"];
+            $source_index = (int) $_POST["source_index"];
+            $destination_index = (int) $_POST["destination_index"];
+
+            $mysqli->autocommit(false);
+
+            try {
+                $sourceQuery = "UPDATE tasks SET position = position - 1 WHERE column_id = UNHEX(?) AND position > ?";
+                $destinationQuery = "UPDATE tasks SET position = position + 1 WHERE column_id = UNHEX(?) AND position >= ?";
+
+                $stmt = $mysqli->prepare($sourceQuery);
+                $stmt->bind_param("si", $source_id, $source_index);
+                
+                if(!$stmt->execute()) {
+                    throw new Exception("Error updating positions");
+                }
+
+                $stmt = $mysqli->prepare($destinationQuery);
+                $stmt->bind_param("si", $destination_id, $destination_index);
+                
+                if(!$stmt->execute()) {
+                    throw new Exception("Error updating positions");
+                }
+
+                $query = "UPDATE tasks SET position = ?, column_id = UNHEX(?) WHERE id = UNHEX(?)";
+                $stmt = $mysqli->prepare($query);
+                $stmt->bind_param("iss", $destination_index, $destination_id, $id);
+
+                if(!$stmt->execute()) {
+                    throw new Exception("Error updating position");
+                }
+
+                $mysqli->commit();
+                sendResponse("TASK_MOVED");
+                $stmt->close();
+                return;
+            } catch (Exception $e) {
+                $mysqli->rollback();
+                sendResponse("DB_ERROR");
+                return;
+            }
+        }
     }
 ?>

@@ -95,6 +95,10 @@
                 if(isset($parts[3])) {
                     $taskController->moveTask($parts[3]);
                 }
+            } else if($parts[2] === "movetocolumn") {
+                if(isset($parts[3])) {
+                    $taskController->moveToColumn($parts[3]);
+                }
             }
             break;
 
