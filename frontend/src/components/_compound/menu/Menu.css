@@ -1,0 +1,27 @@
+.menu {
+    position: absolute;
+    background-color: transparent;
+    backdrop-filter: blur(8px);
+    border: 1px solid #999;
+    right: 0;
+    padding: 16px;
+    width: 60%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border-radius: 12px;
+}
+
+.menu-item {
+    cursor: pointer;
+    padding: 6px 4px;
+    border-bottom: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.menu-item:last-of-type {
+    border-bottom: none;
+}
+
+.menu-item:hover {
+    background-color: #f3f3f3;
+}

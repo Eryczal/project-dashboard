@@ -2,11 +2,7 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type AuthPageType = "login" | "register";
 
-export interface ModalProps {
-    onClose: (success: boolean) => void;
-    children?: ReactNode;
-    className?: string;
-}
+export type TaskColumnModal = "task" | "edit" | "delete" | "none";
 
 export interface User {
     id: string;
@@ -76,6 +72,17 @@ export interface ProjectContextProps {
     project?: Project;
     setProject: Dispatch<SetStateAction<Project | undefined>>;
     labels: Label[];
+}
+
+export interface ModalProps {
+    onClose: (success: boolean) => void;
+    children?: ReactNode;
+    className?: string;
+}
+
+export interface MenuItemProps {
+    children: ReactNode;
+    action?: any;
 }
 
 export interface LabelSelectionProps {

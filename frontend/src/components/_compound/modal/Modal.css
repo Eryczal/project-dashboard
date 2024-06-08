@@ -2,17 +2,19 @@
     border: 0;
     padding: 0;
     border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(16px);
 }
 
 .modal {
     padding: 20px;
-    background: linear-gradient(180deg, rgba(255, 237, 213, 1) 0%, rgba(220, 252, 231, 1) 50%, rgba(224, 242, 254, 1) 100%);
+    background-color: transparent;
 }
 
 .modal input,
 .modal textarea {
     background-color: rgba(0, 0, 0, 0.05);
-    border: 2px solid #ccc;
+    border: 2px solid #ddd;
     padding: 6px;
     border-radius: 12px;
 }
@@ -22,11 +24,10 @@
     background-color: transparent;
     outline: none;
     border: 2px solid #fff;
-    box-shadow: 0 0 0 2px #ccc;
 }
 
 .modal-container::backdrop {
-    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
 }
 
 .modal h1 {
