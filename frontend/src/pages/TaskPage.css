@@ -1,10 +1,10 @@
-.task-container,
+.task-page-container,
 .task-page {
     width: 100%;
 }
 
 @media screen and (min-width: 1024px) {
-    .task-container {
+    .task-page-container {
         display: flex;
         gap: 2em;
     }

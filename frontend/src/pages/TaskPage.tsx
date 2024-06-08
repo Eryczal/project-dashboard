@@ -12,7 +12,7 @@ function TaskPage() {
     }
 
     return (
-        <div className="task-container">
+        <div className="task-page-container">
             <ProjectAside />
             <div className="task-page">
                 <ProjectHeader />

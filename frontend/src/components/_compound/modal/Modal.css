@@ -1,11 +1,28 @@
 .modal-container {
     border: 0;
     padding: 0;
+    border-radius: 24px;
 }
 
 .modal {
     padding: 20px;
-    background-color: #fafafa;
+    background: linear-gradient(180deg, rgba(255, 237, 213, 1) 0%, rgba(220, 252, 231, 1) 50%, rgba(224, 242, 254, 1) 100%);
+}
+
+.modal input,
+.modal textarea {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 2px solid #ccc;
+    padding: 6px;
+    border-radius: 12px;
+}
+
+.modal input:focus-within,
+.modal textarea:focus-within {
+    background-color: transparent;
+    outline: none;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #ccc;
 }
 
 .modal-container::backdrop {
@@ -19,5 +36,9 @@
 @media screen and (min-width: 1024px) {
     .modal {
         padding: 60px;
+    }
+
+    .modal-container {
+        min-width: 30%;
     }
 }

@@ -6,7 +6,7 @@ function LabelSelection({ handleLabel }: LabelSelectionProps) {
     const { labels } = useProject();
 
     return (
-        <div>
+        <div className="modal-labels">
             {labels &&
                 labels.map((label) => {
                     return <SelectableLabel label={label} handleLabel={handleLabel} key={label.id} />;

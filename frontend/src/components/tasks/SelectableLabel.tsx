@@ -10,9 +10,10 @@ function SelectableLabel({ label, handleLabel }: SelectableLabelProps) {
     };
 
     return (
-        <div onClick={handleClick}>
-            <p>Nazwa: {label.title}</p>
-            <p>Kliknięty: {clicked.toString()}</p>
+        <div onClick={handleClick} className={`modal-label${clicked ? " modal-label-selected" : ""}`}>
+            <div className="label-text-container">
+                <div className="label-text">{label.title}</div>
+            </div>
         </div>
     );
 }

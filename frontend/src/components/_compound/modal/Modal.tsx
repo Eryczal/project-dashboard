@@ -41,7 +41,7 @@ export default function Modal({ onClose, children, className }: ModalProps) {
     }
 
     return ReactDOM.createPortal(
-        <dialog className={`modal-container ${className}`} ref={ref} onCancel={handleClose}>
+        <dialog className={`modal-container ${className || ""}`} ref={ref} onCancel={handleClose}>
             <div className="modal">{children}</div>
         </dialog>,
         modalElement

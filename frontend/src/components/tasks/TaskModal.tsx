@@ -1,3 +1,4 @@
+import "./TaskModal.css";
 import { ChangeEvent, useState } from "react";
 import { Column, ModalProps } from "../../types";
 import Modal from "../_compound/modal/Modal";
@@ -46,7 +47,7 @@ function TaskModal({ onClose, column, pos }: ModalProps & { column: Column; pos:
     }
 
     return (
-        <Modal onClose={closeModal}>
+        <Modal onClose={closeModal} className="task-modal">
             <Modal.Title>
                 <h1>Dodaj zadanie</h1>
                 <p>Kolumna {column.title}</p>

@@ -1,0 +1,24 @@
+.modal-labels {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.modal-label {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.modal-label-selected .label-text-container {
+    background: linear-gradient(135deg, rgba(254, 202, 202, 1) 0%, rgba(253, 230, 138, 1) 50%, rgba(153, 246, 228, 1) 100%);
+}
+
+.modal-label .label-text-container {
+    padding: 3px;
+    border-radius: 6px;
+}
+
+.modal-label .label-text {
+    background-color: #feeae5;
+    padding: 8px;
+    border-radius: 6px;
+}
