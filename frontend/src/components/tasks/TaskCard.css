@@ -9,7 +9,23 @@
     margin: 5px 0;
     width: 100%;
     box-shadow: 0 0 1px 0 #ccc;
+    backdrop-filter: blur(4px);
     border-radius: 16px;
+}
+
+.task-dragging {
+    border-radius: 16px;
+    padding: 0 5px;
+}
+
+.task-dragging-active {
+    outline: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.column-dragging-over-active .task {
+    background-color: transparent;
+    outline: 1px solid #ccc;
 }
 
 .task h3 {

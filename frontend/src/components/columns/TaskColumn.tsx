@@ -12,6 +12,7 @@ function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (col
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const openModal = (type: TaskColumnModal): void => {
+        setIsMenuOpen(false);
         setIsOpen(type);
     };
 
@@ -30,6 +31,7 @@ function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (col
     return (
         <>
             <header className="column-header">
+                <div></div>
                 <h2>{column.title}</h2>
                 <div className="column-buttons">
                     <MdAddCircleOutline onClick={() => openModal("task")} />
@@ -47,15 +49,21 @@ function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (col
                 </div>
             </header>
             <Droppable droppableId={column.id} type="task">
-                {(provided) => (
-                    <div ref={provided.innerRef} {...provided.droppableProps} style={{ height: "100%" }}>
+                {(provided, snapshot) => (
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        className={`column-dragging-over${snapshot.isDraggingOver ? " column-dragging-over-active" : ""}`}
+                    >
                         {column.tasks &&
                             column.tasks.map((task) => {
                                 return (
                                     <Draggable draggableId={task.id} index={task.position} key={task.id}>
-                                        {(provided) => (
+                                        {(provided, snapshot) => (
                                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <TaskCard task={task} />
+                                                <div className={`task-dragging${snapshot.isDragging ? " task-dragging-active" : ""}`}>
+                                                    <TaskCard task={task} />
+                                                </div>
                                             </div>
                                         )}
                                     </Draggable>
@@ -68,6 +76,7 @@ function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (col
             {isOpen === "task" && (
                 <TaskModal onClose={closeModal} column={column} pos={column.tasks === undefined || column.tasks === null ? 0 : column.tasks.length} />
             )}
+            {isOpen === "edit" && <TaskModal onClose={closeModal} column={column} pos={0} />}
         </>
     );
 }

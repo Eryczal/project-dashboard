@@ -195,8 +195,13 @@ function ColumnBoard() {
                             columns.map((column) => {
                                 return (
                                     <Draggable draggableId={column.id} index={column.position} key={column.id}>
-                                        {(provided) => (
-                                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} className="column">
+                                        {(provided, snapshot) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                className={`column${snapshot.isDragging ? " column-dragging" : ""}`}
+                                            >
                                                 <TaskColumn column={column} updateTasks={updateTasks} />
                                             </div>
                                         )}

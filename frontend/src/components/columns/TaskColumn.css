@@ -8,6 +8,21 @@
     border-radius: 16px;
 }
 
+.column-dragging {
+    backdrop-filter: blur(4px);
+}
+
+.column-dragging-over {
+    border-radius: 12px;
+    padding: 4px;
+    margin: 4px;
+    min-height: 50%;
+}
+
+.column-dragging-over-active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 .column-header {
     display: flex;
     justify-content: space-between;
@@ -15,8 +30,17 @@
     position: relative;
 }
 
+.column-header > * {
+    flex: 1;
+}
+
 .column-header h2 {
     margin: 0;
+    background: linear-gradient(90deg, rgba(136, 19, 55, 1) 0%, rgba(120, 53, 15, 1) 50%, rgba(112, 26, 117, 1) 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    flex: 4;
+    text-align: center;
 }
 
 .column-buttons svg {
