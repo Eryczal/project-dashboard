@@ -35,7 +35,10 @@ function TaskColumn({ column, updateTasks, updateColumns }: { column: Column; up
         <>
             <header className="column-header">
                 <div></div>
-                <h2>{column.title}</h2>
+                <div className="column-title">
+                    <h2>{column.title}</h2>
+                    <p>{column.description}</p>
+                </div>
                 <div className="column-buttons">
                     <MdAddCircleOutline onClick={() => openModal("task")} />
                     <MdMoreVert onClick={toggleMenu} />

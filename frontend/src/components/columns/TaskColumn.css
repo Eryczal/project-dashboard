@@ -34,13 +34,17 @@
     flex: 1;
 }
 
-.column-header h2 {
-    margin: 0;
+.column-header .column-title {
     background: linear-gradient(90deg, rgba(136, 19, 55, 1) 0%, rgba(120, 53, 15, 1) 50%, rgba(112, 26, 117, 1) 100%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     flex: 4;
     text-align: center;
+}
+
+.column-title h2,
+.column-title p {
+    margin: 0;
 }
 
 .column-buttons svg {
