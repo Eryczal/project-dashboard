@@ -23,6 +23,7 @@
         "COLUMN_ERROR" => ["code" => 500, "message" => "Kolumna nie została utworzona"],
         "COLUMN_CREATED" => ["code" => 201, "message" => "Kolumna została utworzona"],
         "COLUMN_MOVED" => ["code" => 200, "message" => "Kolumna została przeniesiona"],
+        "COLUMN_UPDATED" => ["code" => 200, "message" => "Kolumna została zaktualizowana"],
         "COLUMN_DELETED" => ["code" => 200, "message" => "Kolumna została usunięta"],
         "NO_TASKS" => ["code" => 204],
         "TASK_ERROR" => ["code" => 500, "message" => "Zadanie nie zostało utworzone"],

@@ -207,6 +207,56 @@
             }
         }
 
+        public function updateColumn($id) {
+            global $mysqli;
+
+            if(!isset($_SESSION["user_id"])) {
+                sendResponse("USER_NOT_LOGGED");
+                return;
+            }
+
+            // if(!checkAccess($_SESSION["user_id"], $project_id)) {
+            //     sendResponse("PROJECT_ACCESS");
+            //     return;
+            // }
+
+            $updates = [];
+            $params = [];
+            $types = "";
+
+            if(isset($_POST["title"])) {
+                $updates[] = "title = ?";
+                $params[] = $_POST["title"];
+                $types .= "s";
+            }
+
+            if(isset($_POST["description"])) {
+                $updates[] = "description = ?";
+                $params[] = $_POST["description"];
+                $types .= "s";
+            }
+
+            if(empty($updates)){
+                sendResponse("INVALID_DATA");
+                return;
+            }
+
+            $params[] = $id;
+            $types .= "s";
+
+            $query = "UPDATE columns SET " . implode(', ', $updates) . " WHERE id = UNHEX(?)";
+            $stmt = $mysqli->prepare($query);
+            $stmt->bind_param($types, ...$params);
+
+            if ($stmt->execute()) {
+                sendResponse("COLUMN_UPDATED");
+            } else {
+                sendResponse("DB_ERROR");
+            }
+
+            $stmt->close();
+        }
+
         public function deleteColumn($id) {
             global $mysqli;
 

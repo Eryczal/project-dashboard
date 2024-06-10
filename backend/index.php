@@ -73,6 +73,8 @@
                     $columnController->addColumn($parts[3]);
                 } else if($parts[2] === "move") {
                     $columnController->moveColumn($parts[3]);
+                } else if($parts[2] === "update") {
+                    $columnController->updateColumn($parts[3]);
                 } else if($parts[2] === "delete") {
                     $columnController->deleteColumn($parts[3]);
                 }
