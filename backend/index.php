@@ -68,13 +68,13 @@
         case "column":
             $columnController = new ColumnController();
 
-            if($parts[2] === "add") {
-                if(isset($parts[3])) {
+            if(isset($parts[3])) {
+                if($parts[2] === "add") {
                     $columnController->addColumn($parts[3]);
-                }
-            } else if($parts[2] === "move") {
-                if(isset($parts[3])) {
+                } else if($parts[2] === "move") {
                     $columnController->moveColumn($parts[3]);
+                } else if($parts[2] === "delete") {
+                    $columnController->deleteColumn($parts[3]);
                 }
             }
             break;
@@ -87,16 +87,12 @@
         case "task":
             $taskController = new TaskController();
 
-            if($parts[2] === "add") {
-                if(isset($parts[3])) {
+            if(isset($parts[3])) {
+                if($parts[2] === "add") {
                     $taskController->addTask($parts[3]);
-                }
-            } else if($parts[2] === "move") {
-                if(isset($parts[3])) {
+                } else if($parts[2] === "move") {
                     $taskController->moveTask($parts[3]);
-                }
-            } else if($parts[2] === "movetocolumn") {
-                if(isset($parts[3])) {
+                } else if($parts[2] === "movetocolumn") {
                     $taskController->moveToColumn($parts[3]);
                 }
             }

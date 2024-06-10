@@ -206,5 +206,64 @@
                 return;
             }
         }
+
+        public function deleteColumn($id) {
+            global $mysqli;
+
+            if(!isset($_SESSION["user_id"])) {
+                sendResponse("USER_NOT_LOGGED");
+                return;
+            }
+
+            // if(!checkAccess($_SESSION["user_id"], $project_id)) {
+            //     sendResponse("PROJECT_ACCESS");
+            //     return;
+            // }
+
+            $mysqli->autocommit(false);
+
+            try {
+                $deleteTasksLabels = $mysqli->prepare("
+                    DELETE tl FROM tasks_labels tl
+                    JOIN tasks t ON tl.task_id = t.id
+                    WHERE t.column_id = UNHEX(?)
+                ");
+                $deleteTasksLabels->bind_param("s", $id);
+
+                if (!$deleteTasksLabels->execute()) {
+                    throw new Exception("Error deleting tasks-labels");
+                }
+
+                $deleteTasks = $mysqli->prepare("
+                    DELETE FROM tasks
+                    WHERE column_id = UNHEX(?)
+                ");
+                $deleteTasks->bind_param("s", $id);
+
+                if (!$deleteTasks->execute()) {
+                    throw new Exception("Error deleting tasks");
+                }
+
+                $deleteColumn = $mysqli->prepare("
+                    DELETE FROM columns
+                    WHERE id = UNHEX(?)
+                ");
+                $deleteColumn->bind_param("s", $id);
+
+                if (!$deleteColumn->execute()) {
+                    throw new Exception("Error deleting column");
+                }
+
+                $mysqli->commit();
+                sendResponse("COLUMN_DELETED");
+            } catch (Exception $e) {
+                $mysqli->rollback();
+                sendResponse("DB_ERROR");
+            } finally {
+                if (isset($deleteTasksLabels)) $deleteTasksLabels->close();
+                if (isset($deleteTasks)) $deleteTasks->close();
+                if (isset($deleteColumn)) $deleteColumn->close();
+            }
+        }
     }
 ?>
