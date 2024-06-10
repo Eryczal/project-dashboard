@@ -1,4 +1,4 @@
-import { Columns, Message } from "../types";
+import { Columns, EditColumnData, Message } from "../types";
 
 export async function getColumns(id: string): Promise<Columns | Message | null> {
     const response = await fetch(import.meta.env.VITE_URL + `columns/${id}`, {
@@ -38,6 +38,30 @@ export async function moveColumn(id: string, projectId: string, from: number, to
     sendData.append("to", to.toString());
 
     const response = await fetch(import.meta.env.VITE_URL + `column/move/${id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: sendData,
+    });
+
+    const data = await response.json();
+    data.code = response.status;
+
+    return data;
+}
+
+export async function updateColumn(id: string, columnData: EditColumnData): Promise<Message> {
+    const sendData = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(columnData)) {
+        if (value !== false) {
+            sendData.append(key, value);
+        }
+    }
+
+    const response = await fetch(import.meta.env.VITE_URL + `column/update/${id}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",

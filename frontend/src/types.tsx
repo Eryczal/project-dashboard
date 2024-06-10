@@ -107,3 +107,8 @@ export interface MoveTaskToColumnParams {
     sourceIndex: number;
     destinationIndex: number;
 }
+
+export interface EditColumnData {
+    title: false | string;
+    description: false | string;
+}

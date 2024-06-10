@@ -7,6 +7,7 @@ import TaskCard from "../tasks/TaskCard";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import Menu from "../_compound/menu/Menu";
 import RemoveColumnModal from "./RemoveColumnModal";
+import EditColumnModal from "./EditColumnModal";
 
 function TaskColumn({ column, updateTasks, updateColumns }: { column: Column; updateTasks: (columnId: string) => void; updateColumns: () => void }) {
     const [isOpen, setIsOpen] = useState<TaskColumnModal>("none");
@@ -82,7 +83,7 @@ function TaskColumn({ column, updateTasks, updateColumns }: { column: Column; up
             {isOpen === "task" && (
                 <TaskModal onClose={closeModal} column={column} pos={column.tasks === undefined || column.tasks === null ? 0 : column.tasks.length} />
             )}
-            {/* {isOpen === "edit" && <ColumnModal onClose={closeModal} column={column} pos={0} />} */}
+            {isOpen === "edit" && <EditColumnModal onClose={closeModal} column={column} />}
             {isOpen === "delete" && <RemoveColumnModal onClose={closeModal} column={column} />}
         </>
     );
