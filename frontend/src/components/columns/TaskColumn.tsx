@@ -6,8 +6,9 @@ import TaskModal from "../tasks/TaskModal";
 import TaskCard from "../tasks/TaskCard";
 import { Draggable, Droppable } from "@hello-pangea/dnd";
 import Menu from "../_compound/menu/Menu";
+import RemoveColumnModal from "./RemoveColumnModal";
 
-function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (columnId: string) => void }) {
+function TaskColumn({ column, updateTasks, updateColumns }: { column: Column; updateTasks: (columnId: string) => void; updateColumns: () => void }) {
     const [isOpen, setIsOpen] = useState<TaskColumnModal>("none");
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -16,11 +17,13 @@ function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (col
         setIsOpen(type);
     };
 
-    const closeModal = (success: boolean = false): void => {
+    const closeModal = (success: TaskColumnModal = "none"): void => {
         setIsOpen("none");
 
-        if (success) {
+        if (success === "task") {
             updateTasks(column.id);
+        } else {
+            updateColumns();
         }
     };
 
@@ -41,8 +44,8 @@ function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (col
                             <Menu.item action={() => openModal("edit")}>
                                 <div>Edytuj kolumnę</div>
                             </Menu.item>
-                            <Menu.item>
-                                <div>Usuń kolumnę</div>
+                            <Menu.item action={() => openModal("delete")}>
+                                <div className={"color-danger"}>Usuń kolumnę</div>
                             </Menu.item>
                         </Menu>
                     )}
@@ -76,7 +79,8 @@ function TaskColumn({ column, updateTasks }: { column: Column; updateTasks: (col
             {isOpen === "task" && (
                 <TaskModal onClose={closeModal} column={column} pos={column.tasks === undefined || column.tasks === null ? 0 : column.tasks.length} />
             )}
-            {isOpen === "edit" && <TaskModal onClose={closeModal} column={column} pos={0} />}
+            {/* {isOpen === "edit" && <ColumnModal onClose={closeModal} column={column} pos={0} />} */}
+            {isOpen === "delete" && <RemoveColumnModal onClose={closeModal} column={column} />}
         </>
     );
 }

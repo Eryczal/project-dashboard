@@ -11,7 +11,7 @@ import { getTasks, moveTask, moveTaskToColumn } from "../../data/task";
 function ColumnBoard() {
     const { project } = useProject();
     const [columns, setColumns] = useState<Column[] | null>(null);
-    const [reload, setReload] = useState<boolean>(false);
+    const [reload, setReload] = useState<boolean>(true);
     const [reloadColumnId, setReloadColumnId] = useState<string | null>(null);
     const [isColumnMoveable, setIsColumnMoveable] = useState<boolean>(true);
     const [isTaskMoveable, setIsTaskMoveable] = useState<boolean>(true);
@@ -141,7 +141,7 @@ function ColumnBoard() {
     };
 
     useEffect(() => {
-        if (project) {
+        if (project && reload) {
             const loadColumns = async () => {
                 const columnData = await getColumns(project.id);
 
@@ -182,6 +182,10 @@ function ColumnBoard() {
         });
     };
 
+    const updateColumns = () => {
+        setReload(true);
+    };
+
     const updateTasks = (columnId: string) => {
         setReloadColumnId(columnId);
     };
@@ -202,7 +206,7 @@ function ColumnBoard() {
                                                 {...provided.dragHandleProps}
                                                 className={`column${snapshot.isDragging ? " column-dragging" : ""}`}
                                             >
-                                                <TaskColumn column={column} updateTasks={updateTasks} />
+                                                <TaskColumn column={column} updateTasks={updateTasks} updateColumns={updateColumns} />
                                             </div>
                                         )}
                                     </Draggable>

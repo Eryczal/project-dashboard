@@ -75,9 +75,15 @@ export interface ProjectContextProps {
 }
 
 export interface ModalProps {
-    onClose: (success: boolean) => void;
+    onClose: (success: any) => void;
     children?: ReactNode;
     className?: string;
+}
+
+export interface TaskModalProps extends ModalProps {
+    onClose: (success: TaskColumnModal) => void;
+    column?: Column;
+    pos?: number;
 }
 
 export interface MenuItemProps {

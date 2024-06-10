@@ -1,20 +1,20 @@
 import "./TaskModal.css";
 import { ChangeEvent, useState } from "react";
-import { Column, ModalProps } from "../../types";
+import { TaskColumnModal, TaskModalProps } from "../../types";
 import Modal from "../_compound/modal/Modal";
 import LabelSelection from "./LabelSelection";
 import { createTask } from "../../data/task";
 
-function TaskModal({ onClose, column, pos }: ModalProps & { column: Column; pos: number }) {
+function TaskModal({ onClose, column, pos }: TaskModalProps) {
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [labels, setLabels] = useState<string[]>([]);
 
-    if (!column) {
+    if (!column || pos === undefined) {
         return <></>;
     }
 
-    const closeModal = (success: boolean = false): void => {
+    const closeModal = (success: TaskColumnModal = "none"): void => {
         onClose(success);
     };
 
@@ -22,7 +22,7 @@ function TaskModal({ onClose, column, pos }: ModalProps & { column: Column; pos:
         let created = await createTask(column.id, title, description, labels, pos);
 
         if (created.code === 201) {
-            closeModal(true);
+            closeModal("task");
         }
     };
 

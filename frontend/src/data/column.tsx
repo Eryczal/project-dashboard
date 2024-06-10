@@ -51,3 +51,14 @@ export async function moveColumn(id: string, projectId: string, from: number, to
 
     return data;
 }
+
+export async function deleteColumn(id: string): Promise<Message> {
+    const response = await fetch(import.meta.env.VITE_URL + `column/delete/${id}`, {
+        credentials: "include",
+    });
+
+    const data = await response.json();
+    data.code = response.status;
+
+    return data;
+}
