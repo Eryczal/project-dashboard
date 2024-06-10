@@ -9,6 +9,19 @@
         $result = $check->get_result();
         $user_project = $result->fetch_assoc();
 
-        return (bool)$user_project;
+        $hasAccess = (bool)$user_project;
+
+        if($hasAccess === false) {
+            $check = $mysqli->prepare("SELECT HEX(id) AS id, date, title, description, publicity FROM projects WHERE id = UNHEX(?)");
+            $check->bind_param("s", $project_id);
+            $check->execute();
+
+            $result = $check->get_result();
+            $user_project = $result->fetch_assoc();
+
+            $hasAccess = $user_project["publicity"] === 2;
+        } 
+
+        return $hasAccess;
     }
 ?>

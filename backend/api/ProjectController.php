@@ -103,7 +103,6 @@
                 return;
             }
 
-
             if(!checkAccess($_SESSION["user_id"], $id)) {
                 sendResponse("PROJECT_ACCESS");
                 return;
