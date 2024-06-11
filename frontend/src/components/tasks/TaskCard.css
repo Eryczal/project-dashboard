@@ -13,6 +13,19 @@
     border-radius: 16px;
 }
 
+.task-menu-open {
+    position: relative;
+    z-index: 3;
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 10px;
+}
+
 .task-dragging {
     border-radius: 16px;
     padding: 0 5px;
@@ -29,7 +42,7 @@
 }
 
 .task h3 {
-    margin-top: 0;
+    margin: 0;
 }
 
 .label-container {
