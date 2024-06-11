@@ -4,6 +4,7 @@
     backdrop-filter: blur(8px);
     border: 1px solid #999;
     right: 0;
+    top: 100%;
     padding: 16px;
     width: 60%;
     box-sizing: border-box;
