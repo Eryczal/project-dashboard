@@ -84,6 +84,7 @@ export interface TaskModalProps extends ModalProps {
     onClose: (success: TaskColumnModal) => void;
     column?: Column;
     pos?: number;
+    task?: Task;
 }
 
 export interface MenuItemProps {

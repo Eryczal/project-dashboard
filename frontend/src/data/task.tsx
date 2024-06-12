@@ -75,3 +75,14 @@ export async function moveTaskToColumn({ id, sourceColumnId, destinationColumnId
 
     return data;
 }
+
+export async function deleteTask(id: string): Promise<Message> {
+    const response = await fetch(import.meta.env.VITE_URL + `task/delete/${id}`, {
+        credentials: "include",
+    });
+
+    const data = await response.json();
+    data.code = response.status;
+
+    return data;
+}
