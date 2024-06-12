@@ -96,6 +96,8 @@
                     $taskController->moveTask($parts[3]);
                 } else if($parts[2] === "movetocolumn") {
                     $taskController->moveToColumn($parts[3]);
+                } else if($parts[2] === "delete") {
+                    $taskController->deleteTask($parts[3]);
                 }
             }
             break;

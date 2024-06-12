@@ -264,5 +264,52 @@
                 return;
             }
         }
+
+        public function deleteTask($id) {
+            global $mysqli;
+
+            if(!isset($_SESSION["user_id"])) {
+                sendResponse("USER_NOT_LOGGED");
+                return;
+            }
+
+            // if(!checkAccess($_SESSION["user_id"], $project_id)) {
+            //     sendResponse("PROJECT_ACCESS");
+            //     return;
+            // }
+
+            $mysqli->autocommit(false);
+
+            try {
+                $deleteTasksLabels = $mysqli->prepare("
+                    DELETE FROM tasks_labels
+                    WHERE task_id = UNHEX(?)
+                ");
+                $deleteTasksLabels->bind_param("s", $id);
+
+                if (!$deleteTasksLabels->execute()) {
+                    throw new Exception("Error deleting tasks-labels");
+                }
+
+                $deleteTask = $mysqli->prepare("
+                    DELETE FROM tasks
+                    WHERE id = UNHEX(?)
+                ");
+                $deleteTask->bind_param("s", $id);
+
+                if (!$deleteTask->execute()) {
+                    throw new Exception("Error deleting task");
+                }
+
+                $mysqli->commit();
+                sendResponse("TASK_DELETED");
+            } catch (Exception $e) {
+                $mysqli->rollback();
+                sendResponse("DB_ERROR");
+            } finally {
+                if (isset($deleteTasksLabels)) $deleteTasksLabels->close();
+                if (isset($deleteTask)) $deleteTask->close();
+            }
+        }
     }
 ?>
