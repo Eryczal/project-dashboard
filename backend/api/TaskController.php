@@ -265,6 +265,104 @@
             }
         }
 
+        public function updateTask($id) {
+            global $mysqli;
+
+            if(!isset($_SESSION["user_id"])) {
+                sendResponse("USER_NOT_LOGGED");
+                return;
+            }
+
+            // if(!checkAccess($_SESSION["user_id"], $project_id)) {
+            //     sendResponse("PROJECT_ACCESS");
+            //     return;
+            // }
+
+            $mysqli->autocommit(false);
+
+            try {
+                $updates = [];
+                $params = [];
+                $types = "";
+    
+                if(isset($_POST["title"])) {
+                    $updates[] = "title = ?";
+                    $params[] = $_POST["title"];
+                    $types .= "s";
+                }
+    
+                if(isset($_POST["description"])) {
+                    $updates[] = "description = ?";
+                    $params[] = $_POST["description"];
+                    $types .= "s";
+                }
+    
+                if(!empty($updates)) {
+                    $params[] = $id;
+                    $types .= "s";
+        
+                    $query = "UPDATE tasks SET " . implode(', ', $updates) . " WHERE id = UNHEX(?)";
+                    $editTask = $mysqli->prepare($query);
+                    $editTask->bind_param($types, ...$params);
+        
+                    if (!$editTask->execute()) {
+                        throw new Exception("Error updating task");
+                    }
+                }
+
+                if(isset($_POST["labelsRemove"])) {
+                    $labelsToRemove = json_decode($_POST["labelsRemove"], true);
+
+                    if(json_last_error() !== JSON_ERROR_NONE) {
+                        throw new Exception("JSON error");
+                    }
+
+                    if(!empty($labelsToRemove)) {
+                        $deleteLabels = $mysqli->prepare("DELETE FROM tasks_labels WHERE task_id = UNHEX(?) AND label_id = UNHEX(?)");
+
+                        foreach($labelsToRemove as $label_id) {
+                            $deleteLabels->bind_param("ss", $id, $label_id);
+                            
+                            if(!$deleteLabels->execute()) {
+                                throw new Exception("Error deleting labels");
+                            }
+                        }
+                    }
+                }
+
+
+                if(isset($_POST["labelsAdd"])) {
+                    $labelsToAdd = json_decode($_POST["labelsAdd"], true);
+
+                    if(json_last_error() !== JSON_ERROR_NONE) {
+                        throw new Exception("JSON error");
+                    }
+
+                    if(!empty($labelsToAdd)) {
+                        $addLabels = $mysqli->prepare("INSERT INTO tasks_labels (task_id, label_id) VALUES (UNHEX(?), UNHEX(?))");
+    
+                        foreach($labelsToAdd as $label_id) {
+                            $addLabels->bind_param("ss", $id, $label_id);
+    
+                            if(!$addLabels->execute()) {
+                                throw new Exception("Error adding labels");
+                            }
+                        }
+                    }
+                }
+
+                $mysqli->commit();
+                sendResponse("TASK_UPDATED");
+            } catch(Exception $e) {
+                $mysqli->rollback();
+                sendResponse("DB_ERROR");
+            } finally {
+                if(isset($editTask)) $editTask->close();
+                if(isset($deleteLabels)) $deleteLabels->close();
+                if(isset($addLabels)) $addLabels->close();
+            }
+        }
+
         public function deleteTask($id) {
             global $mysqli;
 

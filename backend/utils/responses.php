@@ -29,6 +29,7 @@
         "TASK_ERROR" => ["code" => 500, "message" => "Zadanie nie zostało utworzone"],
         "TASK_CREATED" => ["code" => 201, "message" => "Zadanie zostało utworzone"],
         "TASK_MOVED" => ["code" => 200, "message" => "Zadanie zostało przeniesione"],
+        "TASK_UPDATED" => ["code" => 200, "message" => "Zadanie zostało zaktualizowane"],
         "TASK_DELETED" => ["code" => 200, "message" => "Zadanie zostało usunięte"],
         "NO_LABELS" => ["code" => 204],
         "LABEL_ERROR" => ["code" => 500, "message" => "Etykieta nie została utworzona"],
