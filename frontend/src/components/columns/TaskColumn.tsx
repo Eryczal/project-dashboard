@@ -32,6 +32,10 @@ function TaskColumn({ column, updateTasks, updateColumns }: { column: Column; up
         setIsMenuOpen((prev) => !prev);
     };
 
+    const updateColumnTasks = () => {
+        updateTasks(column.id);
+    };
+
     return (
         <>
             <header className="column-header">
@@ -69,7 +73,7 @@ function TaskColumn({ column, updateTasks, updateColumns }: { column: Column; up
                                         {(provided, snapshot) => (
                                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                 <div className={`task-dragging${snapshot.isDragging ? " task-dragging-active" : ""}`}>
-                                                    <TaskCard task={task} />
+                                                    <TaskCard task={task} updateTasks={updateColumnTasks} />
                                                 </div>
                                             </div>
                                         )}

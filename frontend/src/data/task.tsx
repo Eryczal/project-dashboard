@@ -1,4 +1,4 @@
-import { Message, MoveTaskToColumnParams, Tasks } from "../types";
+import { EditTaskData, Message, MoveTaskToColumnParams, Tasks } from "../types";
 
 export async function getTasks(id: string): Promise<Tasks | Message | null> {
     const response = await fetch(import.meta.env.VITE_URL + `tasks/${id}`, {
@@ -62,6 +62,30 @@ export async function moveTaskToColumn({ id, sourceColumnId, destinationColumnId
     sendData.append("destination_index", destinationIndex.toString());
 
     const response = await fetch(import.meta.env.VITE_URL + `task/movetocolumn/${id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: sendData,
+    });
+
+    const data = await response.json();
+    data.code = response.status;
+
+    return data;
+}
+
+export async function updateTask(id: string, taskData: EditTaskData): Promise<Message> {
+    const sendData = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(taskData)) {
+        if (value !== false) {
+            sendData.append(key, Array.isArray(value) ? JSON.stringify(value) : value);
+        }
+    }
+
+    const response = await fetch(import.meta.env.VITE_URL + `task/update/${id}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",

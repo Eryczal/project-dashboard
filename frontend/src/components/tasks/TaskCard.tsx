@@ -5,6 +5,7 @@ import { MdMoreVert } from "react-icons/md";
 import { useState } from "react";
 import Menu from "../_compound/menu/Menu";
 import RemoveTaskModal from "./RemoveTaskModal";
+import EditTaskModal from "./EditTaskModal";
 
 function TaskCard({ task, updateTasks }: { task: Task; updateTasks: () => void }) {
     const { labels } = useProject();
@@ -62,6 +63,7 @@ function TaskCard({ task, updateTasks }: { task: Task; updateTasks: () => void }
                 </div>
             </div>
             {isOpen === "delete" && <RemoveTaskModal onClose={closeModal} task={task} />}
+            {isOpen === "edit" && <EditTaskModal onClose={closeModal} task={task} />}
         </>
     );
 }

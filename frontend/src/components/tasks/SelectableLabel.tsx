@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { SelectableLabelProps } from "../../types";
 
-function SelectableLabel({ label, handleLabel }: SelectableLabelProps) {
-    const [clicked, setClicked] = useState<boolean>(false);
+function SelectableLabel({ label, handleLabel, isActive }: SelectableLabelProps) {
+    const [clicked, setClicked] = useState<boolean>(!!isActive);
 
     const handleClick = (): void => {
         handleLabel(!clicked, label.id);
