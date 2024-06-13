@@ -4,7 +4,7 @@ import { Task, TaskColumnModal } from "../../types";
 import { MdMoreVert } from "react-icons/md";
 import { useState } from "react";
 import Menu from "../_compound/menu/Menu";
-import RemoveTaskModal from "./RemoveColumnModal";
+import RemoveTaskModal from "./RemoveTaskModal";
 
 function TaskCard({ task, updateTasks }: { task: Task; updateTasks: () => void }) {
     const { labels } = useProject();
