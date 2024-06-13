@@ -163,6 +163,8 @@ function ColumnBoard() {
 
                 if (taskData && !("message" in taskData)) {
                     updateColumnTasks(reloadColumnId, taskData.tasks);
+                } else {
+                    updateColumnTasks(reloadColumnId, []);
                 }
 
                 setReloadColumnId(null);
