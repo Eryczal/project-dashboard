@@ -10,9 +10,6 @@ function EditColumnModal({ onClose, column }: TaskModalProps) {
     const [title, setTitle] = useState<string>(column?.title || "");
     const [description, setDescription] = useState<string>(column?.description || "");
 
-    const oldTitle = column?.title || "";
-    const oldDescription = column?.description || "";
-
     if (!project || !column) {
         return <Navigate to="/" />;
     }
@@ -23,11 +20,11 @@ function EditColumnModal({ onClose, column }: TaskModalProps) {
 
     const editColumn = async () => {
         let sendData: EditColumnData = {
-            title: title === oldTitle ? false : title,
-            description: description === oldDescription ? false : description,
+            title: title === column.title ? false : title,
+            description: description === column.description ? false : description,
         };
 
-        if (title !== oldTitle || description !== oldDescription) {
+        if (title !== column.title || description !== column.description) {
             let edited = await updateColumn(column.id, sendData);
 
             if (edited.code === 200) {
