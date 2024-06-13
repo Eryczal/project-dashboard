@@ -68,6 +68,7 @@
                     $tasksResult = $tasksStmt->get_result();
 
                     while($task = $tasksResult->fetch_assoc()) {
+                        $task["labels"] = $task["labels"] ? explode(",", $task["labels"]) : [];
                         $tasks[] = $task;
                     }
 
