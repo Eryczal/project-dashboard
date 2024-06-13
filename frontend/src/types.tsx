@@ -94,11 +94,13 @@ export interface MenuItemProps {
 
 export interface LabelSelectionProps {
     handleLabel: (clicked: boolean, labelId: string) => void;
+    activeLabels?: string[];
 }
 
 export interface SelectableLabelProps {
     label: Label;
     handleLabel: (clicked: boolean, labelId: string) => void;
+    isActive?: boolean;
 }
 
 export interface MoveTaskToColumnParams {
@@ -112,4 +114,11 @@ export interface MoveTaskToColumnParams {
 export interface EditColumnData {
     title: false | string;
     description: false | string;
+}
+
+export interface EditTaskData {
+    title: false | string;
+    description: false | string;
+    labelsAdd: false | string[];
+    labelsRemove: false | string[];
 }
