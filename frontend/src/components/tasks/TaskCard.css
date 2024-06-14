@@ -31,9 +31,10 @@
     padding: 0 5px;
 }
 
-.task-dragging-active {
-    outline: 1px solid rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.1);
+.task-dragging-active .task {
+    outline: 0;
+    box-shadow: 0 0 5px 1px #666;
+    background-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .column-dragging-over-active .task {
@@ -54,4 +55,8 @@
     background-color: #feeae5;
     margin-right: 8px;
     border-radius: 6px;
+}
+
+.task-header svg {
+    cursor: pointer;
 }
