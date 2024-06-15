@@ -1,5 +1,5 @@
 .column {
-    min-width: 70%;
+    min-width: 80%;
     background-color: rgba(65, 65, 65, 0.05);
     margin: 5%;
     padding: 16px;
@@ -35,7 +35,7 @@
 }
 
 .column-header .column-title {
-    background: linear-gradient(90deg, rgba(136, 19, 55, 1) 0%, rgba(120, 53, 15, 1) 50%, rgba(112, 26, 117, 1) 100%);
+    background: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     flex: 4;

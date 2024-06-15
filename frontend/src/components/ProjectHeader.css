@@ -9,6 +9,8 @@
     box-sizing: border-box;
     background-color: rgba(65, 65, 65, 0.05);
     padding: 12px 18px;
+    z-index: 10;
+    backdrop-filter: blur(30px);
 }
 
 .header-name {
@@ -18,7 +20,7 @@
     height: var(--header-height);
     position: relative;
     z-index: 3;
-    background: linear-gradient(90deg, rgba(136, 19, 55, 1) 0%, rgba(120, 53, 15, 1) 50%, rgba(112, 26, 117, 1) 100%);
+    background: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }

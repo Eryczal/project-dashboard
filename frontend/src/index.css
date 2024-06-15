@@ -9,7 +9,7 @@ body {
 }
 
 main {
-    padding-top: var(--header-height);
+    padding-top: calc(var(--header-height) + 36px);
 }
 
 .color-danger {
