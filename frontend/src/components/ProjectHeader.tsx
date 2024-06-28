@@ -26,8 +26,8 @@ export default function ProjectHeader() {
                 {isOpened ? <MdClose onClick={openMenu} className="more-menu" /> : <MdMenu onClick={openMenu} className="more-menu" />}
             </div>
             <div className="header-nav" style={{ display: isOpened ? "block" : "none" }}>
-                <Link to={`/project/${project.id}/labels`}>Etykiety</Link>
                 <Link to={`/project/${project.id}/tasks`}>Zadania</Link>
+                <Link to={`/project/${project.id}/labels`}>Etykiety</Link>
             </div>
         </header>
     );
