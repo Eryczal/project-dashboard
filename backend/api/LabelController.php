@@ -15,7 +15,7 @@
                 return;
             }
 
-            $labels = $mysqli->prepare("SELECT HEX(id) AS id, title, description, color FROM labels WHERE project_id = UNHEX(?)");
+            $labels = $mysqli->prepare("SELECT HEX(id) AS id, title, description, color FROM labels WHERE project_id = UNHEX(?) ORDER BY title");
             $labels->bind_param("s", $id);
             $labels->execute();
 
