@@ -4,6 +4,7 @@ import UserProjectsPage from "./pages/UserProjectsPage";
 import AuthPage from "./pages/AuthPage";
 import { ProjectProvider } from "./contexts/ProjectContext";
 import LabelsPage from "./pages/LabelsPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export const router = createBrowserRouter(
     [
@@ -34,6 +35,10 @@ export const router = createBrowserRouter(
         {
             path: "/login",
             element: <AuthPage routerPage="login" />,
+        },
+        {
+            path: "*",
+            element: <NotFoundPage />,
         },
     ],
     {
