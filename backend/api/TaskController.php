@@ -330,7 +330,6 @@
                     }
                 }
 
-
                 if(isset($_POST["labelsAdd"])) {
                     $labelsToAdd = json_decode($_POST["labelsAdd"], true);
 
@@ -339,7 +338,7 @@
                     }
 
                     if(!empty($labelsToAdd)) {
-                        $addLabels = $mysqli->prepare("INSERT INTO tasks_labels (task_id, label_id) VALUES (UNHEX(?), UNHEX(?))");
+                        $addLabels = $mysqli->prepare("INSERT INTO tasks_labels (id, task_id, label_id) VALUES (UNHEX(REPLACE(UUID(), \"-\",\"\")), UNHEX(?), UNHEX(?))");
     
                         foreach($labelsToAdd as $label_id) {
                             $addLabels->bind_param("ss", $id, $label_id);
@@ -355,6 +354,7 @@
                 sendResponse("TASK_UPDATED");
             } catch(Exception $e) {
                 $mysqli->rollback();
+                echo $e;
                 sendResponse("DB_ERROR");
             } finally {
                 if(isset($editTask)) $editTask->close();
