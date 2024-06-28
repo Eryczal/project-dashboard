@@ -4,6 +4,7 @@ import LabelModal from "./LabelModal";
 import { getLabels } from "../../data/label";
 import { Label } from "../../types";
 import LabelDisplay from "./LabelDisplay";
+import "./LabelList.css";
 
 function LabelList() {
     const { project } = useProject();
@@ -46,10 +47,12 @@ function LabelList() {
     return (
         <main>
             <h1>Etykiety</h1>
-            {labels &&
-                labels.map((label) => {
-                    return <LabelDisplay label={label} key={label.id} />;
-                })}
+            <div className="labels-container">
+                {labels &&
+                    labels.map((label) => {
+                        return <LabelDisplay label={label} key={label.id} />;
+                    })}
+            </div>
             <button onClick={showModal}>Dodaj nową etykietę</button>
             {isOpen && <LabelModal onClose={closeModal} />}
         </main>
