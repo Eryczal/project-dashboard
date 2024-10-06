@@ -5,6 +5,7 @@ import { Project } from "../types";
 import { Link, Navigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import ProjectModal from "../components/ProjectModal";
+import Aside from "../components/Aside";
 
 function DashboardPage() {
     const { user } = useUser();
@@ -60,6 +61,7 @@ function DashboardPage() {
     return (
         <main>
             <div className="dashboard-container">
+                <Aside />
                 <div>
                     <h1>Witaj {user ? user.name : "anonim"}</h1>
                     {projects.map((project) => (
