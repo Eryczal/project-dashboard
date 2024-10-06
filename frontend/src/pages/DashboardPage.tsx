@@ -62,8 +62,26 @@ function DashboardPage() {
         <main>
             <div className="dashboard-container">
                 <Aside />
-                <div>
-                    <h1>Witaj {user ? user.name : "anonim"}</h1>
+                <div className="dashboard-content">
+                    <h1>Panel główny</h1>
+                    <div className="main-stats">
+                        <div className="main-stat">
+                            <h2>Projekty</h2>
+                            <p>{projects.length}/5</p>
+                        </div>
+                        <div className="main-stat">
+                            <h2>Budżet</h2>
+                            <p>5zł</p>
+                        </div>
+                        <div className="main-stat">
+                            <h2>Członkowie</h2>
+                            <p>1/10</p>
+                        </div>
+                        <div className="main-stat">
+                            <h2>Licencja</h2>
+                            <p>Demo</p>
+                        </div>
+                    </div>
                     {projects.map((project) => (
                         <div key={project.id}>
                             <h2>{project.title}</h2>
