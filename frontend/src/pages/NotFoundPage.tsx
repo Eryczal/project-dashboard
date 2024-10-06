@@ -7,7 +7,7 @@ function NotFoundPage() {
     return (
         <main>
             <h1>Nie znaleziono strony</h1>
-            {user ? <Link to="/projects">Przejdź do projektów</Link> : <Link to="/login">Przejdź do logowania</Link>}
+            {user ? <Link to="/dashboard">Przejdź do panelu głównego</Link> : <Link to="/login">Przejdź do logowania</Link>}
         </main>
     );
 }

@@ -1,3 +1,4 @@
+import "./DashboardPage.css";
 import { useEffect, useState } from "react";
 import { getUserProjects } from "../data/project";
 import { Project } from "../types";
@@ -5,7 +6,7 @@ import { Link, Navigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import ProjectModal from "../components/ProjectModal";
 
-function UserProjectsPage() {
+function DashboardPage() {
     const { user } = useUser();
     const [projects, setProjects] = useState<Project[] | null>(null);
     const [redirect, setRedirect] = useState<boolean>(false);
@@ -58,18 +59,22 @@ function UserProjectsPage() {
 
     return (
         <main>
-            <h1>Witaj {user ? user.name : "anonim"}</h1>
-            {projects.map((project) => (
-                <div key={project.id}>
-                    <h2>{project.title}</h2>
-                    <p>{project.description}</p>
-                    <Link to={`/project/${project.id}/tasks`}>Przejdź do projektu</Link>
+            <div className="dashboard-container">
+                <div>
+                    <h1>Witaj {user ? user.name : "anonim"}</h1>
+                    {projects.map((project) => (
+                        <div key={project.id}>
+                            <h2>{project.title}</h2>
+                            <p>{project.description}</p>
+                            <Link to={`/project/${project.id}/tasks`}>Przejdź do projektu</Link>
+                        </div>
+                    ))}
+                    <button onClick={openModal}>Stwórz projekt</button>
+                    {isOpen && <ProjectModal onClose={closeModal} />}
                 </div>
-            ))}
-            <button onClick={openModal}>Stwórz projekt</button>
-            {isOpen && <ProjectModal onClose={closeModal} />}
+            </div>
         </main>
     );
 }
 
-export default UserProjectsPage;
+export default DashboardPage;

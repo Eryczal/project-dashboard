@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import TaskPage from "./pages/TaskPage";
-import UserProjectsPage from "./pages/UserProjectsPage";
 import AuthPage from "./pages/AuthPage";
 import { ProjectProvider } from "./contexts/ProjectContext";
 import LabelsPage from "./pages/LabelsPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import DashboardPage from "./pages/DashboardPage";
 
 export const router = createBrowserRouter(
     [
         {
-            path: "/projects",
-            element: <UserProjectsPage />,
+            path: "/dashboard",
+            element: <DashboardPage />,
         },
         {
             path: "/project/:id/labels",
