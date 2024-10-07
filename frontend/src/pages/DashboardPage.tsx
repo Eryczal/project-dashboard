@@ -2,13 +2,14 @@ import "./DashboardPage.css";
 import { useEffect, useState } from "react";
 import { getUserProjects } from "../data/project";
 import { Project } from "../types";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import ProjectModal from "../components/ProjectModal";
 import Aside from "../components/Aside";
 
 function DashboardPage() {
     const { user } = useUser();
+    const navigate = useNavigate();
     const [projects, setProjects] = useState<Project[] | null>(null);
     const [redirect, setRedirect] = useState<boolean>(false);
     const [refresh, setRefresh] = useState<boolean>(true);
@@ -24,6 +25,10 @@ function DashboardPage() {
         if (success) {
             setRefresh(true);
         }
+    };
+
+    const openProject = (id: string): void => {
+        navigate(`/project/${id}/tasks`);
     };
 
     useEffect(() => {
@@ -45,7 +50,7 @@ function DashboardPage() {
         }
     }, [refresh]);
 
-    if (redirect) {
+    if (redirect || !user) {
         return <Navigate to="/login" />;
     }
 
@@ -82,13 +87,37 @@ function DashboardPage() {
                             <p>Demo</p>
                         </div>
                     </div>
-                    {projects.map((project) => (
-                        <div key={project.id}>
-                            <h2>{project.title}</h2>
-                            <p>{project.description}</p>
-                            <Link to={`/project/${project.id}/tasks`}>Przejdź do projektu</Link>
+                    <div className="projects-container">
+                        <div className="project-summary">
+                            <h2>Podsumowanie projektów</h2>
+                            <table className="project-summary-table">
+                                <thead>
+                                    <tr>
+                                        <th>Projekt</th>
+                                        <th>Manager</th>
+                                        <th>Termin</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {projects.map((project) => (
+                                        <tr
+                                            className="project-summary-row"
+                                            key={project.id}
+                                            title={project.description}
+                                            onClick={() => openProject(project.id)}
+                                        >
+                                            <td>{project.title}</td>
+                                            <td>{user.name}</td>
+                                            <td>01.01.2010</td>
+                                            <td>W trakcie</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
-                    ))}
+                        <div className="project-progress">{projects.length}</div>
+                    </div>
                     <button onClick={openModal}>Stwórz projekt</button>
                     {isOpen && <ProjectModal onClose={closeModal} />}
                 </div>
