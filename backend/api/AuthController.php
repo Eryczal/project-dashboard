@@ -78,6 +78,7 @@
                         "id" => $user["id"],
                         "name" => $user["name"],
                         "type" => $user["type"],
+                        "theme" => $user["theme"],
                         "creation_date" => $user["creation_date"],
                     ]
                 ]);
@@ -91,7 +92,7 @@
     
             $hash_pass = password_hash($password, PASSWORD_DEFAULT);
     
-            $user = $mysqli->prepare("INSERT INTO users (id, name, pass, type, creation_date) VALUES ((UNHEX(REPLACE(UUID(), \"-\",\"\"))), ?, ?, 'free', CURDATE())");
+            $user = $mysqli->prepare("INSERT INTO users (id, name, pass, type, theme, creation_date) VALUES ((UNHEX(REPLACE(UUID(), \"-\",\"\"))), ?, ?, 'free', 'Light', CURDATE())");
             $user->bind_param("ss", $name, $hash_pass);
     
             $created = $user->execute();
@@ -117,7 +118,7 @@
         public function getUser($value, $type) {
             global $mysqli;
     
-            $user = $mysqli->prepare("SELECT HEX(id) as id, pass, name, type, creation_date FROM users WHERE " . ($type === "id" ? "id = UNHEX(?)" : "name = ?"));
+            $user = $mysqli->prepare("SELECT HEX(id) as id, pass, name, type, theme, creation_date FROM users WHERE " . ($type === "id" ? "id = UNHEX(?)" : "name = ?"));
             $user->bind_param("s", $value);
             $user->execute();
             $result = $user->get_result();

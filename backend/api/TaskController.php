@@ -354,7 +354,6 @@
                 sendResponse("TASK_UPDATED");
             } catch(Exception $e) {
                 $mysqli->rollback();
-                echo $e;
                 sendResponse("DB_ERROR");
             } finally {
                 if(isset($editTask)) $editTask->close();
