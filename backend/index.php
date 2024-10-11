@@ -27,12 +27,20 @@
         case "register":
         case "login":
         case "me":
-            $authController = new AuthController();
+            $userController = new UserController();
 
-            if(method_exists($authController, $method)) {
-                $authController->$method();
+            if(method_exists($userController, $method)) {
+                $userController->$method();
             } else {
                 //sendResponse()
+            }
+            break;
+
+        case "user":
+            $userController = new UserController();
+
+            if($parts[2] === "theme") {
+                $userController->updateTheme();
             }
             break;
 

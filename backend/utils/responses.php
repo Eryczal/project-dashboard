@@ -34,6 +34,7 @@
         "NO_LABELS" => ["code" => 204],
         "LABEL_ERROR" => ["code" => 500, "message" => "Etykieta nie została utworzona"],
         "LABEL_CREATED" => ["code" => 201, "message" => "Etykieta została utworzona"],
+        "THEME_UPDATED" => ["code" => 200, "message" => "Motyw został zaktualizowany"]
     ];
 
     function sendResponse($response) {

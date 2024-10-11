@@ -1,7 +1,7 @@
 <?php
     require_once "utils/session.php";
     
-    class AuthController {
+    class UserController {
         public function register() {
             if(!isset($_POST["login"]) || !isset($_POST["password"])) {
                 sendResponse("INVALID_INPUT");
@@ -84,6 +84,40 @@
                 ]);
             } else {
                 sendResponse("USER_NOT_LOGGED");
+            }
+        }
+
+        public function updateTheme() {
+            global $mysqli;
+
+            if(!isset($_SESSION["user_id"])) {
+                sendResponse("USER_NOT_LOGGED");
+                return;
+            }
+
+            if(!isset($_POST["theme"])) {
+                sendResponse("INVALID_DATA");
+                return;
+            }
+
+            $mysqli->autocommit(false);
+
+            try {
+                $stmt = $mysqli->prepare("UPDATE users SET theme = ? WHERE id = UNHEX(?)");
+                $stmt->bind_param("ss", $_POST["theme"], $_SESSION["user_id"]);
+                
+                if(!$stmt->execute()) {
+                    throw new Exception("Error updating theme");
+                }
+
+                $mysqli->commit();
+                sendResponse("THEME_UPDATED");
+                $stmt->close();
+                return;
+            } catch (Exception $e) {
+                $mysqli->rollback();
+                sendResponse("DB_ERROR");
+                return;
             }
         }
 
