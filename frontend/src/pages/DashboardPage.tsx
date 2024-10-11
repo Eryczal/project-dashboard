@@ -50,8 +50,12 @@ function DashboardPage() {
         }
     }, [refresh]);
 
-    if (redirect || !user) {
+    if (redirect) {
         return <Navigate to="/login" />;
+    }
+
+    if (!user) {
+        return <Aside />;
     }
 
     if (projects === null) {

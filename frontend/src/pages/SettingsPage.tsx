@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import Aside from "../components/Aside";
 import { useUser } from "../contexts/UserContext";
-import { Navigate } from "react-router-dom";
 
 function SettingsPage() {
     const { user } = useUser();
@@ -24,7 +23,7 @@ function SettingsPage() {
     };
 
     if (!user) {
-        return <Navigate to="/login" />;
+        return <Aside />;
     }
 
     return (
