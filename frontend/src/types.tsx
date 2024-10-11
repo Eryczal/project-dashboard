@@ -4,11 +4,13 @@ export type AuthPageType = "login" | "register";
 
 export type TaskColumnModal = "task" | "edit" | "delete" | "none";
 
+export type Theme = "light" | "glass";
+
 export interface User {
     id: string;
     name: string;
     type: string;
-    theme: string;
+    theme: Theme;
     creationDate: string;
 }
 
@@ -66,6 +68,7 @@ export interface UserContextProps {
     user?: User;
     loginUser: (email: string, password: string) => Promise<Message>;
     registerUser: (email: string, password: string) => Promise<Message>;
+    changeTheme: (theme: Theme) => Promise<Message>;
     // logoutUser
 }
 

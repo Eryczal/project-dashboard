@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { Message, User, UserContextProps } from "../types";
+import { Message, Theme, User, UserContextProps } from "../types";
 
 const UserContext = createContext<UserContextProps | null>(null);
 
@@ -75,10 +75,36 @@ export function UserProvider({ children }: { children: ReactNode }) {
         return data;
     }
 
+    async function changeTheme(theme: Theme) {
+        const sendData = new URLSearchParams();
+        sendData.append("theme", theme);
+
+        const response = await fetch(import.meta.env.VITE_URL + "user/theme", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: sendData,
+        });
+
+        const data = await response.json();
+
+        if (user) {
+            setUser({
+                ...user,
+                theme,
+            });
+        }
+
+        return data;
+    }
+
     const value: UserContextProps = {
         user,
         loginUser,
         registerUser,
+        changeTheme,
     };
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

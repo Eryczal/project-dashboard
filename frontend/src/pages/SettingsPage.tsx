@@ -1,10 +1,11 @@
 import { useRef } from "react";
 import Aside from "../components/Aside";
 import { useUser } from "../contexts/UserContext";
+import { Theme } from "../types";
 
 function SettingsPage() {
-    const { user } = useUser();
-    const themes = ["light", "glass"];
+    const { user, changeTheme } = useUser();
+    const themes: Theme[] = ["light", "glass"];
     const ref = useRef<HTMLSelectElement | null>(null);
 
     const setTheme = () => {
@@ -15,6 +16,7 @@ function SettingsPage() {
         for (let i = 0; i < themes.length; i++) {
             if (themes[i] === ref.current.value) {
                 document.body.classList.add(themes[i]);
+                changeTheme(themes[i]);
                 continue;
             }
 
@@ -33,7 +35,7 @@ function SettingsPage() {
                 <div className="settings-page">
                     Wybierz motyw:
                     <select ref={ref} onChange={setTheme} defaultValue={user.theme}>
-                        {themes.map((themeName: string) => {
+                        {themes.map((themeName: Theme) => {
                             return (
                                 <option value={themeName} key={themeName}>
                                     {themeName}
