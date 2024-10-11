@@ -5,12 +5,17 @@ import { ProjectProvider } from "./contexts/ProjectContext";
 import LabelsPage from "./pages/LabelsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import DashboardPage from "./pages/DashboardPage";
+import SettingsPage from "./pages/SettingsPage";
 
 export const router = createBrowserRouter(
     [
         {
             path: "/dashboard",
             element: <DashboardPage />,
+        },
+        {
+            path: "/settings",
+            element: <SettingsPage />,
         },
         {
             path: "/project/:id/labels",

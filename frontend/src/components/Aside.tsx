@@ -17,6 +17,10 @@ export default function Aside() {
                         <li>
                             <Link to="/tasks">Zadania</Link>
                         </li>
+                        ---
+                        <li>
+                            <Link to="/settings">Ustawienia</Link>
+                        </li>
                     </ul>
                 </nav>
             </div>

@@ -8,6 +8,7 @@ export interface User {
     id: string;
     name: string;
     type: string;
+    theme: string;
     creationDate: string;
 }
 
