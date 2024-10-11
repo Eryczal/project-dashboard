@@ -29,6 +29,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
                 setRefetch(false);
 
                 setUser(data.user);
+
+                document.body.classList.add(data.user.theme);
             };
 
             fetchData().catch(console.error);

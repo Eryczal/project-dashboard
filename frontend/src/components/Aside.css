@@ -1,13 +1,28 @@
 .aside {
     display: none;
+    color: var(--aside-color);
 }
 
 .aside-name {
-    background: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
+    background: var(--aside-name-bg);
     font-size: 24px;
     padding: 12px 4px;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.aside nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.aside nav a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 12px;
+    margin: 2px 0;
 }
 
 @media screen and (min-width: 1024px) {
@@ -18,6 +33,6 @@
         left: 0;
         min-height: 100vh;
         width: 240px;
-        background-color: rgba(65, 65, 65, 0.05);
+        background-color: var(--aside-bg-color);
     }
 }

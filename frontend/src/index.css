@@ -3,9 +3,9 @@
 }
 
 body {
-    color: #333;
+    color: var(--text-color);
     margin: 0;
-    background: linear-gradient(135deg, rgba(209, 250, 229, 1) 0%, rgba(255, 228, 230, 1) 50%, rgba(237, 233, 254, 1) 100%);
+    background: var(--background);
 }
 
 main {
@@ -13,7 +13,7 @@ main {
 }
 
 .color-danger {
-    color: #b91c1c;
+    color: var(--danger-color);
 }
 
 @media screen and (min-width: 1024px) {

@@ -1,0 +1,15 @@
+body.glass {
+    /* general */
+    --text-color: #333;
+    --danger-color: #b91c1c;
+    --background: linear-gradient(135deg, rgba(209, 250, 229, 1) 0%, rgba(255, 228, 230, 1) 50%, rgba(237, 233, 254, 1) 100%);
+
+    /* aside */
+    --aside-name-bg: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
+    --aside-bg-color: rgba(65, 65, 65, 0.05);
+    --aside-color: #333;
+
+    /* dashboard */
+    --dashboard-item-background: rgba(0, 0, 0, 0.03);
+    --dashboard-item-radius: 24px;
+}

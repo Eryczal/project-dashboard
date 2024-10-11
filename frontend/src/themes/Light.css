@@ -1,0 +1,15 @@
+body.light {
+    /* general */
+    --text-color: #333;
+    --danger-color: #b91c1c;
+    --background: #f6f6f6;
+
+    /* aside */
+    --aside-name-bg: #fafafa;
+    --aside-bg-color: #213253;
+    --aside-color: #fafafa;
+
+    /* dashboard */
+    --dashboard-item-background: #fff;
+    --dashboard-item-radius: 12px;
+}

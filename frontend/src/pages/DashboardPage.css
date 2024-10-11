@@ -39,8 +39,8 @@
 
     .main-stat {
         flex: 1;
-        background-color: rgba(0, 0, 0, 0.03);
-        border-radius: 24px;
+        background-color: var(--dashboard-item-background);
+        border-radius: var(--dashboard-item-radius);
         padding: 40px;
     }
 
@@ -55,14 +55,14 @@
 
     .project-summary {
         flex: 3;
-        background-color: rgba(0, 0, 0, 0.03);
-        border-radius: 24px;
+        background-color: var(--dashboard-item-background);
+        border-radius: var(--dashboard-item-radius);
         padding: 20px;
     }
 
     .project-progress {
         flex: 1;
-        background-color: rgba(0, 0, 0, 0.03);
-        border-radius: 24px;
+        background-color: var(--dashboard-item-background);
+        border-radius: var(--dashboard-item-radius);
     }
 }
