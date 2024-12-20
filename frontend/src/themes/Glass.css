@@ -5,6 +5,7 @@ body.glass {
     --background: linear-gradient(135deg, rgba(209, 250, 229, 1) 0%, rgba(255, 228, 230, 1) 50%, rgba(237, 233, 254, 1) 100%);
 
     /* aside */
+    --aside-width: 240px;
     --aside-name-bg: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
     --aside-bg-color: rgba(65, 65, 65, 0.05);
     --aside-color: #333;
@@ -12,4 +13,33 @@ body.glass {
     /* dashboard */
     --dashboard-item-background: rgba(0, 0, 0, 0.03);
     --dashboard-item-radius: 24px;
+    --board-task-gap: 2rem;
+
+    /* project tasks */
+    --project-header-bg: rgba(65, 65, 65, 0.05);
+    --project-header-name-bg: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
+    --project-header-padding-x: 18px;
+    --task-column-bg: rgba(65, 65, 65, 0.05);
+    --task-column-name-bg: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
+    --task-column-shadow: 0 0 1px 0 #ddd;
+    --task-column-radius: 16px;
+    --task-column-min-width: 340px;
+    --dummy-column-bg: rgba(65, 65, 65, 0.05);
+
+    --task-card-bg: rgba(255, 255, 255, 0.2);
+    --task-card-radius: 16px;
+    --task-card-dragging-shadow: 0 0 5px 1px #666;
+
+    --menu-bg: transparent;
+    --menu-radius: 12px;
+
+    --modal-bg: rgba(255, 255, 255, 0.5);
+    --modal-radius: 24px;
+    --modal-name-bg: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
+    --modal-input-bg: rgba(0, 0, 0, 0.05);
+    --modal-input-bg-active: transparent;
+    --modal-input-border: 2px solid #ddd;
+    --modal-input-border-active: 2px solid #fff;
+    --modal-input-radius: 12px;
+    --modal-input-padding: 6px;
 }

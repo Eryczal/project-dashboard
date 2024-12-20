@@ -4,13 +4,13 @@
 }
 
 .task {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--task-card-bg);
     padding: 20px;
     margin: 5px 0;
     width: 100%;
     box-shadow: 0 0 1px 0 #ccc;
     backdrop-filter: blur(4px);
-    border-radius: 16px;
+    border-radius: var(--task-card-radius);
     box-sizing: border-box;
 }
 
@@ -28,19 +28,14 @@
 }
 
 .task-dragging {
-    border-radius: 16px;
+    border-radius: var(--task-card-radius);
     padding: 0 5px;
 }
 
 .task-dragging-active .task {
     outline: 0;
-    box-shadow: 0 0 5px 1px #666;
-    background-color: rgba(255, 255, 255, 0.2) !important;
-}
-
-.column-dragging-over-active .task {
-    background-color: transparent;
-    outline: 1px solid #ccc;
+    box-shadow: var(--task-card-dragging-shadow);
+    background-color: var(--task-card-bg) !important;
 }
 
 .task h3 {

@@ -6,6 +6,6 @@
 @media screen and (min-width: 1024px) {
     .task-page-container {
         display: flex;
-        gap: 2em;
+        gap: var(--board-task-gap);
     }
 }

@@ -5,11 +5,41 @@ body.light {
     --background: #f6f6f6;
 
     /* aside */
+    --aside-width: 280px;
     --aside-name-bg: #fafafa;
     --aside-bg-color: #213253;
     --aside-color: #fafafa;
 
     /* dashboard */
     --dashboard-item-background: #fff;
-    --dashboard-item-radius: 12px;
+    --dashboard-item-radius: 4px;
+    --board-task-gap: 2rem;
+
+    /* project tasks */
+    --project-header-bg: #f6f6f6;
+    --project-header-name-bg: #333;
+    --project-header-padding-x: 18px;
+    --task-column-bg: #fafafa;
+    --task-column-name-bg: #303030;
+    --task-column-shadow: 0 0 1px 0 #c9c9c9;
+    --task-column-radius: 4px;
+    --task-column-min-width: 340px;
+    --dummy-column-bg: #fafafa;
+
+    --task-card-bg: #fff;
+    --task-card-radius: 4px;
+    --task-card-dragging-shadow: 0 0 3px 1px #ccc;
+
+    --menu-bg: #fff;
+    --menu-radius: 4px;
+
+    --modal-bg: #f9f9f9;
+    --modal-radius: 4px;
+    --modal-name-bg: #333;
+    --modal-input-bg: #fff;
+    --modal-input-bg-active: #fff;
+    --modal-input-border: 1px solid #eee;
+    --modal-input-border-active: 1px solid #b3b6ff;
+    --modal-input-radius: 2px;
+    --modal-input-padding: 12px;
 }

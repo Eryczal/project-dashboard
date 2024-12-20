@@ -1,29 +1,29 @@
 .modal-container {
     border: 0;
     padding: 0;
-    border-radius: 24px;
-    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: var(--modal-radius);
+    background-color: var(--modal-bg);
     backdrop-filter: blur(16px);
 }
 
 .modal {
     padding: 20px;
-    background-color: transparent;
+    background-color: var(--modal-bg);
 }
 
 .modal input,
 .modal textarea {
-    background-color: rgba(0, 0, 0, 0.05);
-    border: 2px solid #ddd;
-    padding: 6px;
-    border-radius: 12px;
+    background-color: var(--modal-input-bg);
+    border: var(--modal-input-border);
+    padding: var(--modal-input-padding);
+    border-radius: var(--modal-input-radius);
 }
 
 .modal input:focus-within,
 .modal textarea:focus-within {
-    background-color: transparent;
+    background-color: var(--modal-input-bg-active);
     outline: none;
-    border: 2px solid #fff;
+    border: var(--modal-input-border-active);
 }
 
 .modal-container::backdrop {
@@ -32,7 +32,7 @@
 
 .modal h1 {
     margin-top: 0;
-    background: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
+    background: var(--modal-name-bg);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;

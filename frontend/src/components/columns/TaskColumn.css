@@ -1,11 +1,11 @@
 .column {
     min-width: 80%;
-    background-color: rgba(65, 65, 65, 0.05);
+    background-color: var(--task-column-bg);
     margin: 5%;
     padding: 16px;
     width: 70%;
-    box-shadow: 0 0 1px 0 #ddd;
-    border-radius: 16px;
+    box-shadow: var(--task-column-shadow);
+    border-radius: var(--task-column-radius);
 }
 
 .column-dragging {
@@ -35,7 +35,7 @@
 }
 
 .column-header .column-title {
-    background: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
+    background: var(--task-column-name-bg);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     flex: 4;
@@ -55,7 +55,7 @@
 
 @media screen and (min-width: 1024px) {
     .column {
-        min-width: 340px;
+        min-width: var(--task-column-min-width);
         width: auto;
         margin: 0;
         margin-right: 20px;

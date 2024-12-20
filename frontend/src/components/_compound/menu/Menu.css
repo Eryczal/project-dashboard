@@ -1,6 +1,6 @@
 .menu {
     position: absolute;
-    background-color: transparent;
+    background-color: var(--menu-bg);
     backdrop-filter: blur(8px);
     border: 1px solid #999;
     right: 0;
@@ -8,8 +8,7 @@
     padding: 16px;
     width: 60%;
     box-sizing: border-box;
-    border-radius: 4px;
-    border-radius: 12px;
+    border-radius: var(--menu-radius);
     z-index: 5;
 }
 

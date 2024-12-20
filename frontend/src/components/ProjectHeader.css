@@ -7,8 +7,8 @@
     padding: 0 10px;
     position: fixed;
     box-sizing: border-box;
-    background-color: rgba(65, 65, 65, 0.05);
-    padding: 12px 18px;
+    background-color: var(--project-header-bg);
+    padding: 12px var(--project-header-padding-x);
     z-index: 10;
     backdrop-filter: blur(30px);
 }
@@ -20,7 +20,7 @@
     height: var(--header-height);
     position: relative;
     z-index: 3;
-    background: linear-gradient(90deg, #164e63 0%, #1e3a8a 50%, #581c87 100%);
+    background: var(--project-header-name-bg);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -68,8 +68,16 @@
     .project-header {
         display: flex;
         justify-content: space-between;
-        position: static;
+        position: sticky;
         border-bottom-left-radius: 16px;
+        top: 0;
+        left: calc(var(--aside-width) + var(--board-task-gap));
+        width: calc(100vw - var(--aside-width) - var(--board-task-gap) - var(--project-header-padding-x));
+        box-sizing: border-box;
+    }
+
+    .project-header > * {
+        box-sizing: border-box;
     }
 
     .header-name .more-menu {
