@@ -6,6 +6,8 @@ export type TaskColumnModal = "task" | "edit" | "delete" | "none";
 
 export type Theme = "light" | "glass";
 
+export type DurationType = "h" | "d";
+
 export interface User {
     id: string;
     name: string;
@@ -41,6 +43,10 @@ export interface Task {
     title: string;
     description: string;
     position: number;
+    add_date: string;
+    deadline: string;
+    duration: number;
+    cost: number;
     labels?: string[];
 }
 

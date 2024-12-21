@@ -1,4 +1,4 @@
-import { EditTaskData, Message, MoveTaskToColumnParams, Tasks } from "../types";
+import { DurationType, EditTaskData, Message, MoveTaskToColumnParams, Tasks } from "../types";
 
 export async function getTasks(id: string): Promise<Tasks | Message | null> {
     const response = await fetch(import.meta.env.VITE_URL + `tasks/${id}`, {
@@ -10,10 +10,22 @@ export async function getTasks(id: string): Promise<Tasks | Message | null> {
     return data;
 }
 
-export async function createTask(id: string, title: string, description: string, labels: string[], position: number): Promise<Message> {
+export async function createTask(
+    id: string,
+    title: string,
+    description: string,
+    duration: string,
+    durationType: DurationType,
+    deadline: string,
+    labels: string[],
+    position: number
+): Promise<Message> {
+    let dur: string = durationType === "h" ? duration : String(parseInt(duration) * 24);
     const sendData = new URLSearchParams();
     sendData.append("title", title);
     sendData.append("description", description);
+    sendData.append("duration", dur);
+    sendData.append("deadline", deadline);
     sendData.append("position", position.toString());
 
     labels.forEach((label) => sendData.append("labels[]", label));
