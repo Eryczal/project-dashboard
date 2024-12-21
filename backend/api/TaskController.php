@@ -33,6 +33,8 @@
 
             $title = $_POST["title"];
             $desc = $_POST["description"];
+            $duration = $_POST["duration"];
+            $deadline = $_POST["deadline"];
             $labels = isset($_POST["labels"]) ? $_POST["labels"] : [];
             $position = $_POST["position"];
 
@@ -40,8 +42,8 @@
 
             $uuid = $mysqli->query("SELECT UNHEX(REPLACE(UUID(), '-', ''))")->fetch_row()[0];
 
-            $task = $mysqli->prepare("INSERT INTO tasks (id, column_id, title, description, position) VALUES (?, UNHEX(?), ?, ?, ?)");
-            $task->bind_param("ssssi", $uuid, $id, $title, $desc, $position);
+            $task = $mysqli->prepare("INSERT INTO tasks (id, column_id, title, description, duration, deadline, position) VALUES (?, UNHEX(?), ?, ?, ?, ?, ?)");
+            $task->bind_param("ssssisi", $uuid, $id, $title, $desc, $duration, $deadline, $position);
             $created = $task->execute();
 
             if (!$created) {
