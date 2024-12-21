@@ -47,6 +47,8 @@
                             HEX(t.id) AS id,
                             t.title,
                             t.description,
+                            t.duration,
+                            t.deadline,
                             t.position,
                             COALESCE(GROUP_CONCAT(HEX(l.id) ORDER BY l.id SEPARATOR ','), '') AS labels
                         FROM 

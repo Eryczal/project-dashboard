@@ -8,7 +8,12 @@
                 return;
             }
 
-            if(!isset($_POST["title"]) || !isset($_POST["position"]) || strlen($_POST["title"] < 5)) {
+            if(!isset($_POST["title"]) || !isset($_POST["position"]) || !isset($_POST["duration"]) || !isset($_POST["deadline"])) {
+                sendResponse("INVALID_DATA");
+                return;
+            }
+            
+            if(strlen($_POST["title"]) < 5 || strlen($_POST["duration"]) > 3 || strlen($_POST["deadline"]) !== 10) {
                 sendResponse("INVALID_DATA");
                 return;
             }
@@ -96,6 +101,8 @@
                     t.title,
                     t.description,
                     t.position,
+                    t.duration,
+                    t.deadline,
                     COALESCE(GROUP_CONCAT(HEX(l.id) ORDER BY l.id SEPARATOR ','), '') AS labels
                 FROM 
                     tasks t
@@ -297,6 +304,18 @@
                     $updates[] = "description = ?";
                     $params[] = $_POST["description"];
                     $types .= "s";
+                }
+    
+                if(isset($_POST["deadline"])) {
+                    $updates[] = "deadline = ?";
+                    $params[] = $_POST["deadline"];
+                    $types .= "s";
+                }
+    
+                if(isset($_POST["duration"])) {
+                    $updates[] = "duration = ?";
+                    $params[] = $_POST["duration"];
+                    $types .= "i";
                 }
     
                 if(!empty($updates)) {

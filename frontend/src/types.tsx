@@ -128,6 +128,8 @@ export interface EditColumnData {
 export interface EditTaskData {
     title: false | string;
     description: false | string;
+    deadline: false | string;
+    duration: false | number;
     labelsAdd: false | string[];
     labelsRemove: false | string[];
 }
