@@ -46,6 +46,8 @@ CREATE TABLE `tasks` (
 	`column_id` BINARY(16) NOT NULL,
 	`title` VARCHAR(255) NOT NULL,
 	`description` TEXT,
+	`duration` SMALLINT NOT NULL,
+	`deadline` DATE NOT NULL,
 	`position` SMALLINT NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (column_id) REFERENCES columns(id)

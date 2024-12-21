@@ -43,7 +43,6 @@ export interface Task {
     title: string;
     description: string;
     position: number;
-    add_date: string;
     deadline: string;
     duration: number;
     cost: number;
