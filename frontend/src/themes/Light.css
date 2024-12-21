@@ -30,6 +30,10 @@ body.light {
     --task-card-radius: 4px;
     --task-card-dragging-shadow: 0 0 3px 1px #ccc;
 
+    --label-bg: #f3f3f3;
+    --label-bg-parent-selected: #f3f3f3;
+    --label-border-selected: 1px solid #b3b6ff;
+
     --menu-bg: #fff;
     --menu-radius: 4px;
 

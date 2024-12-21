@@ -30,6 +30,10 @@ body.glass {
     --task-card-radius: 16px;
     --task-card-dragging-shadow: 0 0 5px 1px #666;
 
+    --label-bg: #feeae5;
+    --label-bg-parent-selected: linear-gradient(135deg, rgba(254, 202, 202, 1) 0%, rgba(253, 230, 138, 1) 50%, rgba(153, 246, 228, 1) 100%);
+    --label-border-selected: 0;
+
     --menu-bg: transparent;
     --menu-radius: 12px;
 

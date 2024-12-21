@@ -49,7 +49,7 @@
 
 .label-container .label {
     padding: 6px;
-    background-color: #feeae5;
+    background-color: var(--label-bg);
     margin-top: 8px;
     margin-right: 8px;
     border-radius: 6px;

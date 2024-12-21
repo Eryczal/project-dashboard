@@ -9,7 +9,8 @@
 }
 
 .modal-label-selected .label-text-container {
-    background: linear-gradient(135deg, rgba(254, 202, 202, 1) 0%, rgba(253, 230, 138, 1) 50%, rgba(153, 246, 228, 1) 100%);
+    background: var(--label-bg-parent-selected);
+    border: var(--label-border-selected);
 }
 
 .modal-label .label-text-container {
@@ -18,7 +19,7 @@
 }
 
 .modal-label .label-text {
-    background-color: #feeae5;
+    background-color: var(--label-bg);
     padding: 8px;
     border-radius: 6px;
 }
