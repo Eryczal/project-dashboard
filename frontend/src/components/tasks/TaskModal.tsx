@@ -4,6 +4,7 @@ import { DurationType, TaskColumnModal, TaskModalProps } from "../../types";
 import Modal from "../_compound/modal/Modal";
 import LabelSelection from "./LabelSelection";
 import { createTask } from "../../data/task";
+import { getDate } from "../../helper";
 
 function TaskModal({ onClose, column, pos }: TaskModalProps) {
     const [title, setTitle] = useState<string>("");
@@ -15,15 +16,6 @@ function TaskModal({ onClose, column, pos }: TaskModalProps) {
 
     const hours: number = 24;
     const days: number = 31;
-
-    const getDate = (type: "min" | "max"): string => {
-        const date = new Date();
-        const year: string = String(date.getFullYear() + (type === "min" ? 0 : 5));
-        const month: string = String(date.getMonth() + 1).padStart(2, "0");
-        const day: string = String(date.getDate()).padStart(2, "0");
-
-        return `${year}-${month}-${day}`;
-    };
 
     const minDate: string = getDate("min");
     const maxDate: string = getDate("max");
