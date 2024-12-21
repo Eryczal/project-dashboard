@@ -58,3 +58,19 @@
 .task-header svg {
     cursor: pointer;
 }
+
+.duration-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+    padding-top: 24px;
+}
+
+.task-duration,
+.task-deadline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

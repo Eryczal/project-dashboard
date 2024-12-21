@@ -1,7 +1,7 @@
 import "./TaskCard.css";
 import { useProject } from "../../contexts/ProjectContext";
 import { Task, TaskColumnModal } from "../../types";
-import { MdMoreVert } from "react-icons/md";
+import { MdAccessTime, MdCalendarMonth, MdMoreVert } from "react-icons/md";
 import { useState } from "react";
 import Menu from "../_compound/menu/Menu";
 import RemoveTaskModal from "./RemoveTaskModal";
@@ -12,6 +12,15 @@ function TaskCard({ task, updateTasks }: { task: Task; updateTasks: () => void }
     const taskLabels = labels.filter((label) => task.labels?.includes(label.id));
     const [isOpen, setIsOpen] = useState<TaskColumnModal>("none");
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+    const displayDuration = (duration: number): string => {
+        const parsedDuration: number = duration >= 24 ? Math.floor(duration / 24) : duration;
+        const durationFormat: string = duration >= 24 ? "d." : "g.";
+
+        return `${parsedDuration} ${durationFormat}`;
+    };
+
+    const displayDeadline = (deadline: string): string => deadline.split("-").reverse().join(".");
 
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
@@ -59,6 +68,16 @@ function TaskCard({ task, updateTasks }: { task: Task; updateTasks: () => void }
                                     </div>
                                 );
                             })}
+                    </div>
+                    <div className="duration-container">
+                        <div className="task-duration">
+                            <MdAccessTime />
+                            {displayDuration(task.duration)}
+                        </div>
+                        <div className="task-deadline">
+                            <MdCalendarMonth />
+                            {displayDeadline(task.deadline)}
+                        </div>
                     </div>
                 </div>
             </div>
