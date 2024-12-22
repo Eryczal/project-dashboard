@@ -43,6 +43,8 @@
             $labels = isset($_POST["labels"]) ? $_POST["labels"] : [];
             $position = $_POST["position"];
 
+            //checkAccessById
+
             $mysqli->autocommit(false);
 
             $uuid = $mysqli->query("SELECT UNHEX(REPLACE(UUID(), '-', ''))")->fetch_row()[0];
@@ -90,10 +92,10 @@
                 return;
             }
 
-            // if(!checkAccess($_SESSION["user_id"], $id)) {
-            //     sendResponse("PROJECT_ACCESS");
-            //     return;
-            // }
+            if(!checkTaskAccess($_SESSION["user_id"], $id)) {
+                sendResponse("PROJECT_ACCESS");
+                return;
+            }
 
             $tasks = $mysqli->prepare("
                 SELECT
@@ -169,10 +171,10 @@
             $from = (int) $_POST["from"];
             $to = (int) $_POST["to"];
 
-            // if(!checkAccess($_SESSION["user_id"], $project_id)) {
-            //     sendResponse("PROJECT_ACCESS");
-            //     return;
-            // }
+            if(!checkTaskAccess($_SESSION["user_id"], $id)) {
+                sendResponse("PROJECT_ACCESS");
+                return;
+            }
 
             $mysqli->autocommit(false);
 
@@ -282,10 +284,10 @@
                 return;
             }
 
-            // if(!checkAccess($_SESSION["user_id"], $project_id)) {
-            //     sendResponse("PROJECT_ACCESS");
-            //     return;
-            // }
+            if(!checkTaskAccess($_SESSION["user_id"], $id)) {
+                sendResponse("PROJECT_ACCESS");
+                return;
+            }
 
             $mysqli->autocommit(false);
 
@@ -391,10 +393,10 @@
                 return;
             }
 
-            // if(!checkAccess($_SESSION["user_id"], $project_id)) {
-            //     sendResponse("PROJECT_ACCESS");
-            //     return;
-            // }
+            if(!checkTaskAccess($_SESSION["user_id"], $id)) {
+                sendResponse("PROJECT_ACCESS");
+                return;
+            }
 
             $mysqli->autocommit(false);
 
