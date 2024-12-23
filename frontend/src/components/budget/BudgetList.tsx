@@ -59,6 +59,7 @@ export default function BudgetList({ type }: { type: BudgetType }) {
                 </table>
                 <button onClick={openModal}>Dodaj {type === "income" ? "przychód" : "wydatek"}</button>
             </div>
+            {isOpen && <BudgetModal onClose={closeModal} type={type} />}
         </>
     );
 }
