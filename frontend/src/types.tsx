@@ -8,6 +8,17 @@ export type Theme = "light" | "glass";
 
 export type DurationType = "h" | "d";
 
+export type BudgetType = "income" | "expense";
+
+export type Sort = "desc" | "asc";
+
+export interface SearchParams {
+    limit: number;
+    page: number;
+    sort: Sort;
+    search: string;
+}
+
 export interface User {
     id: string;
     name: string;
@@ -67,6 +78,18 @@ export interface Labels {
 export interface Message {
     message: string;
     code?: number;
+}
+
+export interface Budget {
+    id: string;
+    title: string;
+    description: string;
+    value: number;
+    taskId?: string;
+}
+
+export interface BudgetResponse {
+    budget: Budget[];
 }
 
 export interface UserContextProps {

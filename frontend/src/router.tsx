@@ -6,6 +6,7 @@ import LabelsPage from "./pages/LabelsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import DashboardPage from "./pages/DashboardPage";
 import SettingsPage from "./pages/SettingsPage";
+import BudgetPage from "./pages/BudgetPage";
 
 export const router = createBrowserRouter(
     [
@@ -30,6 +31,14 @@ export const router = createBrowserRouter(
             element: (
                 <ProjectProvider>
                     <TaskPage />
+                </ProjectProvider>
+            ),
+        },
+        {
+            path: "/project/:id/budget",
+            element: (
+                <ProjectProvider>
+                    <BudgetPage />
                 </ProjectProvider>
             ),
         },
