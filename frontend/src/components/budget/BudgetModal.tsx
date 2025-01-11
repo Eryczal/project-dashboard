@@ -4,6 +4,8 @@ import { useProject } from "../../contexts/ProjectContext";
 import { BudgetType, ModalProps, Task } from "../../types";
 import Modal from "../_compound/modal/Modal";
 import { createBudget } from "../../data/budget";
+import TaskSelector from "./TaskSelector";
+import { MdLink, MdLinkOff } from "react-icons/md";
 
 function BudgetModal({ onClose, type }: ModalProps & { type: BudgetType }) {
     const { project } = useProject();
@@ -11,6 +13,7 @@ function BudgetModal({ onClose, type }: ModalProps & { type: BudgetType }) {
     const [description, setDescription] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
     const [task, setTask] = useState<Task | null>(null);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     if (!project) {
         return <></>;
@@ -18,6 +21,14 @@ function BudgetModal({ onClose, type }: ModalProps & { type: BudgetType }) {
 
     const closeModal = (success: boolean = false): void => {
         onClose(success);
+    };
+
+    const openSelector = (): void => {
+        setIsOpen(true);
+    };
+
+    const closeSelector = (success: boolean = false): void => {
+        setIsOpen(false);
     };
 
     const addBudget = async () => {
@@ -43,6 +54,11 @@ function BudgetModal({ onClose, type }: ModalProps & { type: BudgetType }) {
         }
     };
 
+    const handleTask = (task: Task): void => {
+        setTask(task);
+        closeSelector();
+    };
+
     return (
         <>
             <Modal onClose={closeModal}>
@@ -57,12 +73,21 @@ function BudgetModal({ onClose, type }: ModalProps & { type: BudgetType }) {
                     <p>Wartość</p>
                     <input type="number" onChange={handleAmount} value={amount} />
                     <p>Połączone zadanie</p>
+                    <div className="div-input">
+                        <input type="text" className="task-connection-button" value={task?.title || "Brak"} readOnly={true} onClick={openSelector} />
+                        {task === null ? (
+                            <MdLink title="Połącz zadanie" className="clickable-input-icon" onClick={openSelector} />
+                        ) : (
+                            <MdLinkOff title="Odłącz zadanie" className="clickable-input-icon" onClick={() => setTask(null)} />
+                        )}
+                    </div>
                 </Modal.Content>
                 <Modal.Footer>
                     <button onClick={() => closeModal(false)}>Anuluj</button>
                     <button onClick={addBudget}>Dodaj</button>
                 </Modal.Footer>
             </Modal>
+            {isOpen && <TaskSelector onClose={closeSelector} handleTask={handleTask} selectedTask={task?.id || ""} />}
         </>
     );
 }
