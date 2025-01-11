@@ -1,7 +1,20 @@
-import { DurationType, EditTaskData, Message, MoveTaskToColumnParams, Tasks } from "../types";
+import { DurationType, EditTaskData, Message, MoveTaskToColumnParams, SearchParams, Sort, Tasks } from "../types";
 
 export async function getTasks(id: string): Promise<Tasks | Message | null> {
     const response = await fetch(import.meta.env.VITE_URL + `tasks/${id}`, {
+        credentials: "include",
+    });
+
+    const data = response.status === 204 ? null : response.json();
+
+    return data;
+}
+
+export async function getProjectTasks(id: string, params: SearchParams): Promise<Tasks | Message | null> {
+    const url = new URL(import.meta.env.VITE_URL + `tasks/all/${id}`);
+    const urlParams = new URLSearchParams([...Object.entries(params)]);
+
+    const response = await fetch(`${url}/?${urlParams}`, {
         credentials: "include",
     });
 
