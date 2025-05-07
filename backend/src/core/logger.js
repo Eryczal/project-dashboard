@@ -14,4 +14,8 @@ export default {
     error: (message) => {
         console.log(`\x1b[31m[ERROR] ${message}\x1b[0m`);
     },
+    fatal: (message) => {
+        console.log(`\x1b[31m[FATAL ERROR] ${message}\x1b[0m`);
+        process.exit();
+    },
 };
