@@ -27,4 +27,21 @@ export default {
             logger.error(`Api login error: ${e}`);
         }
     },
+    selectUser: async (parameters) => {
+        try {
+            const result = await mysql.select(
+                `SELECT * FROM user u
+                WHERE u.id = ?`,
+                [parameters.userId]
+            );
+
+            if (result.length !== 1) {
+                return null;
+            }
+
+            return UserFactory.create(result[0]);
+        } catch (e) {
+            logger.error(`Api selectUser error: ${e}`);
+        }
+    },
 };
