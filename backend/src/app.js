@@ -3,6 +3,7 @@ import { sessionMiddleware } from "./core/session.js";
 import { initRoutes } from "./core/router.js";
 import { initValidations } from "./core/validator.js";
 import logger from "./core/logger.js";
+import mysql from "./core/mysql.js";
 
 const app = express();
 app.use(express.json());
@@ -12,6 +13,7 @@ const PORT = 3010;
 
 await initValidations();
 await initRoutes(app);
+await mysql.init();
 
 app.listen(PORT, (error) => {
     if (!error) {
