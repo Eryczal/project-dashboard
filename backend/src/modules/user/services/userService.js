@@ -27,7 +27,7 @@ export default {
             logger.error(`Api login error: ${e}`);
         }
     },
-    selectUser: async (parameters) => {
+    getUser: async (parameters) => {
         try {
             const result = await mysql.select(
                 `SELECT * FROM user u
