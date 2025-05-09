@@ -167,7 +167,7 @@ export interface User {
 
 export interface UserContextProps {
     user: User | null;
-    loginUser: (name: string, password: string) => Promise<string | null>;
+    loginUser: (name: string, password: string) => Promise<void>;
     // logoutUser
 }
 

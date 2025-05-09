@@ -31,7 +31,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         }
     }, [refetch]);
 
-    async function loginUser(name: string, password: string): Promise<string | null> {
+    async function loginUser(name: string, password: string): Promise<void> {
         const sendData = new URLSearchParams();
         sendData.append("name", name);
         sendData.append("password", password);
@@ -49,10 +49,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
         if (!("errorCode" in data)) {
             setUser(data);
-            return "OK";
         }
-
-        return null;
     }
 
     const value: UserContextProps = {
