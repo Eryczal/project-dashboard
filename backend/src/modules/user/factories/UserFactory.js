@@ -7,6 +7,10 @@ export default {
         userContainer.name = row.name;
         userContainer.url = row.url;
         userContainer.theme = row.theme;
+        userContainer.company = {
+            name: row.company_name,
+            url: row.company_url,
+        };
 
         return userContainer;
     },

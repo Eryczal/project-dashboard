@@ -7,7 +7,9 @@ export default {
     login: async (parameters) => {
         try {
             const result = await mysql.select(
-                `SELECT * FROM user u
+                `SELECT u.*, c.name AS company_name, c.url AS company_url
+                FROM user u
+                JOIN company c ON c.id = u.company_id
                 WHERE u.name = ?`,
                 [parameters.name]
             );
@@ -30,7 +32,9 @@ export default {
     getUser: async (parameters) => {
         try {
             const result = await mysql.select(
-                `SELECT * FROM user u
+                `SELECT u.*, c.name AS company_name, c.url AS company_url
+                FROM user u
+                JOIN company c ON c.id = u.company_id
                 WHERE u.id = ?`,
                 [parameters.userId]
             );
