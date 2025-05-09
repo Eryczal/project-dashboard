@@ -1,13 +1,13 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import TaskPage from "./pages/TaskPage";
 import AuthPage from "./pages/AuthPage";
 import { ProjectProvider } from "./contexts/ProjectContext";
 import LabelsPage from "./pages/LabelsPage";
-import NotFoundPage from "./pages/NotFoundPage";
 import DashboardPage from "./pages/DashboardPage";
 import SettingsPage from "./pages/SettingsPage";
 import BudgetPage from "./pages/BudgetPage";
 import UserLoginPage from "./modules/user/UserLogin/pages/UserLoginPage/UserLoginPage";
+import NotFoundPage from "./modules/common/pages/NotFoundPage/NotFoundPage";
 
 export const router = createBrowserRouter(
     [
@@ -52,8 +52,12 @@ export const router = createBrowserRouter(
             element: <UserLoginPage />,
         },
         {
-            path: "*",
+            path: "/404",
             element: <NotFoundPage />,
+        },
+        {
+            path: "*",
+            element: <Navigate to="/404" replace />,
         },
     ],
     {
