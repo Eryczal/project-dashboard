@@ -9,6 +9,8 @@ export default async function (req, res, next) {
         res.status(401).json({
             errorCode: "INVALID_CREDENTIALS",
         });
+
+        return;
     }
 
     const user = await userService.getUser(parameters);
