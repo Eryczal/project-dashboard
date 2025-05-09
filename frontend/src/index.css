@@ -1,23 +1,30 @@
+:root {
+    --text-color-main: #35373a;
+    --background-color-light: #fff;
+    --background-color-main: #f7f9fa;
+    --background-color-darker: #f3f3f5;
+}
+
 * {
+    box-sizing: border-box;
+}
+
+html {
     font-family: "Open Sans", sans-serif;
 }
 
 body {
-    color: var(--text-color);
+    color: var(--text-color-main);
     margin: 0;
-    background: var(--background);
+    background: var(--background-color-main);
 }
 
-main {
-    padding-top: calc(var(--header-height) + 36px);
-}
-
-.color-danger {
-    color: var(--danger-color);
-}
-
-@media screen and (min-width: 1024px) {
-    main {
-        padding-top: 0;
-    }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
 }

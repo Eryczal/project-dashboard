@@ -3,7 +3,7 @@ import "./themes/Glass.css";
 import "./themes/Light.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
-import { UserProvider } from "./contexts/UserContext";
+import { UserProvider } from "./modules/user/contexts/UserContext";
 
 function App() {
     return (
