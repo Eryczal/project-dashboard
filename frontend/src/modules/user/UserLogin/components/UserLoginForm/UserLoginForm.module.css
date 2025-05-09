@@ -1,0 +1,6 @@
+.formContainer {
+    background-color: var(--background-color-light);
+    padding: 1% 5%;
+    border-radius: 2rem;
+    border: 1px solid #213253;
+}

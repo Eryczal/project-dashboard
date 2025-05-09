@@ -1,0 +1,18 @@
+.form h1 {
+    text-align: center;
+    margin: 0;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+}
+
+.input {
+    width: 100%;
+}
+
+.submit {
+    width: 100%;
+}

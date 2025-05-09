@@ -19,14 +19,6 @@ export interface SearchParams {
     search: string;
 }
 
-export interface User {
-    id: string;
-    name: string;
-    type: string;
-    theme: Theme;
-    creationDate: string;
-}
-
 export interface Project {
     id: string;
     title: string;
@@ -92,14 +84,6 @@ export interface BudgetResponse {
     budget: Budget[];
 }
 
-export interface UserContextProps {
-    user?: User;
-    loginUser: (email: string, password: string) => Promise<Message>;
-    registerUser: (email: string, password: string) => Promise<Message>;
-    changeTheme: (theme: Theme) => Promise<Message>;
-    // logoutUser
-}
-
 export interface ProjectContextProps {
     project?: Project;
     setProject: Dispatch<SetStateAction<Project | undefined>>;
@@ -155,4 +139,41 @@ export interface EditTaskData {
     duration: false | number;
     labelsAdd: false | string[];
     labelsRemove: false | string[];
+}
+
+export interface ErrorMessage {
+    errorCode: string;
+}
+
+export interface Field {
+    key: string;
+    label: string;
+    type?: string;
+    required?: boolean;
+}
+
+export interface FilledField {
+    key: string;
+    value: string;
+}
+
+export interface User {
+    id: number;
+    createTime: string;
+    name: string;
+    url: string;
+    theme: number;
+}
+
+export interface UserContextProps {
+    user: User | null;
+    loginUser: (name: string, password: string) => Promise<string | null>;
+    // logoutUser
+}
+
+export interface GenericFormProps {
+    headerText: string;
+    buttonText: string;
+    fields: Field[];
+    onSubmit: (fields: FilledField[]) => void | Promise<void>;
 }

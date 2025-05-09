@@ -7,6 +7,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import DashboardPage from "./pages/DashboardPage";
 import SettingsPage from "./pages/SettingsPage";
 import BudgetPage from "./pages/BudgetPage";
+import UserLoginPage from "./modules/user/UserLogin/pages/UserLoginPage/UserLoginPage";
 
 export const router = createBrowserRouter(
     [
@@ -48,7 +49,7 @@ export const router = createBrowserRouter(
         },
         {
             path: "/login",
-            element: <AuthPage routerPage="login" />,
+            element: <UserLoginPage />,
         },
         {
             path: "*",
