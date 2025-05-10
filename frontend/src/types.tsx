@@ -157,12 +157,24 @@ export interface FilledField {
     value: string;
 }
 
+export interface Project {
+    name: string;
+    url: string;
+}
+
 export interface User {
-    id: number;
     createTime: string;
     name: string;
     url: string;
     theme: number;
+    company: {
+        name: string;
+        url: string;
+    };
+}
+
+export interface ProjectsContextProps {
+    projects: Project[] | null;
 }
 
 export interface UserContextProps {

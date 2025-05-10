@@ -8,6 +8,8 @@ import SettingsPage from "./pages/SettingsPage";
 import BudgetPage from "./pages/BudgetPage";
 import UserLoginPage from "./modules/user/UserLogin/pages/UserLoginPage/UserLoginPage";
 import NotFoundPage from "./modules/common/pages/NotFoundPage/NotFoundPage";
+import ProjectsPage from "./modules/project/pages/ProjectsPage/ProjectsPage";
+import { ProjectsProvider } from "./modules/project/contexts/ProjectsContext";
 
 export const router = createBrowserRouter(
     [
@@ -50,6 +52,14 @@ export const router = createBrowserRouter(
         {
             path: "/login",
             element: <UserLoginPage />,
+        },
+        {
+            path: "/:companyId/projects",
+            element: (
+                <ProjectsProvider>
+                    <ProjectsPage />
+                </ProjectsProvider>
+            ),
         },
         {
             path: "/404",

@@ -8,7 +8,7 @@ export default function UserLoginPage() {
     const navigate = useNavigate();
 
     if (user !== null) {
-        navigate("/projects");
+        navigate(`${user.company.url}/projects`);
     }
 
     return (
