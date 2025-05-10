@@ -145,5 +145,48 @@ export default {
                 },
             ],
         },
+        {
+            name: "project",
+            columns: [
+                {
+                    name: "id",
+                    type: "int",
+                    unsigned: true,
+                    notNull: true,
+                    primaryKey: true,
+                    autoIncrement: true,
+                },
+                {
+                    name: "create_time",
+                    type: "datetime",
+                    default: "current_timestamp",
+                },
+                {
+                    name: "update_time",
+                    type: "datetime",
+                    default: "current_timestamp",
+                    onUpdate: "current_timestamp",
+                },
+                {
+                    name: "name",
+                    type: "varchar",
+                    size: 120,
+                    notNull: true,
+                },
+                {
+                    name: "url",
+                    type: "varchar",
+                    size: 120,
+                    notNull: true,
+                },
+                {
+                    name: "company_id",
+                    type: "int",
+                    unsigned: true,
+                    notNull: true,
+                    references: "company(id)",
+                },
+            ],
+        },
     ],
 };
