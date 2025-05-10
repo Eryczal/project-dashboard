@@ -7,7 +7,7 @@ export default async function (req, res, next) {
 
     if (typeof parameters.userId !== "number") {
         res.status(401).json({
-            errorCode: "INVALID_CREDENTIALS",
+            errorCode: "NOT_LOGGED",
         });
 
         return;

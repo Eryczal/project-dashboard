@@ -102,20 +102,26 @@ try {
         }
     }
 
-    logger.log(`Creating initial user...`);
+    const users = await connection.query(`SELECT * FROM user LIMIT 1`);
 
-    for (const table of databaseUser) {
-        const columns = Object.keys(table.values)
-            .map((key) => `\`${key}\``)
-            .join(", ");
-        const values = Object.values(table.values)
-            .map((value) => (typeof value === "string" ? `'${value.replace(/'/g, "''")}'` : value))
-            .join(", ");
+    if (users.length) {
+        logger.log(`Found user`);
+    } else {
+        logger.log(`Creating initial user...`);
 
-        await connection.query(`INSERT INTO \`${table.name}\` (${columns}) VALUES (${values})`);
+        for (const table of databaseUser) {
+            const columns = Object.keys(table.values)
+                .map((key) => `\`${key}\``)
+                .join(", ");
+            const values = Object.values(table.values)
+                .map((value) => (typeof value === "string" ? `'${value.replace(/'/g, "''")}'` : value))
+                .join(", ");
+
+            await connection.query(`INSERT INTO \`${table.name}\` (${columns}) VALUES (${values})`);
+        }
+
+        logger.log("Created inital user");
     }
-
-    logger.log("Created inital user");
 } catch (e) {
     connection.end();
     logger.fatal(`MySQL error: ${e}`);
