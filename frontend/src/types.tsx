@@ -90,19 +90,6 @@ export interface ProjectContextProps {
     labels: Label[];
 }
 
-export interface ModalProps {
-    onClose: (success: any) => void;
-    children?: ReactNode;
-    className?: string;
-}
-
-export interface TaskModalProps extends ModalProps {
-    onClose: (success: TaskColumnModal) => void;
-    column?: Column;
-    pos?: number;
-    task?: Task;
-}
-
 export interface MenuItemProps {
     children: ReactNode;
     action?: any;
@@ -181,6 +168,12 @@ export interface UserContextProps {
     user: User | null;
     loginUser: (name: string, password: string) => Promise<void>;
     // logoutUser
+}
+
+export interface GenericDialogProps {
+    isOpen: boolean;
+    onClose: (success: boolean) => void;
+    children: ReactNode;
 }
 
 export interface GenericFormProps {
