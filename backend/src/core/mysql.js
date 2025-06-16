@@ -37,6 +37,22 @@ const mysql = {
             }
         }
     },
+    insert: async (query, params = []) => {
+        let conn;
+
+        try {
+            conn = await mysql.pool.getConnection();
+            const result = await conn.query(query, params);
+            return result.insertId || null;
+        } catch (e) {
+            logger.error(`MySQL insert error: ${e}`);
+            return null;
+        } finally {
+            if (conn) {
+                conn.release();
+            }
+        }
+    },
 };
 
 export default mysql;
