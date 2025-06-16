@@ -43,7 +43,17 @@ const mysql = {
         try {
             conn = await mysql.pool.getConnection();
             const result = await conn.query(query, params);
-            return result.insertId || null;
+
+            if (!result.insertId) {
+                return null;
+            }
+
+            if (result.insertId > Number.MAX_SAFE_INTEGER) {
+                logger.warn("insertId exceeds max safe integer");
+                return result.insertId.toString();
+            }
+
+            return Number(result.insertId);
         } catch (e) {
             logger.error(`MySQL insert error: ${e}`);
             return null;
