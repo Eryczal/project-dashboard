@@ -2,7 +2,7 @@ import userService from "../services/userService.js";
 
 export default async function (req, res, next) {
     const parameters = {
-        userId: req.session.userId,
+        userId: req.session.data.userId,
     };
 
     if (typeof parameters.userId !== "number") {

@@ -17,7 +17,7 @@ export const sessionMiddleware = session({
     },
 });
 
-export function regenerateSession(req, userId, reload = false) {
+export function regenerateSession(req, data, reload = false) {
     if (!req.session.nonce || reload) {
         req.session.nonce = crypto.randomBytes(32).toString("hex");
     }
@@ -30,15 +30,15 @@ export function regenerateSession(req, userId, reload = false) {
         req.session.userAgent = req.get("User-Agent");
     }
 
-    req.session.userId = userId;
+    req.session.data = data;
     req.session.OBSOLETE = true;
-    req.session.EXPIRES = Date.now() + 60 * 1000;
+    req.session.EXPIRES = Date.now() + 60 * 60 * 1000;
 
     req.session.regenerate((e) => {
         if (e) {
             logger.error(`Session regeneration failed: ${e}`);
         } else {
-            req.session.userId = userId;
+            req.session.data = data;
             req.session.OBSOLETE = false;
             req.session.EXPIRES = null;
         }
@@ -51,7 +51,7 @@ export function checkSession(req) {
             throw new Error("Attempt to use expired session");
         }
 
-        if (typeof req.session.userId !== "number") {
+        if (typeof req.session.data.userId !== "number") {
             throw new Error("No session started");
         }
 
@@ -64,7 +64,7 @@ export function checkSession(req) {
         }
 
         if (!req.session.OBSOLETE && Math.floor(Math.random() * 100) === 0) {
-            regenerateSession(req, req.session.userId, true);
+            regenerateSession(req, req.session.data, true);
         }
 
         return true;
