@@ -1,4 +1,5 @@
 import express from "express";
+import parametersMiddleware from "./core/parametersMiddleware.js";
 import { sessionMiddleware } from "./core/session.js";
 import { initRoutes } from "./core/router.js";
 import { initValidations } from "./core/validator.js";
@@ -11,6 +12,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(parametersMiddleware);
 app.use(sessionMiddleware);
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", process.env.CORS_ORIGIN);

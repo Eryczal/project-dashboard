@@ -3,14 +3,19 @@ import userService from "../services/userService.js";
 
 export default async function (req, res, next) {
     const parameters = {
-        name: req.body.name,
-        password: req.body.password,
+        name: req.parameters.name,
+        password: req.parameters.password,
     };
 
-    let user = await userService.login(parameters);
+    const user = await userService.login(parameters);
+
+    const data = {
+        userId: user.id,
+        companyId: user.company.id,
+    };
 
     if (user) {
-        regenerateSession(req, user.id, true);
+        regenerateSession(req, data, true);
         res.status(200).json(user);
     } else {
         res.status(400).json({

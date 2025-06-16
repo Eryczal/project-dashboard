@@ -8,6 +8,7 @@ export default {
         userContainer.url = row.url;
         userContainer.theme = row.theme;
         userContainer.company = {
+            id: row.company_id,
             name: row.company_name,
             url: row.company_url,
         };
