@@ -12,4 +12,22 @@ export default [
             },
         ],
     },
+    {
+        method: "post",
+        apiPath: "project/create-project",
+        handler: "project/handlers/createProject.js",
+        validations: ["sessionRequired"],
+        parameters: [
+            {
+                name: "name",
+                validations: ["string"],
+                required: true,
+            },
+            {
+                name: "url",
+                validations: ["smallString"],
+                required: false,
+            },
+        ],
+    },
 ];
