@@ -6,7 +6,7 @@ import styles from "./UserLoginForm.module.css";
 export default function UserLoginForm() {
     const { loginUser } = useUser();
 
-    const fields: Field[] = [
+    const loginFormFields: Field[] = [
         {
             key: "name",
             label: "Nazwa",
@@ -33,7 +33,7 @@ export default function UserLoginForm() {
 
     return (
         <div className={styles.formContainer}>
-            <GenericForm headerText="Logowanie" buttonText="Zaloguj" fields={fields} onSubmit={onSubmit} />
+            <GenericForm headerText="Logowanie" buttonText="Zaloguj" fields={loginFormFields} onSubmit={onSubmit} />
         </div>
     );
 }

@@ -32,16 +32,13 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }, [refetch]);
 
     async function loginUser(name: string, password: string): Promise<void> {
-        const sendData = new URLSearchParams();
+        const sendData = new FormData();
         sendData.append("name", name);
         sendData.append("password", password);
 
         const response = await fetch(import.meta.env.VITE_URL + "user/login", {
             method: "POST",
             credentials: "include",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
             body: sendData,
         });
 
