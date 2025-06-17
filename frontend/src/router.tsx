@@ -8,7 +8,7 @@ import SettingsPage from "./pages/SettingsPage";
 import BudgetPage from "./pages/BudgetPage";
 import UserLoginPage from "./modules/user/UserLogin/pages/UserLoginPage/UserLoginPage";
 import NotFoundPage from "./modules/common/pages/NotFoundPage/NotFoundPage";
-import ProjectsPage from "./modules/project/pages/ProjectsPage/ProjectsPage";
+import ProjectsPage from "./modules/project/Projects/pages/ProjectsPage/ProjectsPage";
 import { ProjectsProvider } from "./modules/project/contexts/ProjectsContext";
 
 export const router = createBrowserRouter(

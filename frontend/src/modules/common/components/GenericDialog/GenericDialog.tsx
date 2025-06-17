@@ -9,7 +9,7 @@ export default function GenericDialog({ isOpen, onClose, children }: GenericDial
     const handleClickOutside = useCallback(
         (e: React.MouseEvent<HTMLDialogElement> | MouseEvent) => {
             if (e.target === dialogRef.current) {
-                onClose(false);
+                onClose();
             }
         },
         [onClose]

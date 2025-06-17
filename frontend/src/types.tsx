@@ -132,6 +132,10 @@ export interface ErrorMessage {
     errorCode: string;
 }
 
+export type IdResponse<Key extends string> = {
+    [K in Key]: number;
+};
+
 export interface Field {
     key: string;
     label: string;
@@ -162,6 +166,7 @@ export interface User {
 
 export interface ProjectsContextProps {
     projects: Project[] | null;
+    createProject: (name: string, url: string) => Promise<void>;
 }
 
 export interface UserContextProps {
@@ -172,7 +177,7 @@ export interface UserContextProps {
 
 export interface GenericDialogProps {
     isOpen: boolean;
-    onClose: (success: boolean) => void;
+    onClose: () => void;
     children: ReactNode;
 }
 
