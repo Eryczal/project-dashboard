@@ -9,12 +9,12 @@ export default async function (req, res, next) {
 
     const user = await userService.login(parameters);
 
-    const data = {
-        userId: user.id,
-        companyId: user.company.id,
-    };
-
     if (user) {
+        const data = {
+            userId: user.id,
+            companyId: user.company.id,
+        };
+
         regenerateSession(req, data, true);
         res.status(200).json(user);
     } else {
